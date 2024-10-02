@@ -120,7 +120,7 @@ func (s *Snapshot) load(ctx context.Context, allowNetwork bool, scopes ...loadSc
 
 	inv, cleanupInvocation, err := s.GoCommandInvocation(allowNetwork, &gocommand.Invocation{
 		Env: []string{
-			"GOPACKAGESDRIVER=hello",
+			"GOPACKAGESDRIVER=gnopackagesdriver",
 		},
 		WorkingDir: s.view.root.Path(),
 	})

@@ -8,6 +8,7 @@ require (
 	github.com/gnolang/gno v0.2.0
 	github.com/google/go-cmp v0.6.0
 	github.com/jba/templatecheck v0.7.0
+	go.uber.org/zap v1.27.0
 	golang.org/x/mod v0.21.0
 	golang.org/x/sync v0.8.0
 	golang.org/x/sys v0.25.0
