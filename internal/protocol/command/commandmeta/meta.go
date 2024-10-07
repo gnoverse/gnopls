@@ -18,9 +18,9 @@ import (
 	"strings"
 	"unicode"
 
+	"github.com/gfanton/gnopls/internal/aliases"
 	"golang.org/x/tools/go/ast/astutil"
 	"golang.org/x/tools/go/packages"
-	"github.com/gfanton/gnopls/internal/aliases"
 	// (does not depend on gopls itself)
 )
 
@@ -212,7 +212,7 @@ func lspName(methodName string) string {
 	for i := range words {
 		words[i] = strings.ToLower(words[i])
 	}
-	return "gopls." + strings.Join(words, "_")
+	return "gnopls." + strings.Join(words, "_")
 }
 
 // splitCamel splits s into words, according to camel-case word boundaries.
