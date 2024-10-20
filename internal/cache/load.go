@@ -9,6 +9,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"os"
 	"path/filepath"
 	"slices"
 	"sort"
@@ -21,19 +22,26 @@ import (
 	"github.com/gfanton/gnopls/internal/file"
 	"github.com/gfanton/gnopls/internal/gocommand"
 	"github.com/gfanton/gnopls/internal/label"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/packagesinternal"
 	"github.com/gfanton/gnopls/internal/protocol"
 	"github.com/gfanton/gnopls/internal/util/bug"
 	"github.com/gfanton/gnopls/internal/util/immutable"
 	"github.com/gfanton/gnopls/internal/util/pathutil"
 	"github.com/gfanton/gnopls/internal/xcontext"
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/pkg/resolver"
 )
 
 var loadID uint64 // atomic identifier for loads
 
 // errNoPackages indicates that a load query matched no packages.
 var errNoPackages = errors.New("no packages returned")
+
+func packagesResolver(req *packages.DriverRequest, patterns ...string) (
+	*packages.DriverResponse, error) {
+	// XXX: add recover ?
+	return resolver.Resolve(req, patterns...)
+}
 
 // load calls packages.Load for the given scopes, updating package metadata,
 // import graph, and mapped files with the result.
@@ -119,9 +127,6 @@ func (s *Snapshot) load(ctx context.Context, allowNetwork bool, scopes ...loadSc
 	startTime := time.Now()
 
 	inv, cleanupInvocation, err := s.GoCommandInvocation(allowNetwork, &gocommand.Invocation{
-		Env: []string{
-			"GOPACKAGESDRIVER=gnopackagesdriver",
-		},
 		WorkingDir: s.view.root.Path(),
 	})
 	if err != nil {
@@ -138,6 +143,10 @@ func (s *Snapshot) load(ctx context.Context, allowNetwork bool, scopes ...loadSc
 	event.Error(ctx, "DEBUG:inv", fmt.Errorf("debug query: %+v", query))
 
 	cfg := s.config(ctx, inv)
+	if bindriver := os.Getenv("GOPACKAGESDRIVER"); bindriver == "" || bindriver != "off" {
+		cfg.PackagesDriver = packagesResolver
+	}
+
 	pkgs, err := packages.Load(cfg, query...)
 	if len(pkgs) == 0 {
 		return fmt.Errorf("unable to load packages [%v]: %w", query, err)

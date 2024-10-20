@@ -77,18 +77,28 @@ type DriverResponse struct {
 	GoVersion int
 }
 
-// Driver is the type for functions that query the build system for the
+// driver is the type for functions that query the build system for the
 // packages named by the patterns.
 // NOTE(gfanton): this now exposed by us so we can avoid using an external process to resolve packages
-type Driver func(cfg *Config, patterns ...string) (*DriverResponse, error)
+type driver func(cfg *Config, patterns ...string) (*DriverResponse, error)
 
 // findExternalDriver returns the file path of a tool that supplies
 // the build system package structure, or "" if not found.
 // If GOPACKAGESDRIVER is set in the environment findExternalTool returns its
 // value, otherwise it searches for a binary named gopackagesdriver on the PATH.
-func findExternalDriver(cfg *Config) Driver {
-	if cfg.Driver != nil {
-		return cfg.Driver
+func findExternalDriver(cfg *Config) driver {
+	request:= DriverRequest{
+		Mode:       cfg.Mode,
+		Env:        cfg.Env,
+		BuildFlags: cfg.BuildFlags,
+		Tests:      cfg.Tests,
+		Overlay:    cfg.Overlay,
+	}
+
+	if cfg.PackagesDriver != nil {
+		return func(cfg *Config, patterns ...string) (*DriverResponse, error) {
+			return cfg.PackagesDriver(&request, patterns...)
+		}
 	}
 
 	const toolPrefix = "GOPACKAGESDRIVER="
@@ -109,13 +119,7 @@ func findExternalDriver(cfg *Config) Driver {
 		}
 	}
 	return func(cfg *Config, words ...string) (*DriverResponse, error) {
-		req, err := json.Marshal(DriverRequest{
-			Mode:       cfg.Mode,
-			Env:        cfg.Env,
-			BuildFlags: cfg.BuildFlags,
-			Tests:      cfg.Tests,
-			Overlay:    cfg.Overlay,
-		})
+		req, err := json.Marshal(request)
 		if err != nil {
 			return nil, fmt.Errorf("failed to encode message to driver tool: %v", err)
 		}

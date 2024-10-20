@@ -50,6 +50,9 @@ type Application struct {
 	// TODO: Remove this when we stop allowing the serve verb by default.
 	Serve Serve
 
+	// XXX: custom gno resolver command
+	Resolver Resolver
+
 	// the options configuring function to invoke when building a server
 	options func(*settings.Options)
 
@@ -102,8 +105,11 @@ func New() *Application {
 		Serve: Serve{
 			RemoteListenTimeout: 1 * time.Minute,
 		},
+
+		Resolver: Resolver{},
 	}
 	app.Serve.app = app
+	app.Resolver.app = app
 	return app
 }
 
@@ -265,6 +271,7 @@ func (app *Application) Commands() []tool.Application {
 
 func (app *Application) mainCommands() []tool.Application {
 	return []tool.Application{
+		&app.Resolver,
 		&app.Serve,
 		&version{app: app},
 		&bug{app: app},
@@ -273,7 +280,7 @@ func (app *Application) mainCommands() []tool.Application {
 		&licenses{app: app},
 
 		// Gno Specific Command
-		
+
 	}
 }
 
