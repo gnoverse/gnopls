@@ -271,6 +271,9 @@ func (app *Application) mainCommands() []tool.Application {
 		&help{app: app},
 		&apiJSON{app: app},
 		&licenses{app: app},
+
+		// Gno Specific Command
+		
 	}
 }
 

@@ -7,7 +7,7 @@ package metadata
 import (
 	"sort"
 
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/protocol"
 	"github.com/gfanton/gnopls/internal/util/bug"
 )

@@ -20,7 +20,7 @@ import (
 	"testing"
 
 	"github.com/jba/templatecheck"
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/cache"
 	"github.com/gfanton/gnopls/internal/debug"
 	"github.com/gfanton/gnopls/internal/file"

@@ -16,7 +16,7 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"golang.org/x/tools/go/types/typeutil"
 	"github.com/gfanton/gnopls/internal/diff"
 	"github.com/gfanton/gnopls/internal/refactor/inline"

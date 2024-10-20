@@ -18,7 +18,7 @@ import (
 	"log"
 	"os"
 
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 )
 
 const runAsDriverEnv = "DRIVERTEST_RUN_AS_DRIVER"

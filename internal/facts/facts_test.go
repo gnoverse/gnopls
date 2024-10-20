@@ -17,7 +17,7 @@ import (
 	"testing"
 
 	"golang.org/x/tools/go/analysis/analysistest"
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/aliases"
 	"github.com/gfanton/gnopls/internal/facts"
 	"github.com/gfanton/gnopls/internal/testenv"

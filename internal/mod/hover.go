@@ -357,7 +357,7 @@ func formatExplanation(text string, req *modfile.Require, options *settings.Opti
 	// If the explanation is 3 lines, then it is of the form:
 	// # golang.org/x/tools
 	// modtest
-	// golang.org/x/tools/go/packages
+	// github.com/gfanton/gnopls/internal/packages
 	if length == 3 {
 		msg := fmt.Sprintf(" `%s`.", splt[1])
 		b.WriteString(msg)

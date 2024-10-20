@@ -26,7 +26,7 @@ import (
 	"slices"
 	"strings"
 
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 )
 
 func main() {

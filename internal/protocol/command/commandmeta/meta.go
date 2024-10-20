@@ -20,7 +20,7 @@ import (
 
 	"github.com/gfanton/gnopls/internal/aliases"
 	"golang.org/x/tools/go/ast/astutil"
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	// (does not depend on gopls itself)
 )
 

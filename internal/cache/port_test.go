@@ -10,7 +10,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/sync/errgroup"
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/file"
 	"github.com/gfanton/gnopls/internal/protocol"
 	"github.com/gfanton/gnopls/internal/util/bug"

@@ -12,7 +12,7 @@ import (
 	"os"
 	"testing"
 
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/util/safetoken"
 	"github.com/gfanton/gnopls/internal/testenv"
 )

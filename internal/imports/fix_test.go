@@ -20,7 +20,7 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"golang.org/x/tools/go/packages/packagestest"
+	"github.com/gfanton/gnopls/internal/packages/packagestest"
 	"github.com/gfanton/gnopls/internal/gocommand"
 	"github.com/gfanton/gnopls/internal/stdlib"
 )

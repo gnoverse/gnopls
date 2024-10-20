@@ -15,7 +15,7 @@ import (
 
 	"golang.org/x/mod/semver"
 	"golang.org/x/sync/errgroup"
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/cache/metadata"
 	"github.com/gfanton/gnopls/internal/protocol"
 	"github.com/gfanton/gnopls/internal/vulncheck"

@@ -10,7 +10,7 @@ import (
 	"sort"
 	"testing"
 
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	. "github.com/gfanton/gnopls/internal/fuzzy"
 )
 

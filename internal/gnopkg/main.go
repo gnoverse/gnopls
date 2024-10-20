@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/gnolang/gno/gnovm/pkg/gnoenv"
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 )
 
 type GnoPackage struct {

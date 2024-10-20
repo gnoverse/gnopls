@@ -14,7 +14,7 @@ import (
 	"unsafe"
 
 	"golang.org/x/tools/go/gcexportdata"
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/testenv"
 )
 

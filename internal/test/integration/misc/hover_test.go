@@ -354,7 +354,7 @@ package main
 var A int
 // [fmt.Println]
 var B int
-// [golang.org/x/tools/go/packages.Package.String]
+// [github.com/gfanton/gnopls/internal/packages.Package.String]
 var C int
 `
 	var tests = []struct {
@@ -363,7 +363,7 @@ var C int
 	}{
 		{"A", "fmt"},
 		{"B", "fmt#Println"},
-		{"C", "golang.org/x/tools/go/packages#Package.String"},
+		{"C", "github.com/gfanton/gnopls/internal/packages#Package.String"},
 	}
 	for _, test := range tests {
 		Run(t, input, func(t *testing.T, env *Env) {

@@ -37,7 +37,7 @@ import (
 	"unicode"
 
 	"golang.org/x/tools/go/ast/astutil"
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/cache"
 	"github.com/gfanton/gnopls/internal/doc"
 	"github.com/gfanton/gnopls/internal/golang"

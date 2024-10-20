@@ -12,7 +12,7 @@ import (
 	"reflect"
 	"testing"
 
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/util/astutil"
 	"github.com/gfanton/gnopls/internal/testenv"
 )

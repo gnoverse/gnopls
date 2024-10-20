@@ -50,7 +50,7 @@ import (
 	"github.com/gfanton/gnopls/internal/util/persistent"
 	"github.com/gfanton/gnopls/internal/vulncheck"
 	"golang.org/x/sync/errgroup"
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"golang.org/x/tools/go/types/objectpath"
 )
 

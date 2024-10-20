@@ -12,7 +12,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"golang.org/x/tools/go/packages"
+	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gfanton/gnopls/internal/diff"
 	"github.com/gfanton/gnopls/internal/diff/myers"
 	"github.com/gfanton/gnopls/internal/drivertest"
