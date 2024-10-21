@@ -7,7 +7,7 @@ package modfile
 import (
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // This test replaces an older, problematic test (golang/go#57784). But it has

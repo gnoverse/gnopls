@@ -13,7 +13,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/fuzzy"
+	"github.com/gnoverse/gnopls/internal/fuzzy"
 )
 
 type comparator struct {

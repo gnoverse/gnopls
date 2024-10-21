@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/util/goversion"
+	"github.com/gnoverse/gnopls/internal/util/goversion"
 )
 
 func TestMessage(t *testing.T) {

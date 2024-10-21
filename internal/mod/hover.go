@@ -13,14 +13,14 @@ import (
 
 	"golang.org/x/mod/modfile"
 	"golang.org/x/mod/semver"
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/settings"
-	"github.com/gfanton/gnopls/internal/vulncheck"
-	"github.com/gfanton/gnopls/internal/vulncheck/govulncheck"
-	"github.com/gfanton/gnopls/internal/vulncheck/osv"
-	"github.com/gfanton/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/vulncheck"
+	"github.com/gnoverse/gnopls/internal/vulncheck/govulncheck"
+	"github.com/gnoverse/gnopls/internal/vulncheck/osv"
+	"github.com/gnoverse/gnopls/internal/event"
 )
 
 func Hover(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle, position protocol.Position) (*protocol.Hover, error) {
@@ -357,7 +357,7 @@ func formatExplanation(text string, req *modfile.Require, options *settings.Opti
 	// If the explanation is 3 lines, then it is of the form:
 	// # golang.org/x/tools
 	// modtest
-	// github.com/gfanton/gnopls/internal/packages
+	// github.com/gnoverse/gnopls/internal/packages
 	if length == 3 {
 		msg := fmt.Sprintf(" `%s`.", splt[1])
 		b.WriteString(msg)

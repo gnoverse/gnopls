@@ -13,7 +13,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/gfanton/gnopls/internal/protocol/command/gen"
+	"github.com/gnoverse/gnopls/internal/protocol/command/gen"
 )
 
 func main() {

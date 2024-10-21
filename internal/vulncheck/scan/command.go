@@ -15,10 +15,10 @@ import (
 	"time"
 
 	"golang.org/x/sync/errgroup"
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/vulncheck"
-	"github.com/gfanton/gnopls/internal/vulncheck/govulncheck"
-	"github.com/gfanton/gnopls/internal/vulncheck/osv"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/vulncheck"
+	"github.com/gnoverse/gnopls/internal/vulncheck/govulncheck"
+	"github.com/gnoverse/gnopls/internal/vulncheck/osv"
 	"golang.org/x/vuln/scan"
 )
 

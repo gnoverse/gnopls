@@ -7,8 +7,8 @@ package myers_test
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/diff/difftest"
-	"github.com/gfanton/gnopls/internal/diff/myers"
+	"github.com/gnoverse/gnopls/internal/diff/difftest"
+	"github.com/gnoverse/gnopls/internal/diff/myers"
 )
 
 func TestDiff(t *testing.T) {

@@ -24,7 +24,7 @@ var Analyzer = &analysis.Analyzer{
 	Doc:      Doc,
 	Requires: []*analysis.Analyzer{inspect.Analyzer},
 	Run:      run,
-	URL:      "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/useany",
+	URL:      "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/useany",
 }
 
 func run(pass *analysis.Pass) (interface{}, error) {

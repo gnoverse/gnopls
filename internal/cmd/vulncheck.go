@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gfanton/gnopls/internal/vulncheck/scan"
+	"github.com/gnoverse/gnopls/internal/vulncheck/scan"
 )
 
 // vulncheck implements the vulncheck command.
@@ -30,7 +30,7 @@ func (v *vulncheck) DetailedHelp(f *flag.FlagSet) {
 	WARNING: this command is for internal-use only.
 
 	By default, the command outputs a JSON-encoded
-	github.com/gfanton/gnopls/internal/protocol/command.VulncheckResult
+	github.com/gnoverse/gnopls/internal/protocol/command.VulncheckResult
 	message.
 	Example:
 	$ gopls vulncheck <packages>

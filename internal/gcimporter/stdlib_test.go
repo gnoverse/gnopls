@@ -14,8 +14,8 @@ import (
 	"unsafe"
 
 	"golang.org/x/tools/go/gcexportdata"
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 // TestStdlib ensures that all packages in std and x/tools can be

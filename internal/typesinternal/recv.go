@@ -7,7 +7,7 @@ package typesinternal
 import (
 	"go/types"
 
-	"github.com/gfanton/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/aliases"
 )
 
 // ReceiverNamed returns the named type (if any) associated with the

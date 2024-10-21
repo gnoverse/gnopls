@@ -9,8 +9,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 // signature implements the signature verb for gopls

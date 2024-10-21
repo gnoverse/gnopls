@@ -12,7 +12,7 @@ import (
 	"go/types"
 
 	"golang.org/x/tools/go/analysis"
-	"github.com/gfanton/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 )
 
 // Diagnose computes diagnostics for switch statements with missing cases

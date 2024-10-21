@@ -9,9 +9,9 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/pkg/eventlogger"
-	"github.com/gfanton/gnopls/pkg/resolver"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/pkg/eventlogger"
+	"github.com/gnoverse/gnopls/pkg/resolver"
 )
 
 type Resolver struct {

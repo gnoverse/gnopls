@@ -4,7 +4,7 @@
 
 package jsonrpc2
 
-import "github.com/gfanton/gnopls/internal/event/keys"
+import "github.com/gnoverse/gnopls/internal/event/keys"
 
 // These keys are used for creating labels to instrument jsonrpc2 events.
 var (

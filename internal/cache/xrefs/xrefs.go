@@ -14,10 +14,10 @@ import (
 	"sort"
 
 	"golang.org/x/tools/go/types/objectpath"
-	"github.com/gfanton/gnopls/internal/cache/metadata"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/util/frob"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/frob"
 )
 
 // Index constructs a serializable index of outbound cross-references

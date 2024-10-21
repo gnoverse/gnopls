@@ -10,7 +10,7 @@ import (
 	"encoding/json"
 	"io"
 
-	"github.com/gfanton/gnopls/internal/vulncheck/osv"
+	"github.com/gnoverse/gnopls/internal/vulncheck/osv"
 )
 
 // Handler handles messages to be presented in a vulnerability scan output

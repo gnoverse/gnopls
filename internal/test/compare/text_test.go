@@ -7,7 +7,7 @@ package compare_test
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/test/compare"
+	"github.com/gnoverse/gnopls/internal/test/compare"
 )
 
 func TestText(t *testing.T) {

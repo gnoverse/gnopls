@@ -12,7 +12,7 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/refactor/inline"
+	"github.com/gnoverse/gnopls/internal/refactor/inline"
 )
 
 // TestCalleeEffects is a unit test of the calleefx analysis.

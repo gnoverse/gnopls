@@ -13,7 +13,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/event"
 )
 
 // NOTE: This file provides an experimental API for serving multiple remote

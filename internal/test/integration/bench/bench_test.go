@@ -20,17 +20,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/cmd"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	"github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
-	"github.com/gfanton/gnopls/internal/util/bug"
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/fakenet"
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
-	"github.com/gfanton/gnopls/internal/jsonrpc2/servertest"
-	"github.com/gfanton/gnopls/internal/pprof"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/cmd"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/fakenet"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2/servertest"
+	"github.com/gnoverse/gnopls/internal/pprof"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 var (

@@ -45,14 +45,14 @@ import (
 	"strings"
 
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/protocol"
-	goplsastutil "github.com/gfanton/gnopls/internal/util/astutil"
-	"github.com/gfanton/gnopls/internal/util/bug"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
-	"github.com/gfanton/gnopls/internal/stdlib"
-	"github.com/gfanton/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	goplsastutil "github.com/gnoverse/gnopls/internal/util/astutil"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/stdlib"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 )
 
 // DocFragment finds the package and (optionally) symbol identified by

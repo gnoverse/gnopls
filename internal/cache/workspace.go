@@ -11,8 +11,8 @@ import (
 	"path/filepath"
 
 	"golang.org/x/mod/modfile"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // isGoWork reports if uri is a go.work file.

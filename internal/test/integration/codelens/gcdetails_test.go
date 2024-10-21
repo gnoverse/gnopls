@@ -8,13 +8,13 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	"github.com/gfanton/gnopls/internal/server"
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
-	"github.com/gfanton/gnopls/internal/util/bug"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/server"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestGCDetails_Toggle(t *testing.T) {

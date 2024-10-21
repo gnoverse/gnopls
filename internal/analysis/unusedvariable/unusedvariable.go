@@ -27,7 +27,7 @@ var Analyzer = &analysis.Analyzer{
 	Requires:         []*analysis.Analyzer{},
 	Run:              run,
 	RunDespiteErrors: true, // an unusedvariable diagnostic is a compile error
-	URL:              "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/unusedvariable",
+	URL:              "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/unusedvariable",
 }
 
 // The suffix for this error message changed in Go 1.20 and Go 1.23.

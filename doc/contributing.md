@@ -18,7 +18,7 @@ claiming it.
 
 ## Getting started
 
-Most of the `gopls` logic is in the `github.com/gfanton/gnopls/internal`
+Most of the `gopls` logic is in the `github.com/gnoverse/gnopls/internal`
 directory. See [design/implementation.md] for an overview of the code organization.
 
 ## Build
@@ -35,8 +35,8 @@ your `gopls` version looks like this:
 
 ```bash
 $ gopls version
-github.com/gfanton/gnopls master
-    github.com/gfanton/gnopls@(devel)
+github.com/gnoverse/gnopls master
+    github.com/gnoverse/gnopls@(devel)
 ```
 
 ## Getting help
@@ -137,7 +137,7 @@ need help.
 When you mail your CL and you or a fellow contributor assigns the
 `Run-TryBot=1` label in Gerrit, the
 [TryBots](https://golang.org/doc/contribute.html#trybots) will run tests in
-both the `golang.org/x/tools` and `github.com/gfanton/gnopls` modules, as
+both the `golang.org/x/tools` and `github.com/gnoverse/gnopls` modules, as
 described above.
 
 Furthermore, an additional "gopls-CI" pass will be run by _Kokoro_, which is a

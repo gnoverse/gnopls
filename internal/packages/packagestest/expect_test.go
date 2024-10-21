@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"golang.org/x/tools/go/expect"
-	"github.com/gfanton/gnopls/internal/packages/packagestest"
+	"github.com/gnoverse/gnopls/internal/packages/packagestest"
 )
 
 func TestExpect(t *testing.T) {

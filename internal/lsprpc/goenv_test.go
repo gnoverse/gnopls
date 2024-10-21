@@ -11,12 +11,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/event"
-	jsonrpc2_v2 "github.com/gfanton/gnopls/internal/jsonrpc2_v2"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/event"
+	jsonrpc2_v2 "github.com/gnoverse/gnopls/internal/jsonrpc2_v2"
+	"github.com/gnoverse/gnopls/internal/testenv"
 
-	. "github.com/gfanton/gnopls/internal/lsprpc"
+	. "github.com/gnoverse/gnopls/internal/lsprpc"
 )
 
 func GoEnvMiddleware() (Middleware, error) {

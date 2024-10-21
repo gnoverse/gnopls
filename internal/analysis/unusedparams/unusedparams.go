@@ -13,8 +13,8 @@ import (
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
-	"github.com/gfanton/gnopls/internal/util/moreslices"
-	"github.com/gfanton/gnopls/internal/analysisinternal"
+	"github.com/gnoverse/gnopls/internal/util/moreslices"
+	"github.com/gnoverse/gnopls/internal/analysisinternal"
 )
 
 //go:embed doc.go
@@ -25,7 +25,7 @@ var Analyzer = &analysis.Analyzer{
 	Doc:      analysisinternal.MustExtractDoc(doc, "unusedparams"),
 	Requires: []*analysis.Analyzer{inspect.Analyzer},
 	Run:      run,
-	URL:      "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/unusedparams",
+	URL:      "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/unusedparams",
 }
 
 const FixCategory = "unusedparams" // recognized by gopls ApplyFix

@@ -12,13 +12,13 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/diff"
-	"github.com/gfanton/gnopls/internal/diff/myers"
-	"github.com/gfanton/gnopls/internal/drivertest"
-	"github.com/gfanton/gnopls/internal/packagesinternal"
-	"github.com/gfanton/gnopls/internal/testenv"
-	"github.com/gfanton/gnopls/internal/testfiles"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/diff/myers"
+	"github.com/gnoverse/gnopls/internal/drivertest"
+	"github.com/gnoverse/gnopls/internal/packagesinternal"
+	"github.com/gnoverse/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/testfiles"
 	"golang.org/x/tools/txtar"
 )
 

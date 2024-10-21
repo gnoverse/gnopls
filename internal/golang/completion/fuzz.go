@@ -10,7 +10,7 @@ import (
 	"go/types"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // golang/go#51089

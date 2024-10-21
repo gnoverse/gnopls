@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 func Highlight(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle, loc protocol.Position) ([]protocol.DocumentHighlight, error) {

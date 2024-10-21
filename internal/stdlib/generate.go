@@ -26,7 +26,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/packages"
 )
 
 func main() {

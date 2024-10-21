@@ -13,7 +13,7 @@ package protocol
 import (
 	"context"
 
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
 )
 
 type Server interface {

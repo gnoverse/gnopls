@@ -16,13 +16,13 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/debug"
-	"github.com/gfanton/gnopls/internal/doc"
-	"github.com/gfanton/gnopls/internal/filecache"
-	licensespkg "github.com/gfanton/gnopls/internal/licenses"
-	"github.com/gfanton/gnopls/internal/util/browser"
-	goplsbug "github.com/gfanton/gnopls/internal/util/bug"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/debug"
+	"github.com/gnoverse/gnopls/internal/doc"
+	"github.com/gnoverse/gnopls/internal/filecache"
+	licensespkg "github.com/gnoverse/gnopls/internal/licenses"
+	"github.com/gnoverse/gnopls/internal/util/browser"
+	goplsbug "github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 // help implements the help command.
@@ -223,7 +223,7 @@ func (j *apiJSON) DetailedHelp(f *flag.FlagSet) {
 	fmt.Fprint(f.Output(), `
 The api-json command prints a JSON value that describes
 and documents all gopls' public interfaces.
-Its schema is defined by github.com/gfanton/gnopls/internal/doc.API.
+Its schema is defined by github.com/gnoverse/gnopls/internal/doc.API.
 `)
 	printFlagDefaults(f)
 }

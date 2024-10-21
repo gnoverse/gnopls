@@ -9,7 +9,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/event"
 )
 
 func TestTrace(t *testing.T) {

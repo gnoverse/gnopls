@@ -18,9 +18,9 @@ import (
 
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/util/bug"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
-	"github.com/gfanton/gnopls/internal/analysisinternal"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/analysisinternal"
 )
 
 func extractVariable(fset *token.FileSet, start, end token.Pos, src []byte, file *ast.File, pkg *types.Package, info *types.Info) (*token.FileSet, *analysis.SuggestedFix, error) {

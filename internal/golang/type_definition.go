@@ -9,10 +9,10 @@ import (
 	"fmt"
 	"go/token"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/event"
 )
 
 // TypeDefinition handles the textDocument/typeDefinition request for Go files.

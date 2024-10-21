@@ -10,10 +10,10 @@ import (
 	"os"
 	"path"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
-	"github.com/gfanton/gnopls/internal/xcontext"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/xcontext"
 )
 
 // RemoveWorkspaceFile deletes a file on disk but does nothing in the

@@ -13,8 +13,8 @@ import (
 	"testing"
 
 	"golang.org/x/tools/go/types/typeutil"
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 )
 
 const elementSrc = `

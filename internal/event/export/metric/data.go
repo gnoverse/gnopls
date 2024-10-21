@@ -9,8 +9,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/event/keys"
-	"github.com/gfanton/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/event/keys"
+	"github.com/gnoverse/gnopls/internal/event/label"
 )
 
 // Data represents a single point in the time series of a metric.

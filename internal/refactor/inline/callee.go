@@ -17,7 +17,7 @@ import (
 	"strings"
 
 	"golang.org/x/tools/go/types/typeutil"
-	"github.com/gfanton/gnopls/internal/typeparams"
+	"github.com/gnoverse/gnopls/internal/typeparams"
 )
 
 // A Callee holds information about an inlinable function. Gob-serializable.

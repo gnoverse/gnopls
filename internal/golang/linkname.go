@@ -11,11 +11,11 @@ import (
 	"go/token"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/cache/metadata"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
 )
 
 // ErrNoLinkname is returned by LinknameDefinition when no linkname

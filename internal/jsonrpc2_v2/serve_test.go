@@ -12,9 +12,9 @@ import (
 	"testing"
 	"time"
 
-	jsonrpc2 "github.com/gfanton/gnopls/internal/jsonrpc2_v2"
-	"github.com/gfanton/gnopls/internal/stack/stacktest"
-	"github.com/gfanton/gnopls/internal/testenv"
+	jsonrpc2 "github.com/gnoverse/gnopls/internal/jsonrpc2_v2"
+	"github.com/gnoverse/gnopls/internal/stack/stacktest"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestIdleTimeout(t *testing.T) {

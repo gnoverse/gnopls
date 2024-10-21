@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
 )
 
 var gopath = flag.String("gopath", "", "if set, run goimports scan with this GOPATH value")

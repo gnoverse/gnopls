@@ -26,7 +26,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/gfanton/gnopls/internal/xcontext"
+	"github.com/gnoverse/gnopls/internal/xcontext"
 )
 
 // Function is the type of a function that can be memoized.

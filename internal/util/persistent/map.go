@@ -13,7 +13,7 @@ import (
 	"strings"
 	"sync/atomic"
 
-	"github.com/gfanton/gnopls/internal/util/constraints"
+	"github.com/gnoverse/gnopls/internal/util/constraints"
 )
 
 // Implementation details:

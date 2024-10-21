@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 func TestProgressUpdating(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // This file tests Mapper's logic for converting between offsets,

@@ -13,7 +13,7 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/event"
 )
 
 // autoNetwork is the pseudo network type used to signal that gopls should use

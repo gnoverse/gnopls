@@ -22,8 +22,8 @@ import (
 	"testing"
 
 	"golang.org/x/sync/errgroup"
-	"github.com/gfanton/gnopls/internal/filecache"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/filecache"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestBasics(t *testing.T) {

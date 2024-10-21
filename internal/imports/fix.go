@@ -29,10 +29,10 @@ import (
 
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/gopathwalk"
-	"github.com/gfanton/gnopls/internal/stdlib"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/gopathwalk"
+	"github.com/gnoverse/gnopls/internal/stdlib"
 )
 
 // importToGroup is a list of functions which map from an import path to

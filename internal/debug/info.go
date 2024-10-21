@@ -15,7 +15,7 @@ import (
 	"runtime/debug"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/version"
+	"github.com/gnoverse/gnopls/internal/version"
 )
 
 type PrintMode int

@@ -16,10 +16,10 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/telemetry/counter"
 	"golang.org/x/telemetry/counter/countertest"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	"github.com/gfanton/gnopls/internal/server"
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/server"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // Test prompt file in old and new formats are handled as expected.

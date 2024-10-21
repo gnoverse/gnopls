@@ -18,12 +18,12 @@ import (
 	"strings"
 
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/cache/metadata"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/util/moremaps"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
-	"github.com/gfanton/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/util/moremaps"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 )
 
 // FreeSymbolsHTML returns an HTML document containing the report of

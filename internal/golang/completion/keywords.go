@@ -7,8 +7,8 @@ package completion
 import (
 	"go/ast"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/util/astutil"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/astutil"
 )
 
 const (

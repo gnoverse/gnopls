@@ -13,7 +13,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // A span represents a range of text within a source file.  The start

@@ -17,10 +17,10 @@ import (
 	"testing"
 
 	"golang.org/x/tools/go/analysis/analysistest"
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/facts"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/facts"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 type myFact struct {

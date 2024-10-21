@@ -17,8 +17,8 @@ package command
 import (
 	"context"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/vulncheck"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/vulncheck"
 )
 
 // Interface defines the interface gopls exposes for the

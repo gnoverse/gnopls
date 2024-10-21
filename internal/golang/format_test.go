@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/test/compare"
+	"github.com/gnoverse/gnopls/internal/test/compare"
 )
 
 func TestImportPrefix(t *testing.T) {

@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/packages"
 	"github.com/gnolang/gno/gnovm/pkg/gnomod"
+	"github.com/gnoverse/gnopls/internal/packages"
 )
 
 func gnoPkgToGo(gnoPkg *gnomod.Pkg, logger *slog.Logger) (*packages.Package, error) {

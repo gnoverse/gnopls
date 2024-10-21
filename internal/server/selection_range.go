@@ -8,10 +8,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
 	"golang.org/x/tools/go/ast/astutil"
 )
 

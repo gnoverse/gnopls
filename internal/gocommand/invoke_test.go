@@ -8,8 +8,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestGoVersion(t *testing.T) {

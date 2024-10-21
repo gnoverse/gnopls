@@ -12,7 +12,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/version"
+	"github.com/gnoverse/gnopls/internal/version"
 )
 
 func TestPrintVersionInfoJSON(t *testing.T) {

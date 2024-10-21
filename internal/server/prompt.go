@@ -15,8 +15,8 @@ import (
 
 	"golang.org/x/telemetry"
 	"golang.org/x/telemetry/counter"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/event"
 )
 
 // promptTimeout is the amount of time we wait for an ongoing prompt before

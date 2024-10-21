@@ -18,8 +18,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/gcimporter"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/gcimporter"
 )
 
 var isRace = false

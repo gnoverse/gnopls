@@ -13,13 +13,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/cmd"
-	"github.com/gfanton/gnopls/internal/drivertest"
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/memoize"
-	"github.com/gfanton/gnopls/internal/testenv"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/cmd"
+	"github.com/gnoverse/gnopls/internal/drivertest"
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/memoize"
+	"github.com/gnoverse/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 var (

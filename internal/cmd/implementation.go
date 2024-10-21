@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 // implementation implements the implementation verb for gopls

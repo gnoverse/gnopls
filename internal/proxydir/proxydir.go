@@ -15,7 +15,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 // WriteModuleVersion creates a directory in the proxy dir for a module.

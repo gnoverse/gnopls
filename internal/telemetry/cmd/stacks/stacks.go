@@ -84,8 +84,8 @@ import (
 
 	"golang.org/x/sys/unix"
 	"golang.org/x/telemetry"
-	"github.com/gfanton/gnopls/internal/util/browser"
-	"github.com/gfanton/gnopls/internal/util/moremaps"
+	"github.com/gnoverse/gnopls/internal/util/browser"
+	"github.com/gnoverse/gnopls/internal/util/moremaps"
 )
 
 // flags
@@ -159,7 +159,7 @@ func main() {
 				log.Fatal(err)
 			}
 			for _, prog := range report.Programs {
-				if prog.Program == "github.com/gfanton/gnopls" && len(prog.Stacks) > 0 {
+				if prog.Program == "github.com/gnoverse/gnopls" && len(prog.Stacks) > 0 {
 					// Include applicable client names (e.g. vscode, eglot).
 					var clients []string
 					var clientSuffix string
@@ -430,7 +430,7 @@ func main() {
 // Info is used as a key for de-duping and aggregating.
 // Do not add detail about particular records (e.g. data, telemetry URL).
 type Info struct {
-	Program            string // "github.com/gfanton/gnopls"
+	Program            string // "github.com/gnoverse/gnopls"
 	Version, GoVersion string // e.g. "gopls/v0.16.1", "go1.23"
 	GOOS, GOARCH       string
 	Client             string // e.g. "vscode"
@@ -484,7 +484,7 @@ func newIssue(stack, id string, jsonURL string, counts map[Info]int64) string {
 		if strings.Contains(line, "internal/util/bug.") {
 			continue // not interesting
 		}
-		if _, rest, ok := strings.Cut(line, "github.com/gfanton/gnopls/"); ok {
+		if _, rest, ok := strings.Cut(line, "github.com/gnoverse/gnopls/"); ok {
 			if i := strings.IndexByte(rest, '.'); i >= 0 {
 				rest = rest[i+1:]
 				rest = strings.TrimPrefix(rest, "(*")
@@ -507,7 +507,7 @@ func newIssue(stack, id string, jsonURL string, counts map[Info]int64) string {
 #!stacks
 "<insert predicate here>"
 ` + "```\n")
-	fmt.Fprintf(body, "Issue created by [stacks](https://pkg.go.dev/github.com/gfanton/gnopls/internal/telemetry/cmd/stacks).\n\n")
+	fmt.Fprintf(body, "Issue created by [stacks](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/telemetry/cmd/stacks).\n\n")
 
 	writeStackComment(body, stack, id, jsonURL, counts)
 
@@ -566,7 +566,7 @@ func writeStackComment(body *bytes.Buffer, stack, id string, jsonURL string, cou
 
 // frameURL returns the CodeSearch URL for the stack frame, if known.
 func frameURL(pclntab map[string]FileLine, info Info, frame string) string {
-	// e.g. "github.com/gfanton/gnopls/foo.(*Type).Method.inlined.func3:+5"
+	// e.g. "github.com/gnoverse/gnopls/foo.(*Type).Method.inlined.func3:+5"
 	symbol, offset, ok := strings.Cut(frame, ":")
 	if !ok {
 		// Not a symbol (perhaps stack counter title: "gopls/bug"?)
@@ -621,7 +621,7 @@ func frameURL(pclntab map[string]FileLine, info Info, frame string) string {
 	// x/tools repo (tools or gopls module)?
 	if rest, ok := strings.CutPrefix(fileline.file, "golang.org/x/tools"); ok {
 		if rest[0] == '/' {
-			// "github.com/gfanton/gnopls" -> "gopls"
+			// "github.com/gnoverse/gnopls" -> "gopls"
 			rest = rest[1:]
 		} else if rest[0] == '@' {
 			// "golang.org/x/tools@version/dir/file.go" -> "dir/file.go"

@@ -7,9 +7,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/settings"
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/settings"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/util/bug"
 )
 
 func TestMain(m *testing.M) {

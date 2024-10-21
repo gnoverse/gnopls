@@ -7,9 +7,9 @@ package metadata
 import (
 	"sort"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/bug"
 )
 
 // A Graph is an immutable and transitively closed graph of [Package] data.

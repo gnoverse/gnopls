@@ -9,16 +9,16 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/golang"
-	"github.com/gfanton/gnopls/internal/golang/completion"
-	"github.com/gfanton/gnopls/internal/label"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/settings"
-	"github.com/gfanton/gnopls/internal/telemetry"
-	"github.com/gfanton/gnopls/internal/template"
-	"github.com/gfanton/gnopls/internal/work"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/golang"
+	"github.com/gnoverse/gnopls/internal/golang/completion"
+	"github.com/gnoverse/gnopls/internal/label"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/telemetry"
+	"github.com/gnoverse/gnopls/internal/template"
+	"github.com/gnoverse/gnopls/internal/work"
 )
 
 func (s *server) Completion(ctx context.Context, params *protocol.CompletionParams) (_ *protocol.CompletionList, rerr error) {
@@ -158,7 +158,7 @@ func toProtocolCompletionItems(candidates []completion.CompletionItem, surroundi
 			// Insert and Replace ranges share the same start position and
 			// the same text edit but the end position may differ.
 			// See the comment for the CompletionItem's TextEdit field.
-			// https://pkg.go.dev/github.com/gfanton/gnopls/internal/protocol#CompletionItem
+			// https://pkg.go.dev/github.com/gnoverse/gnopls/internal/protocol#CompletionItem
 			edits = &protocol.Or_CompletionItem_textEdit{
 				Value: protocol.InsertReplaceEdit{
 					NewText: insertText,

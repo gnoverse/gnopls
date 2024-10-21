@@ -7,7 +7,7 @@ package fake
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 func TestApplyEdits(t *testing.T) {

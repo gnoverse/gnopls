@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
 )
 
 // Use a global edit counter as bench function may execute multiple times, and

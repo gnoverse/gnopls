@@ -9,8 +9,8 @@ package vulncheck
 import (
 	"time"
 
-	gvc "github.com/gfanton/gnopls/internal/vulncheck/govulncheck"
-	"github.com/gfanton/gnopls/internal/vulncheck/osv"
+	gvc "github.com/gnoverse/gnopls/internal/vulncheck/govulncheck"
+	"github.com/gnoverse/gnopls/internal/vulncheck/osv"
 )
 
 // Result is the result of vulnerability scanning.

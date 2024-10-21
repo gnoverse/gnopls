@@ -4,7 +4,7 @@
 
 package settings
 
-import "github.com/gfanton/gnopls/internal/protocol"
+import "github.com/gnoverse/gnopls/internal/protocol"
 
 // This file defines constants for non-standard CodeActions.
 

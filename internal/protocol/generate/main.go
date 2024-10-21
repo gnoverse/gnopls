@@ -98,7 +98,7 @@ func writeclient() {
 		`import (
 	"context"
 
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
 )
 `)
 	out.WriteString("type Client interface {\n")
@@ -127,7 +127,7 @@ func writeserver() {
 		`import (
 	"context"
 
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
 )
 `)
 	out.WriteString("type Server interface {\n")

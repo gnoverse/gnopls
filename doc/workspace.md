@@ -101,7 +101,7 @@ and [`x/mod`](https://pkg.go.dev/golang.org/x/mod) is checked out into
 `$WORK/mod`, and you are working on a new `x/mod` API for editing `go.mod`
 files that you want to simultaneously integrate into gopls.
 
-You can work on both `github.com/gfanton/gnopls` and `golang.org/x/mod`
+You can work on both `github.com/gnoverse/gnopls` and `golang.org/x/mod`
 simultaneously by creating a `go.work` file:
 
 ```sh

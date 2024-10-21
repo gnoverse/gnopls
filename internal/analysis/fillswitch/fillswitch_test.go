@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/analysistest"
-	"github.com/gfanton/gnopls/internal/analysis/fillswitch"
+	"github.com/gnoverse/gnopls/internal/analysis/fillswitch"
 )
 
 // analyzer allows us to test the fillswitch code action using the analysistest
@@ -26,7 +26,7 @@ var analyzer = &analysis.Analyzer{
 		}
 		return nil, nil
 	},
-	URL:              "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/fillswitch",
+	URL:              "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/fillswitch",
 	RunDespiteErrors: true,
 }
 

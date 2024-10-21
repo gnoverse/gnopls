@@ -7,7 +7,7 @@ package misc
 import (
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 func TestEmptyDirectoryFilters_Issue51843(t *testing.T) {

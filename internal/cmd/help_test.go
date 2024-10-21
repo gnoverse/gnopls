@@ -21,9 +21,9 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/gfanton/gnopls/internal/cmd"
-	"github.com/gfanton/gnopls/internal/testenv"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/cmd"
+	"github.com/gnoverse/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 var updateHelpFiles = flag.Bool("update-help-files", false, "Write out the help files instead of checking them")

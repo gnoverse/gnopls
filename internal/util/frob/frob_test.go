@@ -9,7 +9,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/util/frob"
+	"github.com/gnoverse/gnopls/internal/util/frob"
 )
 
 func TestBasics(t *testing.T) {

@@ -14,11 +14,11 @@ import (
 	"go/types"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/settings"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
 )
 
 var errNoCommentReference = errors.New("no comment reference found")

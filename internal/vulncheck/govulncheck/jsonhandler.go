@@ -11,7 +11,7 @@ import (
 
 	"io"
 
-	"github.com/gfanton/gnopls/internal/vulncheck/osv"
+	"github.com/gnoverse/gnopls/internal/vulncheck/osv"
 )
 
 type jsonHandler struct {

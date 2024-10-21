@@ -9,14 +9,14 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/golang"
-	"github.com/gfanton/gnopls/internal/label"
-	"github.com/gfanton/gnopls/internal/mod"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/golang"
+	"github.com/gnoverse/gnopls/internal/label"
+	"github.com/gnoverse/gnopls/internal/mod"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/settings"
 )
 
 // CodeLens reports the set of available CodeLenses

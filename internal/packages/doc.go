@@ -98,7 +98,7 @@ is written to the driver's standard input. The driver must write a
 JSON-encoded [DriverResponse] message to its standard output. (This
 message differs from the JSON schema produced by 'go list'.)
 */
-package packages // import "github.com/gfanton/gnopls/internal/packages"
+package packages // import "github.com/gnoverse/gnopls/internal/packages"
 
 /*
 

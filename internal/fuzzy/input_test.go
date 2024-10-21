@@ -9,7 +9,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/fuzzy"
+	"github.com/gnoverse/gnopls/internal/fuzzy"
 )
 
 var rolesTests = []struct {

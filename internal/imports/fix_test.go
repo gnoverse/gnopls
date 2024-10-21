@@ -20,9 +20,9 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/packages/packagestest"
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/stdlib"
+	"github.com/gnoverse/gnopls/internal/packages/packagestest"
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/stdlib"
 )
 
 var testDebug = flag.Bool("debug", false, "enable debug output")

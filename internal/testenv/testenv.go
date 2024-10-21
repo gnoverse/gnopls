@@ -21,7 +21,7 @@ import (
 	"time"
 
 	"golang.org/x/mod/modfile"
-	"github.com/gfanton/gnopls/internal/goroot"
+	"github.com/gnoverse/gnopls/internal/goroot"
 )
 
 // packageMainIsDevel reports whether the module containing package main

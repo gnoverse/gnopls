@@ -7,9 +7,9 @@ package ocagent
 import (
 	"time"
 
-	"github.com/gfanton/gnopls/internal/event/export/metric"
-	"github.com/gfanton/gnopls/internal/event/export/ocagent/wire"
-	"github.com/gfanton/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/event/export/metric"
+	"github.com/gnoverse/gnopls/internal/event/export/ocagent/wire"
+	"github.com/gnoverse/gnopls/internal/event/label"
 )
 
 // dataToMetricDescriptor return a *wire.MetricDescriptor based on data.

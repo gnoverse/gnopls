@@ -7,9 +7,9 @@ package cache
 import (
 	"path/filepath"
 
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/util/persistent"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/persistent"
 )
 
 // A fileMap maps files in the snapshot, with some additional bookkeeping:

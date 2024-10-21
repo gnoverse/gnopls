@@ -18,9 +18,9 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/gfanton/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/aliases"
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/packages"
 	// (does not depend on gopls itself)
 )
 
@@ -53,7 +53,7 @@ func Load() ([]*Command, error) {
 			Mode:       packages.NeedTypes | packages.NeedTypesInfo | packages.NeedSyntax | packages.NeedImports | packages.NeedDeps,
 			BuildFlags: []string{"-tags=generate"},
 		},
-		"github.com/gfanton/gnopls/internal/protocol/command",
+		"github.com/gnoverse/gnopls/internal/protocol/command",
 	)
 	if err != nil {
 		return nil, fmt.Errorf("packages.Load: %v", err)

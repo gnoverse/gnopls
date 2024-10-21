@@ -26,7 +26,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/edit"
+	"github.com/gnoverse/gnopls/internal/edit"
 )
 
 func main() {

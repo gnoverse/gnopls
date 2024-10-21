@@ -4,7 +4,7 @@
 
 // Package difftest supplies a set of tests that will operate on any
 // implementation of a diff algorithm as exposed by
-// "github.com/gfanton/gnopls/internal/diff"
+// "github.com/gnoverse/gnopls/internal/diff"
 package difftest_test
 
 import (
@@ -14,8 +14,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/diff/difftest"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/diff/difftest"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestVerifyUnified(t *testing.T) {

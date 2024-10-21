@@ -21,8 +21,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/gocommand"
 )
 
 // AssemblyHTML returns an HTML document containing an assembly listing of the selected function.

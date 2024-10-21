@@ -20,16 +20,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/debug"
-	"github.com/gfanton/gnopls/internal/lsprpc"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
-	"github.com/gfanton/gnopls/internal/jsonrpc2/servertest"
-	"github.com/gfanton/gnopls/internal/memoize"
-	"github.com/gfanton/gnopls/internal/testenv"
-	"github.com/gfanton/gnopls/internal/xcontext"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/debug"
+	"github.com/gnoverse/gnopls/internal/lsprpc"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2/servertest"
+	"github.com/gnoverse/gnopls/internal/memoize"
+	"github.com/gnoverse/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/xcontext"
 )
 
 // Mode is a bitmask that defines for which execution modes a test should run.

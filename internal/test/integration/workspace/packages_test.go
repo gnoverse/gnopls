@@ -10,9 +10,9 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 func TestPackages(t *testing.T) {

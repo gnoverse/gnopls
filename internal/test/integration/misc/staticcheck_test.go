@@ -7,10 +7,10 @@ package misc
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/testenv"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 func TestStaticcheckGenerics(t *testing.T) {

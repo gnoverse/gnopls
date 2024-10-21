@@ -71,8 +71,8 @@ import (
 	"sync"
 	"unicode/utf8"
 
-	"github.com/gfanton/gnopls/internal/util/bug"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
 )
 
 // A Mapper wraps the content of a file and provides mapping

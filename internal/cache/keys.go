@@ -9,7 +9,7 @@ package cache
 import (
 	"io"
 
-	"github.com/gfanton/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/event/label"
 )
 
 var (

@@ -5,8 +5,8 @@
 package metric
 
 import (
-	"github.com/gfanton/gnopls/internal/event/keys"
-	"github.com/gfanton/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/event/keys"
+	"github.com/gnoverse/gnopls/internal/event/label"
 )
 
 // Scalar represents the construction information for a scalar metric.

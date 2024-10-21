@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"slices"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/settings"
 )
 
 // check implements the check verb for gopls.

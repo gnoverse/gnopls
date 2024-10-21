@@ -17,8 +17,8 @@ import (
 	"strings"
 
 	"golang.org/x/tools/go/types/typeutil"
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/typeparams"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/typeparams"
 )
 
 // falconResult is the result of the analysis of the callee.

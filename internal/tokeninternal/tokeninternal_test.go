@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/tokeninternal"
+	"github.com/gnoverse/gnopls/internal/tokeninternal"
 )
 
 func TestAddExistingFiles(t *testing.T) {

@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
 )
 
 type loggingStream struct {

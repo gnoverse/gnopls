@@ -28,8 +28,8 @@
 //		"fmt"
 //		"testing"
 //
-//		"github.com/gfanton/gnopls/internal/hooks"
-//		. "github.com/gfanton/gnopls/internal/test/integration"
+//		"github.com/gnoverse/gnopls/internal/hooks"
+//		. "github.com/gnoverse/gnopls/internal/test/integration"
 //	)
 //
 //	func TestMain(m *testing.M) {

@@ -18,10 +18,10 @@ import (
 	"strings"
 
 	"golang.org/x/mod/module"
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/gopathwalk"
-	"github.com/gfanton/gnopls/internal/stdlib"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/gopathwalk"
+	"github.com/gnoverse/gnopls/internal/stdlib"
 )
 
 // Notes(rfindley): ModuleResolver appears to be heavily optimized for scanning

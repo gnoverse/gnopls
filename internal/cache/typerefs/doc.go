@@ -111,7 +111,7 @@
 // The [BuildPackageGraph] constructor implements a whole-graph analysis similar
 // to that which will be implemented by gopls, but for various reasons the
 // logic for this analysis will eventually live in the
-// [github.com/gfanton/gnopls/internal/cache] package. Nevertheless,
+// [github.com/gnoverse/gnopls/internal/cache] package. Nevertheless,
 // BuildPackageGraph and its test serve to verify the syntactic analysis, and
 // may serve as a proving ground for new optimizations of the whole-graph analysis.
 //

@@ -37,13 +37,13 @@ import (
 	"unicode"
 
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/doc"
-	"github.com/gfanton/gnopls/internal/golang"
-	"github.com/gfanton/gnopls/internal/mod"
-	"github.com/gfanton/gnopls/internal/settings"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/doc"
+	"github.com/gnoverse/gnopls/internal/golang"
+	"github.com/gnoverse/gnopls/internal/mod"
+	"github.com/gnoverse/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
 )
 
 func main() {
@@ -62,7 +62,7 @@ func doMain(write bool) (bool, error) {
 		return false, err
 	}
 
-	goplsDir, err := pkgDir("github.com/gfanton/gnopls")
+	goplsDir, err := pkgDir("github.com/gnoverse/gnopls")
 	if err != nil {
 		return false, err
 	}
@@ -127,7 +127,7 @@ func loadAPI() (*doc.API, error) {
 		&packages.Config{
 			Mode: packages.NeedTypes | packages.NeedTypesInfo | packages.NeedSyntax | packages.NeedDeps,
 		},
-		"github.com/gfanton/gnopls/internal/settings",
+		"github.com/gnoverse/gnopls/internal/settings",
 	)
 	if err != nil {
 		return nil, err

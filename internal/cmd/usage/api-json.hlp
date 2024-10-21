@@ -5,4 +5,4 @@ Usage:
 
 The api-json command prints a JSON value that describes
 and documents all gopls' public interfaces.
-Its schema is defined by github.com/gfanton/gnopls/internal/doc.API.
+Its schema is defined by github.com/gnoverse/gnopls/internal/doc.API.

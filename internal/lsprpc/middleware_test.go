@@ -13,9 +13,9 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/gfanton/gnopls/internal/lsprpc"
-	"github.com/gfanton/gnopls/internal/event"
-	jsonrpc2_v2 "github.com/gfanton/gnopls/internal/jsonrpc2_v2"
+	. "github.com/gnoverse/gnopls/internal/lsprpc"
+	"github.com/gnoverse/gnopls/internal/event"
+	jsonrpc2_v2 "github.com/gnoverse/gnopls/internal/jsonrpc2_v2"
 )
 
 var noopBinder = BinderFunc(func(context.Context, *jsonrpc2_v2.Connection) jsonrpc2_v2.ConnectionOptions {

@@ -13,8 +13,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/gfanton/gnopls/internal/lsprpc"
-	"github.com/gfanton/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/lsprpc"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
 )
 
 type remote struct {

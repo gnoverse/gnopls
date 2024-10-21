@@ -7,7 +7,7 @@ package diagnostics
 import (
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // Test that the import error does not mention GOPATH when building with

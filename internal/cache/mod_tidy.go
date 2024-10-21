@@ -16,15 +16,15 @@ import (
 	"strings"
 
 	"golang.org/x/mod/modfile"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/label"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	"github.com/gfanton/gnopls/internal/diff"
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/memoize"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/label"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/memoize"
 )
 
 // This error is sought by mod diagnostics.
@@ -268,7 +268,7 @@ func missingModuleDiagnostics(ctx context.Context, snapshot *Snapshot, pm *Parse
 			//
 			// import (
 			//   "golang.org/x/tools/go/expect"
-			//   "github.com/gfanton/gnopls/internal/packages"
+			//   "github.com/gnoverse/gnopls/internal/packages"
 			// )
 			// They both are related to the same module: "golang.org/x/tools".
 			var match string

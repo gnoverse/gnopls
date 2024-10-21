@@ -7,7 +7,7 @@ package lru_test
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/util/lru"
+	"github.com/gnoverse/gnopls/internal/util/lru"
 )
 
 // Simple fuzzing test for consistency.

@@ -9,10 +9,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	jsonrpc2_v2 "github.com/gfanton/gnopls/internal/jsonrpc2_v2"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	jsonrpc2_v2 "github.com/gnoverse/gnopls/internal/jsonrpc2_v2"
 
-	. "github.com/gfanton/gnopls/internal/lsprpc"
+	. "github.com/gnoverse/gnopls/internal/lsprpc"
 )
 
 func CommandInterceptor(command string, run func(*protocol.ExecuteCommandParams) (interface{}, error)) Middleware {

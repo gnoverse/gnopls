@@ -11,10 +11,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/test/compare"
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/test/compare"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // Tests golang/go#38815.

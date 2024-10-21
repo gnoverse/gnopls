@@ -23,7 +23,7 @@ END
 
 # List all the modules gopls depends on, except other golang.org modules, which
 # are known to have the same license.
-mods=$(go list -deps -f '{{with .Module}}{{.Path}}{{end}}' github.com/gfanton/gnopls | sort -u | grep -v golang.org)
+mods=$(go list -deps -f '{{with .Module}}{{.Path}}{{end}}' github.com/gnoverse/gnopls | sort -u | grep -v golang.org)
 for mod in $mods; do
   # Find the license file, either LICENSE or COPYING, and add it to the result.
   dir=$(go list -m -f {{.Dir}} $mod)

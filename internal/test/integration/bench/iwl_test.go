@@ -7,10 +7,10 @@ package bench
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
 )
 
 // BenchmarkInitialWorkspaceLoad benchmarks the initial workspace load time for

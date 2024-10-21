@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/testenv"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 var go121bin = flag.String("go121bin", "", "bin directory containing go 1.21 or later")

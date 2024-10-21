@@ -131,7 +131,7 @@ dorky details and deletia:
   simple problems.
 
   For example, when a return statement has too few operands, the
-  [fillreturns](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/fillreturns) analyzer can heuristically fill in the missing ones
+  [fillreturns](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/fillreturns) analyzer can heuristically fill in the missing ones
   with suitable values.
 
   The actual diagnostics are produced by the type checker,

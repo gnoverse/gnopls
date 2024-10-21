@@ -10,7 +10,7 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/gfanton/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/event/label"
 )
 
 // Value represents a key for untyped values.

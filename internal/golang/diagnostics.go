@@ -9,12 +9,12 @@ import (
 	"maps"
 	"slices"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/cache/metadata"
-	"github.com/gfanton/gnopls/internal/progress"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/settings"
-	"github.com/gfanton/gnopls/internal/util/moremaps"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/progress"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/util/moremaps"
 )
 
 // Analyze reports go/analysis-framework diagnostics in the specified package.

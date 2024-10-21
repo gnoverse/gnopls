@@ -13,14 +13,14 @@ import (
 	"go/types"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/settings"
-	"github.com/gfanton/gnopls/internal/util/typesutil"
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/typeparams"
-	"github.com/gfanton/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/util/typesutil"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/typeparams"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 )
 
 func InlayHint(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle, pRng protocol.Range) ([]protocol.InlayHint, error) {

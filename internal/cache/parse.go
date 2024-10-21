@@ -11,8 +11,8 @@ import (
 	"go/token"
 	"path/filepath"
 
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/file"
 )
 
 // ParseGo parses the file whose contents are provided by fh.

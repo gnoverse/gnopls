@@ -43,11 +43,11 @@ import (
 	"unicode"
 
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/typeparams"
-	"github.com/gfanton/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/typeparams"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 	"golang.org/x/tools/refactor/satisfy"
 )
 

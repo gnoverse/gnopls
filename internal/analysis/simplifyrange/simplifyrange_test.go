@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"golang.org/x/tools/go/analysis/analysistest"
-	"github.com/gfanton/gnopls/internal/analysis/simplifyrange"
+	"github.com/gnoverse/gnopls/internal/analysis/simplifyrange"
 )
 
 func Test(t *testing.T) {

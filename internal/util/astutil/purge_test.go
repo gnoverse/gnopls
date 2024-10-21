@@ -12,9 +12,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/util/astutil"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/util/astutil"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 // TestPurgeFuncBodies tests PurgeFuncBodies by comparing it against a

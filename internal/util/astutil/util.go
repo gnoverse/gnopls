@@ -8,7 +8,7 @@ import (
 	"go/ast"
 	"go/token"
 
-	"github.com/gfanton/gnopls/internal/typeparams"
+	"github.com/gnoverse/gnopls/internal/typeparams"
 )
 
 // UnpackRecv unpacks a receiver type expression, reporting whether it is a

@@ -13,7 +13,7 @@ package main
 
 import (
 	"golang.org/x/tools/go/analysis/singlechecker"
-	inlineanalyzer "github.com/gfanton/gnopls/internal/refactor/inline/analyzer"
+	inlineanalyzer "github.com/gnoverse/gnopls/internal/refactor/inline/analyzer"
 )
 
 func main() { singlechecker.Main(inlineanalyzer.Analyzer) }

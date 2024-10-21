@@ -6,7 +6,7 @@ package bench
 import (
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // BenchmarkReload benchmarks reloading a file metadata after a change to an import.

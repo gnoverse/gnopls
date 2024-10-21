@@ -13,10 +13,10 @@ import (
 	"os"
 	"slices"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	"github.com/gfanton/gnopls/internal/server"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/server"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 // execute implements the LSP ExecuteCommand verb for gopls.
@@ -36,7 +36,7 @@ with a set of optional JSON argument values.
 Some commands return a result, also JSON.
 
 Gopls' command set is defined by the command.Interface type; see
-https://pkg.go.dev/github.com/gfanton/gnopls/internal/protocol/command#Interface.
+https://pkg.go.dev/github.com/gnoverse/gnopls/internal/protocol/command#Interface.
 It is not a stable interface: commands may change or disappear without notice.
 
 Examples:

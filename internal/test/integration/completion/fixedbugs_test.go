@@ -7,7 +7,7 @@ package completion
 import (
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 func TestPackageCompletionCrash_Issue68169(t *testing.T) {

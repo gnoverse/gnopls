@@ -10,7 +10,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/gfanton/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/event/label"
 )
 
 // Exporter is a function that handles events.

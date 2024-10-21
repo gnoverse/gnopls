@@ -12,9 +12,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/event/export/eventtest"
-	jsonrpc2 "github.com/gfanton/gnopls/internal/jsonrpc2_v2"
-	"github.com/gfanton/gnopls/internal/stack/stacktest"
+	"github.com/gnoverse/gnopls/internal/event/export/eventtest"
+	jsonrpc2 "github.com/gnoverse/gnopls/internal/jsonrpc2_v2"
+	"github.com/gnoverse/gnopls/internal/stack/stacktest"
 )
 
 var callTests = []invoker{

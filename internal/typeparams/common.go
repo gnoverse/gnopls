@@ -17,7 +17,7 @@ import (
 	"go/token"
 	"go/types"
 
-	"github.com/gfanton/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/aliases"
 )
 
 // UnpackIndexExpr extracts data from AST nodes that represent index

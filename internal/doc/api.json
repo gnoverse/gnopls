@@ -1073,7 +1073,7 @@
 		{
 			"Name": "deprecated",
 			"Doc": "check for use of deprecated identifiers\n\nThe deprecated analyzer looks for deprecated symbols and package\nimports.\n\nSee https://go.dev/wiki/Deprecated to learn about Go's convention\nfor documenting and signaling deprecated identifiers.",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/deprecated",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/deprecated",
 			"Default": true
 		},
 		{
@@ -1085,7 +1085,7 @@
 		{
 			"Name": "embed",
 			"Doc": "check //go:embed directive usage\n\nThis analyzer checks that the embed package is imported if //go:embed\ndirectives are present, providing a suggested fix to add the import if\nit is missing.\n\nThis analyzer also checks that //go:embed directives precede the\ndeclaration of a single variable.",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/embeddirective",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/embeddirective",
 			"Default": true
 		},
 		{
@@ -1097,7 +1097,7 @@
 		{
 			"Name": "fillreturns",
 			"Doc": "suggest fixes for errors due to an incorrect number of return values\n\nThis checker provides suggested fixes for type errors of the\ntype \"wrong number of return values (want %d, got %d)\". For example:\n\n\tfunc m() (int, string, *bool, error) {\n\t\treturn\n\t}\n\nwill turn into\n\n\tfunc m() (int, string, *bool, error) {\n\t\treturn 0, \"\", nil, nil\n\t}\n\nThis functionality is similar to https://github.com/sqs/goreturns.",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/fillreturns",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/fillreturns",
 			"Default": true
 		},
 		{
@@ -1121,7 +1121,7 @@
 		{
 			"Name": "infertypeargs",
 			"Doc": "check for unnecessary type arguments in call expressions\n\nExplicit type arguments may be omitted from call expressions if they can be\ninferred from function arguments, or from other type arguments:\n\n\tfunc f[T any](T) {}\n\t\n\tfunc _() {\n\t\tf[string](\"foo\") // string could be inferred\n\t}\n",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/infertypeargs",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/infertypeargs",
 			"Default": true
 		},
 		{
@@ -1151,13 +1151,13 @@
 		{
 			"Name": "nonewvars",
 			"Doc": "suggested fixes for \"no new vars on left side of :=\"\n\nThis checker provides suggested fixes for type errors of the\ntype \"no new vars on left side of :=\". For example:\n\n\tz := 1\n\tz := 2\n\nwill turn into\n\n\tz := 1\n\tz = 2",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/nonewvars",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/nonewvars",
 			"Default": true
 		},
 		{
 			"Name": "noresultvalues",
 			"Doc": "suggested fixes for unexpected return values\n\nThis checker provides suggested fixes for type errors of the\ntype \"no result values expected\" or \"too many return values\".\nFor example:\n\n\tfunc z() { return nil }\n\nwill turn into\n\n\tfunc z() { return }",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/noresultvalues",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/noresultvalues",
 			"Default": true
 		},
 		{
@@ -1187,19 +1187,19 @@
 		{
 			"Name": "simplifycompositelit",
 			"Doc": "check for composite literal simplifications\n\nAn array, slice, or map composite literal of the form:\n\n\t[]T{T{}, T{}}\n\nwill be simplified to:\n\n\t[]T{{}, {}}\n\nThis is one of the simplifications that \"gofmt -s\" applies.\n\nThis analyzer ignores generated code.",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/simplifycompositelit",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/simplifycompositelit",
 			"Default": true
 		},
 		{
 			"Name": "simplifyrange",
 			"Doc": "check for range statement simplifications\n\nA range of the form:\n\n\tfor x, _ = range v {...}\n\nwill be simplified to:\n\n\tfor x = range v {...}\n\nA range of the form:\n\n\tfor _ = range v {...}\n\nwill be simplified to:\n\n\tfor range v {...}\n\nThis is one of the simplifications that \"gofmt -s\" applies.\n\nThis analyzer ignores generated code.",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/simplifyrange",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/simplifyrange",
 			"Default": true
 		},
 		{
 			"Name": "simplifyslice",
 			"Doc": "check for slice simplifications\n\nA slice expression of the form:\n\n\ts[a:len(s)]\n\nwill be simplified to:\n\n\ts[a:]\n\nThis is one of the simplifications that \"gofmt -s\" applies.\n\nThis analyzer ignores generated code.",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/simplifyslice",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/simplifyslice",
 			"Default": true
 		},
 		{
@@ -1241,7 +1241,7 @@
 		{
 			"Name": "stubmethods",
 			"Doc": "detect missing methods and fix with stub implementations\n\nThis analyzer detects type-checking errors due to missing methods\nin assignments from concrete types to interface types, and offers\na suggested fix that will create a set of stub methods so that\nthe concrete type satisfies the interface.\n\nFor example, this function will not compile because the value\nNegativeErr{} does not implement the \"error\" interface:\n\n\tfunc sqrt(x float64) (float64, error) {\n\t\tif x \u003c 0 {\n\t\t\treturn 0, NegativeErr{} // error: missing method\n\t\t}\n\t\t...\n\t}\n\n\ttype NegativeErr struct{}\n\nThis analyzer will suggest a fix to declare this method:\n\n\t// Error implements error.Error.\n\tfunc (NegativeErr) Error() string {\n\t\tpanic(\"unimplemented\")\n\t}\n\n(At least, it appears to behave that way, but technically it\ndoesn't use the SuggestedFix mechanism and the stub is created by\nlogic in gopls's golang.stub function.)",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/stubmethods",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/stubmethods",
 			"Default": true
 		},
 		{
@@ -1265,7 +1265,7 @@
 		{
 			"Name": "undeclaredname",
 			"Doc": "suggested fixes for \"undeclared name: \u003c\u003e\"\n\nThis checker provides suggested fixes for type errors of the\ntype \"undeclared name: \u003c\u003e\". It will either insert a new statement,\nsuch as:\n\n\t\u003c\u003e :=\n\nor a new function declaration, such as:\n\n\tfunc \u003c\u003e(inferred parameters) {\n\t\tpanic(\"implement me!\")\n\t}",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/undeclaredname",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/undeclaredname",
 			"Default": true
 		},
 		{
@@ -1289,7 +1289,7 @@
 		{
 			"Name": "unusedparams",
 			"Doc": "check for unused parameters of functions\n\nThe unusedparams analyzer checks functions to see if there are\nany parameters that are not being used.\n\nTo ensure soundness, it ignores:\n  - \"address-taken\" functions, that is, functions that are used as\n    a value rather than being called directly; their signatures may\n    be required to conform to a func type.\n  - exported functions or methods, since they may be address-taken\n    in another package.\n  - unexported methods whose name matches an interface method\n    declared in the same package, since the method's signature\n    may be required to conform to the interface type.\n  - functions with empty bodies, or containing just a call to panic.\n  - parameters that are unnamed, or named \"_\", the blank identifier.\n\nThe analyzer suggests a fix of replacing the parameter name by \"_\",\nbut in such cases a deeper fix can be obtained by invoking the\n\"Refactor: remove unused parameter\" code action, which will\neliminate the parameter entirely, along with all corresponding\narguments at call sites, while taking care to preserve any side\neffects in the argument expressions; see\nhttps://github.com/golang/tools/releases/tag/gopls%2Fv0.14.",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/unusedparams",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/unusedparams",
 			"Default": true
 		},
 		{
@@ -1301,7 +1301,7 @@
 		{
 			"Name": "unusedvariable",
 			"Doc": "check for unused variables and suggest fixes",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/unusedvariable",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/unusedvariable",
 			"Default": false
 		},
 		{
@@ -1313,7 +1313,7 @@
 		{
 			"Name": "useany",
 			"Doc": "check for constraints that could be simplified to \"any\"",
-			"URL": "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/useany",
+			"URL": "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/useany",
 			"Default": false
 		}
 	],

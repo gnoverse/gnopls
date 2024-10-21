@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/util/bug"
 )
 
 func init() {

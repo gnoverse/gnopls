@@ -15,7 +15,7 @@ import (
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
-	"github.com/gfanton/gnopls/internal/analysisinternal"
+	"github.com/gnoverse/gnopls/internal/analysisinternal"
 )
 
 //go:embed doc.go
@@ -26,7 +26,7 @@ var Analyzer = &analysis.Analyzer{
 	Doc:      analysisinternal.MustExtractDoc(doc, "simplifyslice"),
 	Requires: []*analysis.Analyzer{inspect.Analyzer},
 	Run:      run,
-	URL:      "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/simplifyslice",
+	URL:      "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/simplifyslice",
 }
 
 // Note: We could also simplify slice expressions of the form s[0:b] to s[:b]

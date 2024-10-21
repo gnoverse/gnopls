@@ -19,8 +19,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/robustio"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/robustio"
 )
 
 // RelativeTo is a helper for operations relative to a given directory.

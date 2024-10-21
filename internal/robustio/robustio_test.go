@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/robustio"
+	"github.com/gnoverse/gnopls/internal/robustio"
 )
 
 func checkOSLink(t *testing.T, err error) {

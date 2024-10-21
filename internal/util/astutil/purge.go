@@ -10,7 +10,7 @@ import (
 	"go/scanner"
 	"go/token"
 
-	"github.com/gfanton/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
 )
 
 // PurgeFuncBodies returns a copy of src in which the contents of each

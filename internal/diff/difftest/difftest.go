@@ -4,7 +4,7 @@
 
 // Package difftest supplies a set of tests that will operate on any
 // implementation of a diff algorithm as exposed by
-// "github.com/gfanton/gnopls/internal/diff"
+// "github.com/gnoverse/gnopls/internal/diff"
 package difftest
 
 // There are two kinds of tests, semantic tests, and 'golden data' tests.
@@ -17,7 +17,7 @@ package difftest
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/diff"
 )
 
 const (

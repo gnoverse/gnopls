@@ -10,7 +10,7 @@ package protocol_test
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // TestURIFromPath tests the conversion between URIs and filenames. The test cases

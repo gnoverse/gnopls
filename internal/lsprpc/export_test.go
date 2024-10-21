@@ -11,10 +11,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/event"
-	jsonrpc2_v2 "github.com/gfanton/gnopls/internal/jsonrpc2_v2"
-	"github.com/gfanton/gnopls/internal/xcontext"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/event"
+	jsonrpc2_v2 "github.com/gnoverse/gnopls/internal/jsonrpc2_v2"
+	"github.com/gnoverse/gnopls/internal/xcontext"
 )
 
 const HandshakeMethod = handshakeMethod

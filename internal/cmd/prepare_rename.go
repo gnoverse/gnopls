@@ -10,8 +10,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 // prepareRename implements the prepare_rename verb for gopls.

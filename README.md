@@ -2,9 +2,9 @@
 
 ⚠️  `gnopls` is in an experimental phase; use with caution.
 
-[![PkgGnoDev](https://pkg.gno.dev/badge/github.com/gfanton/gnopls)](https://pkg.gno.dev/github.com/gfanton/gnopls)
+[![PkgGnoDev](https://pkg.gno.dev/badge/github.com/gnoverse/gnopls)](https://pkg.gno.dev/github.com/gnoverse/gnopls)
 
-`gnopls` is a modified fork of https://github.com/gnolang/gnopls.  
+`gnopls` is a modified fork of https://github.com/gnolang/gnopls.
 It provides a wide variety of [IDE features](doc/features/README.md) to any [LSP]-compatible editor.
 
 ## Editors
@@ -20,5 +20,5 @@ For the most part, you should not need to install or update `gnopls`. Your edito
 If you do want to get the latest stable version of `gnopls`, run the following command:
 
 ```sh
-go install github.com/gfanton/gnopls@latest
+go install github.com/gnoverse/gnopls@latest
 ```

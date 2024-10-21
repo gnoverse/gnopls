@@ -11,8 +11,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/doc"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/doc"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 // TestVetSuite ensures that gopls's analyser suite is a superset of vet's.

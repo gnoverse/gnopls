@@ -208,7 +208,7 @@ for documenting and signaling deprecated identifiers.
 
 Default: on.
 
-Package documentation: [deprecated](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/deprecated)
+Package documentation: [deprecated](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/deprecated)
 
 <a id='directive'></a>
 ## `directive`: check Go toolchain directives such as //go:debug
@@ -245,7 +245,7 @@ declaration of a single variable.
 
 Default: on.
 
-Package documentation: [embed](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/embeddirective)
+Package documentation: [embed](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/embeddirective)
 
 <a id='errorsas'></a>
 ## `errorsas`: report passing non-pointer or non-error values to errors.As
@@ -279,7 +279,7 @@ This functionality is similar to https://github.com/sqs/goreturns.
 
 Default: on.
 
-Package documentation: [fillreturns](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/fillreturns)
+Package documentation: [fillreturns](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/fillreturns)
 
 <a id='framepointer'></a>
 ## `framepointer`: report assembly that clobbers the frame pointer before saving it
@@ -349,7 +349,7 @@ inferred from function arguments, or from other type arguments:
 
 Default: on.
 
-Package documentation: [infertypeargs](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/infertypeargs)
+Package documentation: [infertypeargs](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/infertypeargs)
 
 <a id='loopclosure'></a>
 ## `loopclosure`: check references to loop variables from within nested functions
@@ -531,7 +531,7 @@ will turn into
 
 Default: on.
 
-Package documentation: [nonewvars](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/nonewvars)
+Package documentation: [nonewvars](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/nonewvars)
 
 <a id='noresultvalues'></a>
 ## `noresultvalues`: suggested fixes for unexpected return values
@@ -549,7 +549,7 @@ will turn into
 
 Default: on.
 
-Package documentation: [noresultvalues](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/noresultvalues)
+Package documentation: [noresultvalues](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/noresultvalues)
 
 <a id='printf'></a>
 ## `printf`: check consistency of Printf format strings and arguments
@@ -640,7 +640,7 @@ This analyzer ignores generated code.
 
 Default: on.
 
-Package documentation: [simplifycompositelit](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/simplifycompositelit)
+Package documentation: [simplifycompositelit](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/simplifycompositelit)
 
 <a id='simplifyrange'></a>
 ## `simplifyrange`: check for range statement simplifications
@@ -668,7 +668,7 @@ This analyzer ignores generated code.
 
 Default: on.
 
-Package documentation: [simplifyrange](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/simplifyrange)
+Package documentation: [simplifyrange](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/simplifyrange)
 
 <a id='simplifyslice'></a>
 ## `simplifyslice`: check for slice simplifications
@@ -688,7 +688,7 @@ This analyzer ignores generated code.
 
 Default: on.
 
-Package documentation: [simplifyslice](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/simplifyslice)
+Package documentation: [simplifyslice](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/simplifyslice)
 
 <a id='slog'></a>
 ## `slog`: check for invalid structured logging calls
@@ -830,7 +830,7 @@ logic in gopls's golang.stub function.)
 
 Default: on.
 
-Package documentation: [stubmethods](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/stubmethods)
+Package documentation: [stubmethods](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/stubmethods)
 
 <a id='testinggoroutine'></a>
 ## `testinggoroutine`: report calls to (*testing.T).Fatal from goroutines started by a test
@@ -896,7 +896,7 @@ or a new function declaration, such as:
 
 Default: on.
 
-Package documentation: [undeclaredname](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/undeclaredname)
+Package documentation: [undeclaredname](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/undeclaredname)
 
 <a id='unmarshal'></a>
 ## `unmarshal`: report passing non-pointer or non-interface values to unmarshal
@@ -964,7 +964,7 @@ https://github.com/golang/tools/releases/tag/gopls%2Fv0.14.
 
 Default: on.
 
-Package documentation: [unusedparams](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/unusedparams)
+Package documentation: [unusedparams](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/unusedparams)
 
 <a id='unusedresult'></a>
 ## `unusedresult`: check for unused results of calls to some functions
@@ -989,7 +989,7 @@ Package documentation: [unusedresult](https://pkg.go.dev/golang.org/x/tools/go/a
 
 Default: off. Enable by setting `"analyses": {"unusedvariable": true}`.
 
-Package documentation: [unusedvariable](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/unusedvariable)
+Package documentation: [unusedvariable](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/unusedvariable)
 
 <a id='unusedwrite'></a>
 ## `unusedwrite`: checks for unused writes
@@ -1030,6 +1030,6 @@ Package documentation: [unusedwrite](https://pkg.go.dev/golang.org/x/tools/go/an
 
 Default: off. Enable by setting `"analyses": {"useany": true}`.
 
-Package documentation: [useany](https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/useany)
+Package documentation: [useany](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/useany)
 
 <!-- END Analyzers: DO NOT MANUALLY EDIT THIS SECTION -->

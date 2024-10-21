@@ -5,9 +5,9 @@
 package debug
 
 import (
-	"github.com/gfanton/gnopls/internal/event/export/metric"
-	"github.com/gfanton/gnopls/internal/event/label"
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/event/export/metric"
+	"github.com/gnoverse/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
 )
 
 var (

@@ -11,7 +11,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gfanton/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
 )
 
 // PackageIndex stores common data to enable efficient representation of

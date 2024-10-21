@@ -9,7 +9,7 @@ import (
 	"go/types"
 
 	"golang.org/x/tools/go/types/typeutil"
-	"github.com/gfanton/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/aliases"
 )
 
 // ForEachElement calls f for type T and each type reachable from its

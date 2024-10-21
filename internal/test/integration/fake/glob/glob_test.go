@@ -7,7 +7,7 @@ package glob_test
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/test/integration/fake/glob"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake/glob"
 )
 
 func TestParseErrors(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/gfanton/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/gocommand"
 )
 
 func getGoEnv(ctx context.Context, env map[string]interface{}) (map[string]string, error) {

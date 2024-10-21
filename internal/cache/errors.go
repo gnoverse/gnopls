@@ -19,15 +19,15 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/cache/metadata"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	"github.com/gfanton/gnopls/internal/settings"
-	"github.com/gfanton/gnopls/internal/util/bug"
-	"github.com/gfanton/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 )
 
 // goPackagesErrorDiagnostics translates the given go/packages Error into a
@@ -371,7 +371,7 @@ func onlyDeletions(fixes []SuggestedFix) bool {
 }
 
 func typesCodeHref(linkTarget string, code typesinternal.ErrorCode) string {
-	return BuildLink(linkTarget, "github.com/gfanton/gnopls/internal/typesinternal", code.String())
+	return BuildLink(linkTarget, "github.com/gnoverse/gnopls/internal/typesinternal", code.String())
 }
 
 // BuildLink constructs a URL with the given target, path, and anchor.

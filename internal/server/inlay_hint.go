@@ -7,12 +7,12 @@ package server
 import (
 	"context"
 
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/golang"
-	"github.com/gfanton/gnopls/internal/label"
-	"github.com/gfanton/gnopls/internal/mod"
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/golang"
+	"github.com/gnoverse/gnopls/internal/label"
+	"github.com/gnoverse/gnopls/internal/mod"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 func (s *server) InlayHint(ctx context.Context, params *protocol.InlayHintParams) ([]protocol.InlayHint, error) {

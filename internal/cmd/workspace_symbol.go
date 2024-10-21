@@ -10,9 +10,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/settings"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 // workspaceSymbol implements the workspace_symbol verb for gopls.

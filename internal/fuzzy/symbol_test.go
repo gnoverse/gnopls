@@ -10,8 +10,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	. "github.com/gfanton/gnopls/internal/fuzzy"
+	"github.com/gnoverse/gnopls/internal/packages"
+	. "github.com/gnoverse/gnopls/internal/fuzzy"
 )
 
 func TestSymbolMatchIndex(t *testing.T) {

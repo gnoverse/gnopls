@@ -7,8 +7,8 @@ package misc
 import (
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/test/compare"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/test/compare"
 )
 
 // This is a slight variant of TestHoverOnError in definition_test.go

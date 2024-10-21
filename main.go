@@ -15,9 +15,9 @@ import (
 	"context"
 	"os"
 
-	"github.com/gfanton/gnopls/internal/cmd"
-	"github.com/gfanton/gnopls/internal/tool"
-	versionpkg "github.com/gfanton/gnopls/internal/version"
+	"github.com/gnoverse/gnopls/internal/cmd"
+	"github.com/gnoverse/gnopls/internal/tool"
+	versionpkg "github.com/gnoverse/gnopls/internal/version"
 	"golang.org/x/telemetry"
 )
 

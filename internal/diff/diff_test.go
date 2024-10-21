@@ -15,9 +15,9 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	"github.com/gfanton/gnopls/internal/diff"
-	"github.com/gfanton/gnopls/internal/diff/difftest"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/diff/difftest"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestApply(t *testing.T) {

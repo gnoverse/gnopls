@@ -52,9 +52,9 @@ import (
 	"strings"
 
 	"golang.org/x/tools/go/types/objectpath"
-	"github.com/gfanton/gnopls/internal/util/frob"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
-	"github.com/gfanton/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/util/frob"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/aliases"
 )
 
 // An Index records the non-empty method sets of all package-level

@@ -11,10 +11,10 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/util/frob"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/frob"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
 )
 
 // An Index records the test set of a package.

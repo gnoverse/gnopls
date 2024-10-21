@@ -4,7 +4,7 @@
 
 package file
 
-import "github.com/gfanton/gnopls/internal/protocol"
+import "github.com/gnoverse/gnopls/internal/protocol"
 
 // Modification represents a modification to a file.
 type Modification struct {

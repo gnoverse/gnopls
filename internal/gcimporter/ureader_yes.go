@@ -13,8 +13,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/pkgbits"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/pkgbits"
 )
 
 // A pkgReader holds the shared state for reading a unified IR package

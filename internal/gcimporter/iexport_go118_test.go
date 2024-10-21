@@ -20,8 +20,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/gcimporter"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/gcimporter"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 // TODO(rfindley): migrate this to testdata, as has been done in the standard library.

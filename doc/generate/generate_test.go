@@ -7,7 +7,7 @@ package main
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestGenerated(t *testing.T) {

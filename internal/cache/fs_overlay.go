@@ -8,8 +8,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // An overlayFS is a file.Source that keeps track of overlays on top of a

@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/gfanton/gnopls/internal/clonetest"
+	"github.com/gnoverse/gnopls/internal/clonetest"
 )
 
 func Test(t *testing.T) {

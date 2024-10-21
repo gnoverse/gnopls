@@ -14,8 +14,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/proxydir"
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/proxydir"
 )
 
 // Modules is the exporter that produces module layouts.

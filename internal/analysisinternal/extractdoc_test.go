@@ -7,7 +7,7 @@ package analysisinternal_test
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/analysisinternal"
+	"github.com/gnoverse/gnopls/internal/analysisinternal"
 )
 
 func TestExtractDoc(t *testing.T) {

@@ -19,9 +19,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/packagesinternal"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/packagesinternal"
 )
 
 // Declare explicit types for package paths, names, and IDs to ensure that we

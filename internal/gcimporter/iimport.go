@@ -22,8 +22,8 @@ import (
 	"strings"
 
 	"golang.org/x/tools/go/types/objectpath"
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 )
 
 type intReader struct {

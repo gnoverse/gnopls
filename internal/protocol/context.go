@@ -9,11 +9,11 @@ import (
 	"context"
 	"sync"
 
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/event/core"
-	"github.com/gfanton/gnopls/internal/event/export"
-	"github.com/gfanton/gnopls/internal/event/label"
-	"github.com/gfanton/gnopls/internal/xcontext"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/event/core"
+	"github.com/gnoverse/gnopls/internal/event/export"
+	"github.com/gnoverse/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/xcontext"
 )
 
 type contextKey int

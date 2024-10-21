@@ -7,7 +7,7 @@ package golang
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/cache"
 )
 
 func TestParseQuery(t *testing.T) {

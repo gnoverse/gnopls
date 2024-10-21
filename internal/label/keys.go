@@ -6,7 +6,7 @@
 // and events.
 package label
 
-import "github.com/gfanton/gnopls/internal/event/keys"
+import "github.com/gnoverse/gnopls/internal/event/keys"
 
 var (
 	File      = keys.NewString("file", "")

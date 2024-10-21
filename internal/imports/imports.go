@@ -22,7 +22,7 @@ import (
 	"strings"
 
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/event"
 )
 
 // Options is golang.org/x/tools/imports.Options with extra internal-only options.

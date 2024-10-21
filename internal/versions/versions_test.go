@@ -11,8 +11,8 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/testenv"
-	"github.com/gfanton/gnopls/internal/versions"
+	"github.com/gnoverse/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/versions"
 )
 
 func TestIsValid(t *testing.T) {

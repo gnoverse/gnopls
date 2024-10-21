@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"text/tabwriter"
 
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 // subcommands is a helper that may be embedded for commands that delegate to

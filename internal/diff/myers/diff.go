@@ -8,7 +8,7 @@ package myers
 import (
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/diff"
 )
 
 // Sources:

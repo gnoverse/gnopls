@@ -19,14 +19,14 @@ import (
 	"time"
 
 	"golang.org/x/tools/go/gcexportdata"
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/cache/metadata"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/cache/typerefs"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/util/astutil"
-	"github.com/gfanton/gnopls/internal/packagesinternal"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/cache/typerefs"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/astutil"
+	"github.com/gnoverse/gnopls/internal/packagesinternal"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 var (

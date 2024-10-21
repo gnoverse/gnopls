@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gfanton/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/packages"
 )
 
 // Example demonstrates how to load the packages specified on the

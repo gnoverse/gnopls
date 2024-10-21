@@ -7,7 +7,7 @@ package compare
 import (
 	"bytes"
 
-	"github.com/gfanton/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/diff"
 )
 
 // Text returns a formatted unified diff of the edits to go from want to

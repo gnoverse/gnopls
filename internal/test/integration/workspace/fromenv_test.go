@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // Test that setting go.work via environment variables or settings works.

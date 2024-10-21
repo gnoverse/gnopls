@@ -12,17 +12,17 @@ import (
 	"go/types"
 
 	"golang.org/x/tools/go/analysis"
-	"github.com/gfanton/gnopls/internal/analysis/embeddirective"
-	"github.com/gfanton/gnopls/internal/analysis/fillstruct"
-	"github.com/gfanton/gnopls/internal/analysis/stubmethods"
-	"github.com/gfanton/gnopls/internal/analysis/undeclaredname"
-	"github.com/gfanton/gnopls/internal/analysis/unusedparams"
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/util/bug"
-	"github.com/gfanton/gnopls/internal/imports"
+	"github.com/gnoverse/gnopls/internal/analysis/embeddirective"
+	"github.com/gnoverse/gnopls/internal/analysis/fillstruct"
+	"github.com/gnoverse/gnopls/internal/analysis/stubmethods"
+	"github.com/gnoverse/gnopls/internal/analysis/undeclaredname"
+	"github.com/gnoverse/gnopls/internal/analysis/unusedparams"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/imports"
 )
 
 // A fixer is a function that suggests a fix for a diagnostic produced

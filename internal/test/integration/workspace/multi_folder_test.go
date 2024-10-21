@@ -7,7 +7,7 @@ package workspace
 import (
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // TODO(rfindley): update the marker tests to support the concept of multiple

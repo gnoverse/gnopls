@@ -10,9 +10,9 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
 )
 
 var completionGOPATH = flag.String("completion_gopath", "", "if set, use this GOPATH for BenchmarkCompletion")

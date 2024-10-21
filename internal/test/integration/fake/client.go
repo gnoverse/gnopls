@@ -12,8 +12,8 @@ import (
 	"path/filepath"
 	"sync/atomic"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/test/integration/fake/glob"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake/glob"
 )
 
 // ClientHooks are a set of optional hooks called during handling of

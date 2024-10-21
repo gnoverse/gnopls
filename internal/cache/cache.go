@@ -9,9 +9,9 @@ import (
 	"strconv"
 	"sync/atomic"
 
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	"github.com/gfanton/gnopls/internal/imports"
-	"github.com/gfanton/gnopls/internal/memoize"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/imports"
+	"github.com/gnoverse/gnopls/internal/memoize"
 )
 
 // ballast is a 100MB unused byte slice that exists only to reduce garbage

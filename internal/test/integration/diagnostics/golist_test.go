@@ -7,9 +7,9 @@ package diagnostics
 import (
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/cache"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestGoListErrors(t *testing.T) {

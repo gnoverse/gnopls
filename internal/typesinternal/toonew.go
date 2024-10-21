@@ -7,8 +7,8 @@ package typesinternal
 import (
 	"go/types"
 
-	"github.com/gfanton/gnopls/internal/stdlib"
-	"github.com/gfanton/gnopls/internal/versions"
+	"github.com/gnoverse/gnopls/internal/stdlib"
+	"github.com/gnoverse/gnopls/internal/versions"
 )
 
 // TooNewStdSymbols computes the set of package-level symbols

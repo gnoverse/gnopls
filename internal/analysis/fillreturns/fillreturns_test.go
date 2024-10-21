@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	"golang.org/x/tools/go/analysis/analysistest"
-	"github.com/gfanton/gnopls/internal/analysis/fillreturns"
-	"github.com/gfanton/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/analysis/fillreturns"
+	"github.com/gnoverse/gnopls/internal/aliases"
 )
 
 func Test(t *testing.T) {

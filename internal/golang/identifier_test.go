@@ -12,7 +12,7 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/versions"
+	"github.com/gnoverse/gnopls/internal/versions"
 )
 
 func TestSearchForEnclosing(t *testing.T) {

@@ -7,9 +7,9 @@ package export
 import (
 	"context"
 
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/event/core"
-	"github.com/gfanton/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/event/core"
+	"github.com/gnoverse/gnopls/internal/event/label"
 )
 
 // Labels builds an exporter that manipulates the context using the event.

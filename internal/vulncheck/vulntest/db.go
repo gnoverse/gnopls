@@ -16,8 +16,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/vulncheck/osv"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/vulncheck/osv"
 	"golang.org/x/tools/txtar"
 )
 

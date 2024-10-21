@@ -11,10 +11,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	jsonrpc2_v2 "github.com/gfanton/gnopls/internal/jsonrpc2_v2"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	jsonrpc2_v2 "github.com/gnoverse/gnopls/internal/jsonrpc2_v2"
 
-	. "github.com/gfanton/gnopls/internal/lsprpc"
+	. "github.com/gnoverse/gnopls/internal/lsprpc"
 )
 
 // ServerBinder binds incoming connections to a new server.

@@ -19,7 +19,7 @@
 // the details of its internal representation. Because of these
 // differences, re-encoding the imported package may yield a
 // different, but equally valid, encoding of the package.
-package gcimporter // import "github.com/gfanton/gnopls/internal/gcimporter"
+package gcimporter // import "github.com/gnoverse/gnopls/internal/gcimporter"
 
 import (
 	"bufio"

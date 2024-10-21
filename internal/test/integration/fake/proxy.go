@@ -7,7 +7,7 @@ package fake
 import (
 	"fmt"
 
-	"github.com/gfanton/gnopls/internal/proxydir"
+	"github.com/gnoverse/gnopls/internal/proxydir"
 )
 
 // WriteProxy creates a new proxy file tree using the txtar-encoded content,

@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"testing"
 
-	jsonrpc2 "github.com/gfanton/gnopls/internal/jsonrpc2_v2"
+	jsonrpc2 "github.com/gnoverse/gnopls/internal/jsonrpc2_v2"
 )
 
 func TestWireMessage(t *testing.T) {

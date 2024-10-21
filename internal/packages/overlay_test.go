@@ -13,9 +13,9 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/packages/packagestest"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/packages/packagestest"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 const (

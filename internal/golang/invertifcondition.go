@@ -13,7 +13,7 @@ import (
 
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
 )
 
 // invertIfCondition is a singleFileFixFunc that inverts an if/else statement

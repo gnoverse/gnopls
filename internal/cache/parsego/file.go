@@ -10,8 +10,8 @@ import (
 	"go/scanner"
 	"go/token"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
 )
 
 // A File contains the results of parsing a Go file.

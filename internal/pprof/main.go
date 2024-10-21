@@ -16,7 +16,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/gfanton/gnopls/internal/pprof"
+	"github.com/gnoverse/gnopls/internal/pprof"
 )
 
 func main() {

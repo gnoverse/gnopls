@@ -18,8 +18,8 @@ import (
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
 	"golang.org/x/tools/go/types/typeutil"
-	"github.com/gfanton/gnopls/internal/diff"
-	"github.com/gfanton/gnopls/internal/refactor/inline"
+	"github.com/gnoverse/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/refactor/inline"
 )
 
 const Doc = `inline calls to functions with "inlineme" doc comment`
@@ -27,7 +27,7 @@ const Doc = `inline calls to functions with "inlineme" doc comment`
 var Analyzer = &analysis.Analyzer{
 	Name:      "inline",
 	Doc:       Doc,
-	URL:       "https://pkg.go.dev/github.com/gfanton/gnopls/internal/refactor/inline/analyzer",
+	URL:       "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/refactor/inline/analyzer",
 	Run:       run,
 	FactTypes: []analysis.Fact{new(inlineMeFact)},
 	Requires:  []*analysis.Analyzer{inspect.Analyzer},

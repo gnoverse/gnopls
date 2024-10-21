@@ -11,10 +11,10 @@ import (
 	"go/types"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/golang"
-	"github.com/gfanton/gnopls/internal/golang/completion/snippet"
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/golang"
+	"github.com/gnoverse/gnopls/internal/golang/completion/snippet"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // addStatementCandidates adds full statement completion candidates

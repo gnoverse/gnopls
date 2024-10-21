@@ -16,7 +16,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/gfanton/gnopls/internal/util/pathutil"
+	"github.com/gnoverse/gnopls/internal/util/pathutil"
 )
 
 // A DocumentURI is the URI of a client editor document.

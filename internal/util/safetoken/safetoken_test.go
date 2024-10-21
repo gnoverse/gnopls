@@ -12,9 +12,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestWorkaroundIssue57490(t *testing.T) {
@@ -84,7 +84,7 @@ func TestGoplsSourceDoesNotCallTokenFileMethods(t *testing.T) {
 		"GOFLAGS=-mod=mod",
 	)
 
-	pkgs, err := packages.Load(cfg, "go/token", "github.com/gfanton/gnopls/...")
+	pkgs, err := packages.Load(cfg, "go/token", "github.com/gnoverse/gnopls/...")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -116,7 +116,7 @@ func TestGoplsSourceDoesNotCallTokenFileMethods(t *testing.T) {
 
 	for _, pkg := range pkgs {
 		switch pkg.PkgPath {
-		case "go/token", "github.com/gfanton/gnopls/internal/util/safetoken":
+		case "go/token", "github.com/gnoverse/gnopls/internal/util/safetoken":
 			continue // allow calls within these packages
 		}
 

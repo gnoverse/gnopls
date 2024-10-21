@@ -26,17 +26,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/cache/metadata"
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/imports"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/settings"
-	"github.com/gfanton/gnopls/internal/util/moremaps"
-	"github.com/gfanton/gnopls/internal/util/pathutil"
-	"github.com/gfanton/gnopls/internal/vulncheck"
-	"github.com/gfanton/gnopls/internal/xcontext"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/imports"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/util/moremaps"
+	"github.com/gnoverse/gnopls/internal/util/pathutil"
+	"github.com/gnoverse/gnopls/internal/vulncheck"
+	"github.com/gnoverse/gnopls/internal/xcontext"
 )
 
 // A Folder represents an LSP workspace folder, together with its per-folder

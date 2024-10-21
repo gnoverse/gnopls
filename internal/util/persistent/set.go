@@ -4,7 +4,7 @@
 
 package persistent
 
-import "github.com/gfanton/gnopls/internal/util/constraints"
+import "github.com/gnoverse/gnopls/internal/util/constraints"
 
 // Set is a collection of elements of type K.
 //

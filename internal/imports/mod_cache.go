@@ -13,8 +13,8 @@ import (
 	"sync"
 
 	"golang.org/x/mod/module"
-	"github.com/gfanton/gnopls/internal/gopathwalk"
-	"github.com/gfanton/gnopls/internal/stdlib"
+	"github.com/gnoverse/gnopls/internal/gopathwalk"
+	"github.com/gnoverse/gnopls/internal/stdlib"
 )
 
 // To find packages to import, the resolver needs to know about all of

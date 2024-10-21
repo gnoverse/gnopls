@@ -11,10 +11,10 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/gfanton/gnopls/internal/protocol"
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestHoverUnexported(t *testing.T) {
@@ -354,7 +354,7 @@ package main
 var A int
 // [fmt.Println]
 var B int
-// [github.com/gfanton/gnopls/internal/packages.Package.String]
+// [github.com/gnoverse/gnopls/internal/packages.Package.String]
 var C int
 `
 	var tests = []struct {
@@ -363,7 +363,7 @@ var C int
 	}{
 		{"A", "fmt"},
 		{"B", "fmt#Println"},
-		{"C", "github.com/gfanton/gnopls/internal/packages#Package.String"},
+		{"C", "github.com/gnoverse/gnopls/internal/packages#Package.String"},
 	}
 	for _, test := range tests {
 		Run(t, input, func(t *testing.T, env *Env) {

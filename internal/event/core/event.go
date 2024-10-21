@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/event/label"
 )
 
 // Event holds the information about an event of note that occurred.

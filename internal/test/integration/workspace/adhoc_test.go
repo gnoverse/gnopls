@@ -7,7 +7,7 @@ package workspace
 import (
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // Test for golang/go#57209: editing a file in an ad-hoc package should not

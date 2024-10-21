@@ -20,10 +20,10 @@ import (
 	"time"
 
 	"golang.org/x/mod/module"
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/gopathwalk"
-	"github.com/gfanton/gnopls/internal/proxydir"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/gopathwalk"
+	"github.com/gnoverse/gnopls/internal/proxydir"
+	"github.com/gnoverse/gnopls/internal/testenv"
 	"golang.org/x/tools/txtar"
 )
 

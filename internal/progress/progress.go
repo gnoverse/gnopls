@@ -16,10 +16,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gfanton/gnopls/internal/label"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/xcontext"
+	"github.com/gnoverse/gnopls/internal/label"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/xcontext"
 )
 
 // NewTracker returns a new Tracker that reports progress to the

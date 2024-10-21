@@ -11,8 +11,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/tool"
 )
 
 // links implements the links verb for gopls.

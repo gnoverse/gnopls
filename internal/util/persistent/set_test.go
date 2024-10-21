@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/util/constraints"
-	"github.com/gfanton/gnopls/internal/util/persistent"
+	"github.com/gnoverse/gnopls/internal/util/constraints"
+	"github.com/gnoverse/gnopls/internal/util/persistent"
 )
 
 func TestSet(t *testing.T) {

@@ -17,8 +17,8 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
 )
 
 // repos holds shared repositories for use in benchmarks.

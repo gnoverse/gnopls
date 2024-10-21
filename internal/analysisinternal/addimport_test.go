@@ -17,7 +17,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/tools/go/analysis"
-	"github.com/gfanton/gnopls/internal/analysisinternal"
+	"github.com/gnoverse/gnopls/internal/analysisinternal"
 )
 
 func TestAddImport(t *testing.T) {

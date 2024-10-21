@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/gfanton/gnopls/internal/clonetest"
-	. "github.com/gfanton/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/clonetest"
+	. "github.com/gnoverse/gnopls/internal/settings"
 )
 
 func TestDefaultsEquivalence(t *testing.T) {

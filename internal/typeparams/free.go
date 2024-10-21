@@ -7,7 +7,7 @@ package typeparams
 import (
 	"go/types"
 
-	"github.com/gfanton/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/aliases"
 )
 
 // Free is a memoization of the set of free type parameters within a

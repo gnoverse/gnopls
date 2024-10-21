@@ -24,12 +24,12 @@ import (
 
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/fuzzy"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/analysisinternal"
-	"github.com/gfanton/gnopls/internal/typeparams"
-	"github.com/gfanton/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/fuzzy"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/analysisinternal"
+	"github.com/gnoverse/gnopls/internal/typeparams"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 )
 
 // Diagnose computes diagnostics for fillable struct literals overlapping with

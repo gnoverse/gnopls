@@ -14,7 +14,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/typeparams"
+	"github.com/gnoverse/gnopls/internal/typeparams"
 )
 
 func is[T any](x any) bool {

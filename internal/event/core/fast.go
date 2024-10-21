@@ -7,8 +7,8 @@ package core
 import (
 	"context"
 
-	"github.com/gfanton/gnopls/internal/event/keys"
-	"github.com/gfanton/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/event/keys"
+	"github.com/gnoverse/gnopls/internal/event/label"
 )
 
 // Log1 takes a message and one label delivers a log event to the exporter.

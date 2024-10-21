@@ -12,8 +12,8 @@ import (
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
-	"github.com/gfanton/gnopls/internal/typeparams"
-	"github.com/gfanton/gnopls/internal/versions"
+	"github.com/gnoverse/gnopls/internal/typeparams"
+	"github.com/gnoverse/gnopls/internal/versions"
 )
 
 const Doc = `check for unnecessary type arguments in call expressions
@@ -33,7 +33,7 @@ var Analyzer = &analysis.Analyzer{
 	Doc:      Doc,
 	Requires: []*analysis.Analyzer{inspect.Analyzer},
 	Run:      run,
-	URL:      "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/infertypeargs",
+	URL:      "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/infertypeargs",
 }
 
 func run(pass *analysis.Pass) (any, error) {

@@ -37,10 +37,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/event/export"
-	"github.com/gfanton/gnopls/internal/event/export/metric"
-	"github.com/gfanton/gnopls/internal/event/export/ocagent"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/event/export"
+	"github.com/gnoverse/gnopls/internal/event/export/metric"
+	"github.com/gnoverse/gnopls/internal/event/export/ocagent"
 )
 
 type testExporter struct {

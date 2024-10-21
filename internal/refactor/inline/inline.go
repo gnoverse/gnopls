@@ -21,8 +21,8 @@ import (
 	"golang.org/x/tools/go/ast/astutil"
 	"golang.org/x/tools/go/types/typeutil"
 	"golang.org/x/tools/imports"
-	internalastutil "github.com/gfanton/gnopls/internal/astutil"
-	"github.com/gfanton/gnopls/internal/typeparams"
+	internalastutil "github.com/gnoverse/gnopls/internal/astutil"
+	"github.com/gnoverse/gnopls/internal/typeparams"
 )
 
 // A Caller describes the function call and its enclosing context.
@@ -329,7 +329,7 @@ func (st *state) inline() (*Result, error) {
 	// That will be faster, and also less prone to nondeterminism
 	// if there are bugs in our logic for import maintenance.
 	//
-	// However, github.com/gfanton/gnopls/internal/imports.ApplyFixes is
+	// However, github.com/gnoverse/gnopls/internal/imports.ApplyFixes is
 	// too simple as it requires the caller to have figured out
 	// all the logical edits. In our case, we know all the new
 	// imports that are needed (see newImports), each of which can

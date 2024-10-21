@@ -18,14 +18,14 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	"github.com/gfanton/gnopls/internal/test/integration/fake/glob"
-	"github.com/gfanton/gnopls/internal/util/bug"
-	"github.com/gfanton/gnopls/internal/util/pathutil"
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
-	"github.com/gfanton/gnopls/internal/jsonrpc2/servertest"
-	"github.com/gfanton/gnopls/internal/xcontext"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake/glob"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/util/pathutil"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2/servertest"
+	"github.com/gnoverse/gnopls/internal/xcontext"
 )
 
 // Editor is a fake client editor.  It keeps track of client state and can be

@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"golang.org/x/tools/go/analysis/analysistest"
-	inlineanalyzer "github.com/gfanton/gnopls/internal/refactor/inline/analyzer"
+	inlineanalyzer "github.com/gnoverse/gnopls/internal/refactor/inline/analyzer"
 )
 
 func TestAnalyzer(t *testing.T) {

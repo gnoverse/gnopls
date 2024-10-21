@@ -7,7 +7,7 @@ package file
 import (
 	"fmt"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // Kind describes the kind of the file in question.

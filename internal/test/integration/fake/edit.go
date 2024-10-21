@@ -5,8 +5,8 @@
 package fake
 
 import (
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/diff"
 )
 
 // NewEdit creates an edit replacing all content between the 0-based

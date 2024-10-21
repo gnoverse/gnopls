@@ -11,8 +11,8 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 // Assert that Obj exists on Alias.

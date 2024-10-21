@@ -17,9 +17,9 @@ import (
 
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/ast/astutil"
-	"github.com/gfanton/gnopls/internal/util/safetoken"
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/analysisinternal"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/analysisinternal"
 )
 
 //go:embed doc.go
@@ -31,7 +31,7 @@ var Analyzer = &analysis.Analyzer{
 	Requires:         []*analysis.Analyzer{},
 	Run:              run,
 	RunDespiteErrors: true,
-	URL:              "https://pkg.go.dev/github.com/gfanton/gnopls/internal/analysis/undeclaredname",
+	URL:              "https://pkg.go.dev/github.com/gnoverse/gnopls/internal/analysis/undeclaredname",
 }
 
 // The prefix for this error message changed in Go 1.20.

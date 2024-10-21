@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"unicode/utf8"
 
-	"github.com/gfanton/gnopls/internal/diff/lcs"
+	"github.com/gnoverse/gnopls/internal/diff/lcs"
 )
 
 // Strings computes the differences between two strings.

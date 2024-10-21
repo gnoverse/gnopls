@@ -13,8 +13,8 @@ import (
 	"log"
 	"text/template"
 
-	"github.com/gfanton/gnopls/internal/protocol/command/commandmeta"
-	"github.com/gfanton/gnopls/internal/imports"
+	"github.com/gnoverse/gnopls/internal/protocol/command/commandmeta"
+	"github.com/gnoverse/gnopls/internal/imports"
 )
 
 const src = `// Copyright 2024 The Go Authors. All rights reserved.
@@ -109,7 +109,7 @@ func Generate() ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("loading command data: %v", err)
 	}
-	const thispkg = "github.com/gfanton/gnopls/internal/protocol/command"
+	const thispkg = "github.com/gnoverse/gnopls/internal/protocol/command"
 	qf := func(p *types.Package) string {
 		if p.Path() == thispkg {
 			return ""
@@ -156,7 +156,7 @@ func Generate() ([]byte, error) {
 		Imports: map[string]bool{
 			"context": true,
 			"fmt":     true,
-			"github.com/gfanton/gnopls/internal/protocol": true,
+			"github.com/gnoverse/gnopls/internal/protocol": true,
 		},
 	}
 	for _, c := range d.Commands {

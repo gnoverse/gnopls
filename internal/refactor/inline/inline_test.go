@@ -24,11 +24,11 @@ import (
 
 	"golang.org/x/tools/go/ast/astutil"
 	"golang.org/x/tools/go/expect"
-	"github.com/gfanton/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/packages"
 	"golang.org/x/tools/go/types/typeutil"
-	"github.com/gfanton/gnopls/internal/diff"
-	"github.com/gfanton/gnopls/internal/refactor/inline"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/refactor/inline"
+	"github.com/gnoverse/gnopls/internal/testenv"
 	"golang.org/x/tools/txtar"
 )
 

@@ -13,7 +13,7 @@ import (
 	"strings"
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/typeparams"
+	. "github.com/gnoverse/gnopls/internal/typeparams"
 )
 
 func TestStructuralTerms(t *testing.T) {

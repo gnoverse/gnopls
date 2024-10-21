@@ -7,7 +7,7 @@ package main
 
 import (
 	"golang.org/x/tools/go/analysis/singlechecker"
-	"github.com/gfanton/gnopls/internal/analysis/unusedparams"
+	"github.com/gnoverse/gnopls/internal/analysis/unusedparams"
 )
 
 func main() { singlechecker.Main(unusedparams.Analyzer) }

@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"golang.org/x/tools/go/analysis/analysistest"
-	"github.com/gfanton/gnopls/internal/analysis/noresultvalues"
+	"github.com/gnoverse/gnopls/internal/analysis/noresultvalues"
 )
 
 func Test(t *testing.T) {

@@ -7,7 +7,7 @@ package misc
 import (
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // Smoke test that simultaneous editing sessions in the same workspace works.

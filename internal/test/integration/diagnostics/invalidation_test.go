@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // Test for golang/go#50267: diagnostics should be re-sent after a file is

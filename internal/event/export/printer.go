@@ -7,9 +7,9 @@ package export
 import (
 	"io"
 
-	"github.com/gfanton/gnopls/internal/event/core"
-	"github.com/gfanton/gnopls/internal/event/keys"
-	"github.com/gfanton/gnopls/internal/event/label"
+	"github.com/gnoverse/gnopls/internal/event/core"
+	"github.com/gnoverse/gnopls/internal/event/keys"
+	"github.com/gnoverse/gnopls/internal/event/label"
 )
 
 type Printer struct {

@@ -38,13 +38,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/cmd"
-	"github.com/gfanton/gnopls/internal/debug"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/util/bug"
-	"github.com/gfanton/gnopls/internal/version"
-	"github.com/gfanton/gnopls/internal/testenv"
-	"github.com/gfanton/gnopls/internal/tool"
+	"github.com/gnoverse/gnopls/internal/cmd"
+	"github.com/gnoverse/gnopls/internal/debug"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/version"
+	"github.com/gnoverse/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/tool"
 	"golang.org/x/tools/txtar"
 )
 

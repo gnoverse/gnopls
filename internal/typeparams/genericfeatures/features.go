@@ -12,7 +12,7 @@ import (
 	"strings"
 
 	"golang.org/x/tools/go/ast/inspector"
-	"github.com/gfanton/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/aliases"
 )
 
 // Features is a set of flags reporting which features of generic Go code a

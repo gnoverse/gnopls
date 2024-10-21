@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"golang.org/x/mod/semver"
-	"github.com/gfanton/gnopls/internal/vulncheck/osv"
+	"github.com/gnoverse/gnopls/internal/vulncheck/osv"
 	"gopkg.in/yaml.v3"
 )
 

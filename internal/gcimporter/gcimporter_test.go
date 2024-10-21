@@ -27,9 +27,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/goroot"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/goroot"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestMain(m *testing.M) {

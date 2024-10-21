@@ -10,7 +10,7 @@ package govulncheck
 import (
 	"time"
 
-	"github.com/gfanton/gnopls/internal/vulncheck/osv"
+	"github.com/gnoverse/gnopls/internal/vulncheck/osv"
 )
 
 const (

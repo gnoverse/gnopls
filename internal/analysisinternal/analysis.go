@@ -17,7 +17,7 @@ import (
 	"strconv"
 
 	"golang.org/x/tools/go/analysis"
-	"github.com/gfanton/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/aliases"
 )
 
 func TypeErrorEndPos(fset *token.FileSet, src []byte, start token.Pos) token.Pos {

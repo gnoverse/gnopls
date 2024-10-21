@@ -7,7 +7,7 @@ package protocol
 import (
 	"fmt"
 
-	"github.com/gfanton/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/diff"
 )
 
 // EditsFromDiffEdits converts diff.Edits to a non-nil slice of LSP TextEdits.

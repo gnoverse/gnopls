@@ -7,7 +7,7 @@ package facts
 import (
 	"go/types"
 
-	"github.com/gfanton/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/aliases"
 )
 
 // importMap computes the import map for a package by traversing the

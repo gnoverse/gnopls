@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/gfanton/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/event"
 )
 
 // Handler is invoked to handle incoming requests.

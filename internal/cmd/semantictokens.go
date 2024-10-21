@@ -13,8 +13,8 @@ import (
 	"os"
 	"unicode/utf8"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/settings"
 )
 
 // generate semantic tokens and interpolate them in the file

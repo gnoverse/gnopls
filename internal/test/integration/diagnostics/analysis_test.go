@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/protocol"
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // Test for the timeformat analyzer, following golang/vscode-go#2406.

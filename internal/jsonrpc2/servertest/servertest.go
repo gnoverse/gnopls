@@ -13,7 +13,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
 )
 
 // Connector is the interface used to connect to a server.

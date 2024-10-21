@@ -17,11 +17,11 @@ import (
 	"time"
 
 	"golang.org/x/sync/errgroup"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/memoize"
-	"github.com/gfanton/gnopls/internal/tokeninternal"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/memoize"
+	"github.com/gnoverse/gnopls/internal/tokeninternal"
 )
 
 // This file contains an implementation of an LRU parse cache, that offsets the

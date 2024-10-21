@@ -11,10 +11,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gfanton/gnopls/internal/cache/metadata"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/util/astutil"
-	"github.com/gfanton/gnopls/internal/util/frob"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/util/astutil"
+	"github.com/gnoverse/gnopls/internal/util/frob"
 )
 
 // Encode analyzes the Go syntax trees of a package, constructs a

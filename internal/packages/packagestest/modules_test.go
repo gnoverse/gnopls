@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/packages/packagestest"
+	"github.com/gnoverse/gnopls/internal/packages/packagestest"
 )
 
 func TestModulesExport(t *testing.T) {

@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/memoize"
+	"github.com/gnoverse/gnopls/internal/memoize"
 )
 
 func TestGet(t *testing.T) {

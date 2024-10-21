@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 func TestPostfixSnippetCompletion(t *testing.T) {

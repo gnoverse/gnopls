@@ -11,7 +11,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/packages/packagestest"
+	"github.com/gnoverse/gnopls/internal/packages/packagestest"
 )
 
 var testdata = []packagestest.Module{{

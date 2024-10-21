@@ -12,12 +12,12 @@ import (
 	"go/types"
 	"sync"
 
-	"github.com/gfanton/gnopls/internal/cache/metadata"
-	"github.com/gfanton/gnopls/internal/cache/methodsets"
-	"github.com/gfanton/gnopls/internal/cache/parsego"
-	"github.com/gfanton/gnopls/internal/cache/testfuncs"
-	"github.com/gfanton/gnopls/internal/cache/xrefs"
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/cache/methodsets"
+	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/cache/testfuncs"
+	"github.com/gnoverse/gnopls/internal/cache/xrefs"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // Convenient aliases for very heavily used types.

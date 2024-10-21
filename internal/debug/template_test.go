@@ -20,11 +20,11 @@ import (
 	"testing"
 
 	"github.com/jba/templatecheck"
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/debug"
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/debug"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 var templates = map[string]struct {
@@ -62,7 +62,7 @@ func TestTemplates(t *testing.T) {
 		"GOFLAGS=-mod=mod",
 	)
 
-	pkgs, err := packages.Load(cfg, "github.com/gfanton/gnopls/internal/debug")
+	pkgs, err := packages.Load(cfg, "github.com/gnoverse/gnopls/internal/debug")
 	if err != nil {
 		t.Fatal(err)
 	}

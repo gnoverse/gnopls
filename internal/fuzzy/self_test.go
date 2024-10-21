@@ -7,7 +7,7 @@ package fuzzy_test
 import (
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/fuzzy"
+	. "github.com/gnoverse/gnopls/internal/fuzzy"
 )
 
 func BenchmarkSelf_Matcher(b *testing.B) {

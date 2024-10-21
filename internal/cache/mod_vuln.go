@@ -15,14 +15,14 @@ import (
 
 	"golang.org/x/mod/semver"
 	"golang.org/x/sync/errgroup"
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/cache/metadata"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/vulncheck"
-	"github.com/gfanton/gnopls/internal/vulncheck/govulncheck"
-	"github.com/gfanton/gnopls/internal/vulncheck/osv"
-	isem "github.com/gfanton/gnopls/internal/vulncheck/semver"
-	"github.com/gfanton/gnopls/internal/memoize"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/vulncheck"
+	"github.com/gnoverse/gnopls/internal/vulncheck/govulncheck"
+	"github.com/gnoverse/gnopls/internal/vulncheck/osv"
+	isem "github.com/gnoverse/gnopls/internal/vulncheck/semver"
+	"github.com/gnoverse/gnopls/internal/memoize"
 	"golang.org/x/vuln/scan"
 )
 

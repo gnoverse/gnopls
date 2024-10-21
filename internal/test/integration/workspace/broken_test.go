@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/server"
-	. "github.com/gfanton/gnopls/internal/test/integration"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/server"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 // This file holds various tests for UX with respect to broken workspaces.

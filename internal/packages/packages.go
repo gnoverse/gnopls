@@ -27,11 +27,11 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/packagesinternal"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/versions"
 	"golang.org/x/tools/go/gcexportdata"
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/packagesinternal"
-	"github.com/gfanton/gnopls/internal/typesinternal"
-	"github.com/gfanton/gnopls/internal/versions"
 )
 
 // A LoadMode controls the amount of detail to return when loading.
@@ -1489,7 +1489,7 @@ func (ld *loader) loadFromExportData(lpkg *loaderPackage) error {
 		viewLen++
 	}
 	if viewLen != len(view) {
-		log.Panicf("github.com/gfanton/gnopls/internal/packages: unexpected new packages during load of %s", lpkg.PkgPath)
+		log.Panicf("github.com/gnoverse/gnopls/internal/packages: unexpected new packages during load of %s", lpkg.PkgPath)
 	}
 
 	lpkg.Types = tpkg

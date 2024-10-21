@@ -9,7 +9,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // format implements the format verb for gopls.

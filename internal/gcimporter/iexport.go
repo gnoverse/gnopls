@@ -241,8 +241,8 @@ import (
 	"strings"
 
 	"golang.org/x/tools/go/types/objectpath"
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/tokeninternal"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/tokeninternal"
 )
 
 // IExportShallow encodes "shallow" export data for the specified package.

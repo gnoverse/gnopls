@@ -11,11 +11,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/cache"
-	"github.com/gfanton/gnopls/internal/lsprpc"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
-	"github.com/gfanton/gnopls/internal/jsonrpc2/servertest"
+	"github.com/gnoverse/gnopls/internal/cache"
+	"github.com/gnoverse/gnopls/internal/lsprpc"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2/servertest"
 )
 
 // github.com/pilosa/pilosa is a repository that has historically caused

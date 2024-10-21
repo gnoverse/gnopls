@@ -21,9 +21,9 @@ import (
 	"sort"
 
 	"golang.org/x/tools/go/gcexportdata"
-	"github.com/gfanton/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/packages"
 	"golang.org/x/tools/go/types/typeutil"
-	"github.com/gfanton/gnopls/internal/gcimporter"
+	"github.com/gnoverse/gnopls/internal/gcimporter"
 )
 
 func main() {

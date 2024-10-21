@@ -18,7 +18,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/gfanton/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/packages"
 )
 
 const runAsDriverEnv = "DRIVERTEST_RUN_AS_DRIVER"

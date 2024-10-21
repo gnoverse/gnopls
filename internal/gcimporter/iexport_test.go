@@ -34,10 +34,10 @@ import (
 	"golang.org/x/tools/go/buildutil"
 	"golang.org/x/tools/go/gcexportdata"
 	"golang.org/x/tools/go/loader"
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/gcimporter"
-	"github.com/gfanton/gnopls/internal/testenv"
-	"github.com/gfanton/gnopls/internal/typeparams/genericfeatures"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/gcimporter"
+	"github.com/gnoverse/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/typeparams/genericfeatures"
 )
 
 func readExportFile(filename string) ([]byte, error) {

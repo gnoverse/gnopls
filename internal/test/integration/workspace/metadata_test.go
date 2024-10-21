@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/test/integration"
+	. "github.com/gnoverse/gnopls/internal/test/integration"
 )
 
 // TODO(rfindley): move workspace tests related to metadata bugs into this

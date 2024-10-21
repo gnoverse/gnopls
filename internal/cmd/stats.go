@@ -18,13 +18,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/filecache"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/protocol/command"
-	"github.com/gfanton/gnopls/internal/settings"
-	bugpkg "github.com/gfanton/gnopls/internal/util/bug"
-	versionpkg "github.com/gfanton/gnopls/internal/version"
-	"github.com/gfanton/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/filecache"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol/command"
+	"github.com/gnoverse/gnopls/internal/settings"
+	bugpkg "github.com/gnoverse/gnopls/internal/util/bug"
+	versionpkg "github.com/gnoverse/gnopls/internal/version"
+	"github.com/gnoverse/gnopls/internal/event"
 )
 
 type stats struct {

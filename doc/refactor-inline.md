@@ -153,7 +153,7 @@ challenges involved in sound inlining:
   cautious about eliminating references to local variables.
 
 This is just a taste of the problem domain. If you're curious, the
-documentation for [github.com/gfanton/gnopls/internal/refactor/inline](https://pkg.go.dev/github.com/gfanton/gnopls/internal/refactor/inline) has
+documentation for [github.com/gnoverse/gnopls/internal/refactor/inline](https://pkg.go.dev/github.com/gnoverse/gnopls/internal/refactor/inline) has
 more detail. All of this is to say, it's a complex problem, and we aim
 for correctness first of all. We've already implemented a number of
 important "tidiness optimizations" and we expect more to follow.

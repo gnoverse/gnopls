@@ -14,9 +14,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/event/export/eventtest"
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
-	"github.com/gfanton/gnopls/internal/stack/stacktest"
+	"github.com/gnoverse/gnopls/internal/event/export/eventtest"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/stack/stacktest"
 )
 
 var logRPC = flag.Bool("logrpc", false, "Enable jsonrpc2 communication logging")

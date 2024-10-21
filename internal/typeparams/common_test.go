@@ -11,7 +11,7 @@ import (
 	"go/types"
 	"testing"
 
-	. "github.com/gfanton/gnopls/internal/typeparams"
+	. "github.com/gnoverse/gnopls/internal/typeparams"
 )
 
 func TestGetIndexExprData(t *testing.T) {

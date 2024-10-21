@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/pprof"
+	"github.com/gnoverse/gnopls/internal/pprof"
 )
 
 func TestTotalTime(t *testing.T) {

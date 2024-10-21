@@ -15,9 +15,9 @@ import (
 	"testing"
 
 	"golang.org/x/sync/errgroup"
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/gcimporter"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/gcimporter"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 // TestShallowStd type-checks the standard library using shallow export data.

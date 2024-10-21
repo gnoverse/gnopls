@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 // This test loads the metadata for the standard library,

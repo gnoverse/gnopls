@@ -25,10 +25,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/packages"
-	"github.com/gfanton/gnopls/internal/packages/packagestest"
-	"github.com/gfanton/gnopls/internal/packagesinternal"
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/packages/packagestest"
+	"github.com/gnoverse/gnopls/internal/packagesinternal"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 // testCtx is canceled when the test binary is about to time out.

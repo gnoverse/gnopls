@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"path/filepath"
 
-	"github.com/gfanton/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/gocommand"
 )
 
 // determineRootDirs returns a mapping from absolute directories that could

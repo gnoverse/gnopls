@@ -9,8 +9,8 @@ import (
 	"go/ast"
 	"go/types"
 
-	"github.com/gfanton/gnopls/internal/aliases"
-	"github.com/gfanton/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 )
 
 // ErrNoIdentFound is error returned when no identifier is found at a particular position

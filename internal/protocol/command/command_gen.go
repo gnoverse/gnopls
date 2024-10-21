@@ -15,7 +15,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 // Symbolic names for gopls commands, corresponding to methods of [Interface].

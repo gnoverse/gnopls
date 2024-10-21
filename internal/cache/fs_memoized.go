@@ -10,11 +10,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gfanton/gnopls/internal/file"
-	"github.com/gfanton/gnopls/internal/label"
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/robustio"
+	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/label"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/robustio"
 )
 
 // A memoizedFS is a file source that memoizes reads, to reduce IO.

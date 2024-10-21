@@ -11,7 +11,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/testenv"
+	"github.com/gnoverse/gnopls/internal/testenv"
 )
 
 func TestLicenses(t *testing.T) {

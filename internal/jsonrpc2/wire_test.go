@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2"
 )
 
 var wireIDTestData = []struct {

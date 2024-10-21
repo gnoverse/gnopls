@@ -21,8 +21,8 @@ import (
 	"sync"
 	"unicode"
 
-	"github.com/gfanton/gnopls/internal/gocommand"
-	"github.com/gfanton/gnopls/internal/packagesinternal"
+	"github.com/gnoverse/gnopls/internal/gocommand"
+	"github.com/gnoverse/gnopls/internal/packagesinternal"
 )
 
 // debug controls verbose logging.

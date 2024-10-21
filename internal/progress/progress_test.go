@@ -10,7 +10,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/protocol"
 )
 
 type fakeClient struct {

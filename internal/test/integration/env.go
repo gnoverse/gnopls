@@ -11,9 +11,9 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/protocol"
-	"github.com/gfanton/gnopls/internal/test/integration/fake"
-	"github.com/gfanton/gnopls/internal/jsonrpc2/servertest"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/test/integration/fake"
+	"github.com/gnoverse/gnopls/internal/jsonrpc2/servertest"
 )
 
 // Env holds the building blocks of an editor testing environment, providing

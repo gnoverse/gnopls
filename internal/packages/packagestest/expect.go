@@ -14,7 +14,7 @@ import (
 	"strings"
 
 	"golang.org/x/tools/go/expect"
-	"github.com/gfanton/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/internal/packages"
 )
 
 const (

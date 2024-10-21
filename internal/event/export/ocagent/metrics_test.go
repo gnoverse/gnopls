@@ -9,8 +9,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/gfanton/gnopls/internal/event"
-	"github.com/gfanton/gnopls/internal/event/keys"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/event/keys"
 )
 
 func TestEncodeMetric(t *testing.T) {
