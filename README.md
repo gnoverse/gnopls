@@ -2,7 +2,7 @@
 
 `gnopls` is a modified fork of https://github.com/gnolang/gopls
 
-⚠️  `gnopls` i sin an experimental phase; use with caution.
+⚠️  `gnopls` is in an experimental phase; use with caution.
 
 [![PkgGnoDev](https://pkg.gno.dev/badge/github.com/gnoverse/gnopls)](https://pkg.gno.dev/github.com/gnoverse/gnopls)
 
