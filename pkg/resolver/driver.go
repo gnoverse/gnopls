@@ -24,6 +24,8 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 		"overlay", req.Overlay,
 	)
 
+	// Inject examples
+
 	gnoRoot, err := gnoenv.GuessRootDir()
 	if err != nil {
 		logger.Warn("can't find gno root, examples and std packages are ignored", slog.String("error", err.Error()))
@@ -37,6 +39,8 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 
 	pkgsCache := map[string]*packages.Package{}
 	res := packages.DriverResponse{}
+
+	// Inject stdlibs
 
 	if gnoRoot != "" {
 		libsRoot := filepath.Join(gnoRoot, "gnovm", "stdlibs")
@@ -94,6 +98,8 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 		}
 	}
 
+	// Discover packages
+
 	pkgs := gnomod.PkgList{}
 	for _, target := range targets {
 		dir, file := filepath.Split(target)
@@ -124,6 +130,8 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 	}
 	logger.Info("discovered packages", slog.Int("count", len(pkgs)))
 
+	// Convert packages
+
 	for _, pkg := range pkgs {
 		pkg, err := gnoPkgToGo(&pkg, logger)
 		if err != nil {
@@ -134,6 +142,8 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 		res.Packages = append(res.Packages, pkg)
 		res.Roots = append(res.Roots, pkg.ID)
 	}
+
+	// Resolve imports
 
 	for _, pkg := range res.Packages {
 		toDelete := []string{}

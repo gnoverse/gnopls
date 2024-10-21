@@ -15,6 +15,7 @@ import (
 )
 
 func gnoPkgToGo(gnoPkg *gnomod.Pkg, logger *slog.Logger) (*packages.Package, error) {
+	// TODO: support subpkgs
 	gnomodFile, err := gnomod.ParseAt(gnoPkg.Dir)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse gno module at %q: %w", gnoPkg.Dir, err)
@@ -38,6 +39,7 @@ func gnoPkgToGo(gnoPkg *gnomod.Pkg, logger *slog.Logger) (*packages.Package, err
 				gnoFiles = append(gnoFiles, fpath)
 			}
 		} else {
+			// TODO: should we really include all other files?
 			otherFiles = append(otherFiles, fpath)
 		}
 	}
@@ -48,17 +50,23 @@ func gnoPkgToGo(gnoPkg *gnomod.Pkg, logger *slog.Logger) (*packages.Package, err
 	}
 
 	return &packages.Package{
+		// Always required
 		ID:     pkgDir,
-		Errors: nil,
+		Errors: nil, // TODO
 
+		// NeedName
 		Name:    bestName,
 		PkgPath: gnomodFile.Module.Mod.Path,
 
+		// NeedFiles
 		GoFiles:    gnoFiles,
 		OtherFiles: otherFiles,
 
-		CompiledGoFiles: gnoFiles,
+		// NeedCompiledGoFiles
+		CompiledGoFiles: gnoFiles, // TODO: check if enough
 
+		// NeedImports
+		// if not NeedDeps, only ID filled
 		Imports: imports,
 	}, nil
 }

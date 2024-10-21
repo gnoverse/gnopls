@@ -1,3 +1,0 @@
-package resolver
-
-// package main
