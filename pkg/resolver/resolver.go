@@ -10,18 +10,24 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gnolang/gno/gnovm/pkg/gnomod"
 	"github.com/gnoverse/gnopls/internal/packages"
+	"golang.org/x/mod/modfile"
 )
 
-func gnoPkgToGo(gnoPkg *gnomod.Pkg, logger *slog.Logger) (*packages.Package, error) {
-	// TODO: support subpkgs
-	gnomodFile, err := gnomod.ParseAt(gnoPkg.Dir)
+func gnoPkgToGo(gnomodPath string, logger *slog.Logger) (*packages.Package, error) {
+	gnomodBytes, err := os.ReadFile(gnomodPath)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse gno module at %q: %w", gnoPkg.Dir, err)
+		return nil, err
 	}
+	gnomodFile, err := modfile.ParseLax(gnomodPath, gnomodBytes, nil)
+	if err != nil {
+		return nil, err
+	}
+	dir := filepath.Dir(gnomodPath)
 
-	pkgDir := filepath.Clean(gnoPkg.Dir)
+	// TODO: support subpkgs
+
+	pkgDir := filepath.Clean(dir)
 
 	gnoFiles := []string{}
 	otherFiles := []string{}
@@ -109,8 +115,9 @@ func resolveNameAndImports(gnoFiles []string, logger *slog.Logger) (string, map[
 	return bestName, imports, nil
 }
 
-func ListPkgs(root string) (gnomod.PkgList, error) {
-	var pkgs []gnomod.Pkg
+// listGnomods recursively finds all gnomods at root
+func listGnomods(root string) ([]string, error) {
+	var gnomods []string
 
 	err := filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
@@ -120,40 +127,15 @@ func ListPkgs(root string) (gnomod.PkgList, error) {
 			return nil
 		}
 		gnoModPath := filepath.Join(path, "gno.mod")
-		data, err := os.ReadFile(gnoModPath)
-		if os.IsNotExist(err) {
+		if _, err := os.Stat(gnoModPath); err != nil {
 			return nil
 		}
-		if err != nil {
-			return err
-		}
-
-		gnoMod, err := gnomod.Parse(gnoModPath, data)
-		if err != nil {
-			return nil
-		}
-		gnoMod.Sanitize()
-		if err := gnoMod.Validate(); err != nil {
-			return nil
-		}
-
-		pkgs = append(pkgs, gnomod.Pkg{
-			Dir:   path,
-			Name:  gnoMod.Module.Mod.Path,
-			Draft: gnoMod.Draft,
-			Requires: func() []string {
-				var reqs []string
-				for _, req := range gnoMod.Require {
-					reqs = append(reqs, req.Mod.Path)
-				}
-				return reqs
-			}(),
-		})
+		gnomods = append(gnomods, gnoModPath)
 		return nil
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	return pkgs, nil
+	return gnomods, nil
 }

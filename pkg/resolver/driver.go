@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/gnolang/gno/gnovm/pkg/gnoenv"
-	"github.com/gnolang/gno/gnovm/pkg/gnomod"
 	"github.com/gnoverse/gnopls/internal/packages"
 	"github.com/gnoverse/gnopls/pkg/eventlogger"
 )
@@ -100,40 +99,40 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 
 	// Discover packages
 
-	pkgs := gnomod.PkgList{}
+	gnomods := []string{}
 	for _, target := range targets {
 		dir, file := filepath.Split(target)
 		if file == "..." {
-			pkgQueryRes, err := ListPkgs(dir)
+			gnomodsRes, err := listGnomods(dir)
 			if err != nil {
 				logger.Error("failed to get pkg list", slog.String("error", err.Error()))
 				return nil, err
 			}
-			pkgs = append(pkgs, pkgQueryRes...)
+			gnomods = append(gnomods, gnomodsRes...)
 		} else if strings.HasPrefix(target, "file=") {
 			dir = strings.TrimPrefix(dir, "file=")
-			pkgQueryRes, err := ListPkgs(dir)
+			gnomodsRes, err := listGnomods(dir)
 			if err != nil {
 				logger.Error("failed to get pkg", slog.String("error", err.Error()))
 				return nil, err
 			}
-			if len(pkgQueryRes) != 1 {
+			if len(gnomodsRes) != 1 {
 				logger.Warn("unexpected number of packages",
 					slog.String("arg", target),
-					slog.Int("count", len(pkgQueryRes)),
+					slog.Int("count", len(gnomodsRes)),
 				)
 			}
-			pkgs = append(pkgs, pkgQueryRes...)
+			gnomods = append(gnomods, gnomodsRes...)
 		} else {
 			logger.Warn("unknown arg shape", slog.String("value", target))
 		}
 	}
-	logger.Info("discovered packages", slog.Int("count", len(pkgs)))
+	logger.Info("discovered packages", slog.Int("count", len(gnomods)))
 
 	// Convert packages
 
-	for _, pkg := range pkgs {
-		pkg, err := gnoPkgToGo(&pkg, logger)
+	for _, pkg := range gnomods {
+		pkg, err := gnoPkgToGo(pkg, logger)
 		if err != nil {
 			logger.Error("failed to convert gno pkg to go pkg", slog.String("error", err.Error()))
 			continue
