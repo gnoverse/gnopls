@@ -137,7 +137,7 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 			logger.Error("failed to convert gno pkg to go pkg", slog.String("error", err.Error()))
 			continue
 		}
-		if _, ok := pkgsCache[pkg.PkgPath]; !ok {
+		if _, ok := pkgsCache[pkg.PkgPath]; ok {
 			// ignore duplicates in later targets, mostly useful to ignore examples present in explicit targets
 			continue
 		}
