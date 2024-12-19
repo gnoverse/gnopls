@@ -5,7 +5,7 @@ module github.com/gnoverse/gnopls
 go 1.23.1
 
 require (
-	github.com/gnolang/gno v0.0.0-20241111130702-2e9f5ce8ecc9
+	github.com/gnolang/gno v0.0.0-20241217133227-fdedae90bfc1
 	github.com/google/go-cmp v0.6.0
 	github.com/jba/templatecheck v0.7.0
 	golang.org/x/mod v0.21.0
