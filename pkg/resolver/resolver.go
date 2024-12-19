@@ -23,6 +23,9 @@ func gnoPkgToGo(gnomodPath string, logger *slog.Logger) (*packages.Package, erro
 	if err != nil {
 		return nil, err
 	}
+	if gnomodFile == nil || gnomodFile.Module == nil {
+		return nil, fmt.Errorf("%s:1:1: missing module", gnomodPath)
+	}
 	dir := filepath.Dir(gnomodPath)
 
 	// TODO: support subpkgs
