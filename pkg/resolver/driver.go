@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/gnolang/gno/gnovm/pkg/gnoenv"
@@ -42,6 +43,7 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 
 	if gnoRoot != "" {
 		libsRoot := filepath.Join(gnoRoot, "gnovm", "stdlibs")
+		testLibsRoot := filepath.Join(gnoRoot, "gnovm", "tests", "stdlibs")
 		if err := fs.WalkDir(os.DirFS(libsRoot), ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return nil
@@ -56,12 +58,38 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 			pkgs := readPkg(pkgDir, path, logger)
 			for _, pkg := range pkgs {
 				if len(pkg.GoFiles) == 0 {
-					return nil
+					continue
 				}
 
 				res.Packages = append(res.Packages, pkg)
 				if !strings.HasSuffix(pkg.Name, "_test") {
 					pkgsCache[path] = pkg
+				}
+
+				testLibDir := filepath.Join(testLibsRoot, path)
+				testsDir, err := os.ReadDir(testLibDir)
+				if err != nil {
+					continue
+				}
+				for _, entry := range testsDir {
+					if entry.IsDir() {
+						continue
+					}
+
+					filename := entry.Name()
+					if !strings.HasSuffix(filename, ".gno") {
+						continue
+					}
+
+					deleteFn := func(src string) bool {
+						return filepath.Base(src) == filename
+					}
+					pkg.GoFiles = slices.DeleteFunc(pkg.GoFiles, deleteFn)
+					pkg.CompiledGoFiles = slices.DeleteFunc(pkg.CompiledGoFiles, deleteFn)
+
+					file := filepath.Join(testLibDir, filename)
+					pkg.GoFiles = append(pkg.GoFiles, file)
+					pkg.CompiledGoFiles = append(pkg.CompiledGoFiles, file)
 				}
 			}
 
