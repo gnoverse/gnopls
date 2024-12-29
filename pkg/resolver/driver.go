@@ -1,10 +1,6 @@
 package resolver
 
 import (
-	"fmt"
-	"go/parser"
-	"go/scanner"
-	"go/token"
 	"io/fs"
 	"log/slog"
 	"os"
@@ -145,96 +141,4 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 	}
 
 	return &res, nil
-}
-
-func readPkg(pkg *packages.Package, dir string, pkgPath string, logger *slog.Logger) {
-	entries, err := os.ReadDir(dir)
-	if err != nil {
-		logger.Error("failed to read pkg dir", slog.String("dir", dir))
-		return
-	}
-
-	for _, entry := range entries {
-		if entry.IsDir() {
-			continue
-		}
-
-		filename := entry.Name()
-		if !strings.HasSuffix(filename, ".gno") {
-			continue
-		}
-
-		// ignore filetests
-		if strings.HasSuffix(filename, "_filetest.gno") {
-			continue
-		}
-
-		file := filepath.Join(dir, filename)
-		pkg.GoFiles = append(pkg.GoFiles, file)
-		pkg.CompiledGoFiles = append(pkg.CompiledGoFiles, file)
-	}
-
-	if len(pkg.GoFiles) == 0 {
-		return
-	}
-
-	pkg.ID = pkgPath
-	pkg.PkgPath = pkgPath
-
-	resolveNameAndImports(pkg, logger)
-}
-
-func resolveNameAndImports(pkg *packages.Package, logger *slog.Logger) {
-	names := map[string]int{}
-	imports := map[string]*packages.Package{}
-	bestName := ""
-	bestNameCount := 0
-	for _, srcPath := range pkg.CompiledGoFiles {
-		fset := token.NewFileSet()
-		f, err := parser.ParseFile(fset, srcPath, nil, parser.SkipObjectResolution|parser.ImportsOnly)
-		if err != nil {
-			if errList, ok := err.(scanner.ErrorList); ok {
-				for _, err := range errList {
-					pkg.Errors = append(pkg.Errors, packages.Error{
-						Pos:  err.Pos.String(),
-						Msg:  err.Msg,
-						Kind: packages.ParseError,
-					})
-				}
-			} else {
-				pkg.Errors = append(pkg.Errors, packages.Error{
-					Pos:  fmt.Sprintf("%s:1", srcPath),
-					Msg:  err.Error(),
-					Kind: packages.ParseError,
-				})
-			}
-		}
-
-		if f == nil {
-			continue
-		}
-
-		name := f.Name.String()
-		if !strings.HasSuffix(name, "_test") {
-			names[name] += 1
-			count := names[name]
-			if count > bestNameCount {
-				bestName = name
-				bestNameCount = count
-			}
-		}
-
-		for _, imp := range f.Imports {
-			importPath := imp.Path.Value
-			if len(importPath) >= 2 {
-				importPath = importPath[1 : len(importPath)-1]
-			}
-			imports[importPath] = nil
-		}
-	}
-
-	pkg.Name = bestName
-	pkg.Imports = imports
-
-	logger.Info("analyzed sources", slog.String("path", pkg.PkgPath), slog.String("name", bestName), slog.Any("imports", imports), slog.Any("errs", pkg.Errors), slog.Any("compfiles", pkg.CompiledGoFiles))
 }
