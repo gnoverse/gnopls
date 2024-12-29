@@ -15,7 +15,7 @@ import (
 	"golang.org/x/mod/modfile"
 )
 
-func gnoPkgToGo(gnomodPath string, logger *slog.Logger) *packages.Package {
+func gnoPkgToGo(gnomodPath string, logger *slog.Logger) []*packages.Package {
 	gnomodBytes, err := os.ReadFile(gnomodPath)
 	if err != nil {
 		logger.Error("failed to read gno.mod", slog.String("path", gnomodPath), slog.String("err", err.Error()))
@@ -35,14 +35,7 @@ func gnoPkgToGo(gnomodPath string, logger *slog.Logger) *packages.Package {
 	// TODO: support subpkgs
 
 	pkgPath := gnomodFile.Module.Mod.Path
-	pkg := &packages.Package{
-		Module: &packages.Module{
-			Path: gnomodPath,
-			Dir:  dir,
-		},
-	}
-	readPkg(pkg, dir, pkgPath, logger)
-	return pkg
+	return readPkg(dir, pkgPath, logger)
 }
 
 // listGnomods recursively finds all gnomods at root
@@ -70,12 +63,15 @@ func listGnomods(root string) ([]string, error) {
 	return gnomods, nil
 }
 
-func readPkg(pkg *packages.Package, dir string, pkgPath string, logger *slog.Logger) {
+func readPkg(dir string, pkgPath string, logger *slog.Logger) []*packages.Package {
 	entries, err := os.ReadDir(dir)
 	if err != nil {
 		logger.Error("failed to read pkg dir", slog.String("dir", dir))
-		return
+		return nil
 	}
+
+	pkg := &packages.Package{}
+	xTestPkg := &packages.Package{}
 
 	for _, entry := range entries {
 		if entry.IsDir() {
@@ -92,19 +88,52 @@ func readPkg(pkg *packages.Package, dir string, pkgPath string, logger *slog.Log
 			continue
 		}
 
-		file := filepath.Join(dir, filename)
-		pkg.GoFiles = append(pkg.GoFiles, file)
-		pkg.CompiledGoFiles = append(pkg.CompiledGoFiles, file)
-	}
+		srcPath := filepath.Join(dir, filename)
 
-	if len(pkg.GoFiles) == 0 {
-		return
+		// TODO: refacto this bit
+		if strings.HasSuffix(filename, "_test.gno") {
+			fset := token.NewFileSet()
+			parsed, err := parser.ParseFile(fset, srcPath, nil, parser.PackageClauseOnly)
+			if err != nil {
+				if errList, ok := err.(scanner.ErrorList); ok {
+					for _, err := range errList {
+						pkg.Errors = append(pkg.Errors, packages.Error{
+							Pos:  err.Pos.String(),
+							Msg:  err.Msg,
+							Kind: packages.ParseError,
+						})
+					}
+				} else {
+					pkg.Errors = append(pkg.Errors, packages.Error{
+						Pos:  fmt.Sprintf("%s:1", srcPath),
+						Msg:  err.Error(),
+						Kind: packages.ParseError,
+					})
+				}
+			}
+			if parsed != nil {
+				if strings.HasSuffix(parsed.Name.String(), "_test") {
+					xTestPkg.GoFiles = append(xTestPkg.GoFiles, srcPath)
+					xTestPkg.CompiledGoFiles = append(xTestPkg.CompiledGoFiles, srcPath)
+					continue
+				}
+			}
+		}
+
+		pkg.GoFiles = append(pkg.GoFiles, srcPath)
+		pkg.CompiledGoFiles = append(pkg.CompiledGoFiles, srcPath)
 	}
 
 	pkg.ID = pkgPath
 	pkg.PkgPath = pkgPath
-
 	resolveNameAndImports(pkg, logger)
+
+	xTestPkg.ID = pkgPath + "_test"
+	xTestPkg.PkgPath = pkgPath + "_test"
+	xTestPkg.Name = pkg.Name + "_test"
+	resolveNameAndImports(xTestPkg, logger)
+
+	return []*packages.Package{pkg, xTestPkg}
 }
 
 func resolveNameAndImports(pkg *packages.Package, logger *slog.Logger) {
@@ -137,13 +166,15 @@ func resolveNameAndImports(pkg *packages.Package, logger *slog.Logger) {
 			continue
 		}
 
-		name := f.Name.String()
-		if !strings.HasSuffix(name, "_test") {
-			names[name] += 1
-			count := names[name]
-			if count > bestNameCount {
-				bestName = name
-				bestNameCount = count
+		if pkg.Name == "" {
+			name := f.Name.String()
+			if !strings.HasSuffix(name, "_test") {
+				names[name] += 1
+				count := names[name]
+				if count > bestNameCount {
+					bestName = name
+					bestNameCount = count
+				}
 			}
 		}
 
@@ -156,8 +187,11 @@ func resolveNameAndImports(pkg *packages.Package, logger *slog.Logger) {
 		}
 	}
 
-	pkg.Name = bestName
+	if pkg.Name == "" {
+		pkg.Name = bestName
+	}
+
 	pkg.Imports = imports
 
-	logger.Info("analyzed sources", slog.String("path", pkg.PkgPath), slog.String("name", bestName), slog.Any("imports", imports), slog.Any("errs", pkg.Errors), slog.Any("compfiles", pkg.CompiledGoFiles))
+	// logger.Info("analyzed sources", slog.String("path", pkg.PkgPath), slog.String("name", bestName), slog.Any("imports", imports), slog.Any("errs", pkg.Errors), slog.Any("compfiles", pkg.CompiledGoFiles))
 }
