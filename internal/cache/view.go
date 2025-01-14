@@ -850,16 +850,17 @@ func defineView(ctx context.Context, fs file.Source, folder *Folder, forFile fil
 
 	var err error
 	dirURI := protocol.URIFromPath(dir)
-	goworkFromEnv := false
-	if folder.Env.ExplicitGOWORK != "off" && folder.Env.ExplicitGOWORK != "" {
-		goworkFromEnv = true
-		def.gowork = protocol.URIFromPath(folder.Env.ExplicitGOWORK)
-	} else {
-		def.gowork, err = findRootPattern(ctx, dirURI, "go.work", fs)
-		if err != nil {
-			return nil, err
-		}
-	}
+
+	// goworkFromEnv := false
+	// if folder.Env.ExplicitGOWORK != "off" && folder.Env.ExplicitGOWORK != "" {
+	// 	goworkFromEnv = true
+	// 	def.gowork = protocol.URIFromPath(folder.Env.ExplicitGOWORK)
+	// } else {
+	// 	def.gowork, err = findRootPattern(ctx, dirURI, "go.work", fs)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// }
 
 	// When deriving the best view for a given file, we only want to search
 	// up the directory hierarchy for modfiles.

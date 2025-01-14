@@ -87,7 +87,7 @@ type testFunc struct {
 // testsAndBenchmarks returns all Test and Benchmark functions in the
 // specified file.
 func testsAndBenchmarks(info *types.Info, pgf *parsego.File) (tests, benchmarks []testFunc, _ error) {
-	if !strings.HasSuffix(pgf.URI.Path(), "_test.go") {
+	if !strings.HasSuffix(pgf.URI.Path(), "_test.gno") {
 		return nil, nil, nil // empty
 	}
 

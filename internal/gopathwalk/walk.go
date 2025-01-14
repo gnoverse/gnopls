@@ -248,7 +248,7 @@ func (w *walker) walk(path string, pathSymlinks *symlinkList, d fs.DirEntry) {
 	}
 
 	if d.Type().IsRegular() {
-		if !strings.HasSuffix(path, ".go") {
+		if !strings.HasSuffix(path, ".gno") {
 			return
 		}
 

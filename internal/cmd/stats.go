@@ -18,13 +18,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gnoverse/gnopls/internal/event"
 	"github.com/gnoverse/gnopls/internal/filecache"
 	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/protocol/command"
 	"github.com/gnoverse/gnopls/internal/settings"
 	bugpkg "github.com/gnoverse/gnopls/internal/util/bug"
 	versionpkg "github.com/gnoverse/gnopls/internal/version"
-	"github.com/gnoverse/gnopls/internal/event"
 )
 
 type stats struct {
@@ -236,7 +236,7 @@ func findDirStats() (dirStats, error) {
 			switch {
 			case strings.Contains(slashed, "/testdata/") || strings.HasPrefix(slashed, "testdata/"):
 				ds.TestdataFiles++
-			case strings.HasSuffix(path, ".go"):
+			case strings.HasSuffix(path, ".gno"):
 				ds.GoFiles++
 			case strings.HasSuffix(path, ".mod"):
 				ds.ModFiles++

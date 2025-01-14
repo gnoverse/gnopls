@@ -175,7 +175,7 @@ func ExtractToNewFile(ctx context.Context, snapshot *cache.Snapshot, fh file.Han
 // first extracted symbol, and if necessary to disambiguate, a numeric suffix.
 func chooseNewFile(ctx context.Context, snapshot *cache.Snapshot, dir string, firstSymbol string) (file.Handle, error) {
 	basename := strings.ToLower(firstSymbol)
-	newPath := protocol.URIFromPath(filepath.Join(dir, basename+".go"))
+	newPath := protocol.URIFromPath(filepath.Join(dir, basename+".gno"))
 	for count := 1; count < 5; count++ {
 		fh, err := snapshot.ReadFile(ctx, newPath)
 		if err != nil {

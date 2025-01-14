@@ -19,6 +19,8 @@ import (
 
 	"github.com/gnoverse/gnopls/internal/cache"
 	"github.com/gnoverse/gnopls/internal/cache/metadata"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/event/keys"
 	"github.com/gnoverse/gnopls/internal/file"
 	"github.com/gnoverse/gnopls/internal/golang"
 	"github.com/gnoverse/gnopls/internal/label"
@@ -28,8 +30,6 @@ import (
 	"github.com/gnoverse/gnopls/internal/template"
 	"github.com/gnoverse/gnopls/internal/util/moremaps"
 	"github.com/gnoverse/gnopls/internal/work"
-	"github.com/gnoverse/gnopls/internal/event"
-	"github.com/gnoverse/gnopls/internal/event/keys"
 )
 
 // fileDiagnostics holds the current state of published diagnostics for a file.
@@ -980,7 +980,7 @@ func (s *server) shouldIgnoreError(snapshot *cache.Snapshot, err error) bool {
 		if err != nil {
 			return err
 		}
-		if !strings.HasSuffix(info.Name(), ".go") {
+		if !strings.HasSuffix(info.Name(), ".gno") {
 			return nil
 		}
 		hasGo = true
