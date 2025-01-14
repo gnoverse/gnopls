@@ -1,11 +1,11 @@
 package resolver
 
 import (
-	"fmt"
 	"io/fs"
 	"log/slog"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/gnolang/gno/gnovm/pkg/gnoenv"
@@ -43,6 +43,7 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 
 	if gnoRoot != "" {
 		libsRoot := filepath.Join(gnoRoot, "gnovm", "stdlibs")
+		testLibsRoot := filepath.Join(gnoRoot, "gnovm", "tests", "stdlibs")
 		if err := fs.WalkDir(os.DirFS(libsRoot), ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return nil
@@ -53,43 +54,46 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 			}
 
 			pkgDir := filepath.Join(libsRoot, path)
-			entries, err := os.ReadDir(pkgDir)
-			if err != nil {
-				return fmt.Errorf("failed to read dir %q: %w", path, err)
-			}
 
-			gnoFiles := []string{}
-			for _, e := range entries {
-				if e.IsDir() || !strings.HasSuffix(e.Name(), ".gno") {
+			pkgs := readPkg(pkgDir, path, logger)
+			for _, pkg := range pkgs {
+				if len(pkg.GoFiles) == 0 {
 					continue
 				}
-				if strings.HasSuffix(e.Name(), "_test.gno") || strings.HasSuffix(e.Name(), "_filetest.gno") {
+
+				res.Packages = append(res.Packages, pkg)
+				if !strings.HasSuffix(pkg.Name, "_test") {
+					pkgsCache[path] = pkg
+				}
+
+				testLibDir := filepath.Join(testLibsRoot, path)
+				testsDir, err := os.ReadDir(testLibDir)
+				if err != nil {
 					continue
 				}
-				gnoFiles = append(gnoFiles, filepath.Join(pkgDir, e.Name()))
+				for _, entry := range testsDir {
+					if entry.IsDir() {
+						continue
+					}
+
+					filename := entry.Name()
+					if !strings.HasSuffix(filename, ".gno") {
+						continue
+					}
+
+					deleteFn := func(src string) bool {
+						return filepath.Base(src) == filename
+					}
+					pkg.GoFiles = slices.DeleteFunc(pkg.GoFiles, deleteFn)
+					pkg.CompiledGoFiles = slices.DeleteFunc(pkg.CompiledGoFiles, deleteFn)
+
+					file := filepath.Join(testLibDir, filename)
+					pkg.GoFiles = append(pkg.GoFiles, file)
+					pkg.CompiledGoFiles = append(pkg.CompiledGoFiles, file)
+				}
 			}
 
-			if len(gnoFiles) == 0 {
-				return nil
-			}
-
-			name, imports, err := resolveNameAndImports(gnoFiles, logger)
-			if err != nil {
-				return fmt.Errorf("failed to resolve name and imports for %q: %w", path, err)
-			}
-
-			logger.Info("injecting stdlib", slog.String("path", path), slog.String("name", name))
-
-			pkg := &packages.Package{
-				ID:              path,
-				Name:            name,
-				PkgPath:         path,
-				Imports:         imports,
-				GoFiles:         gnoFiles,
-				CompiledGoFiles: gnoFiles,
-			}
-			pkgsCache[path] = pkg
-			res.Packages = append(res.Packages, pkg)
+			// logger.Info("injected stdlib", slog.String("path", pkg.PkgPath), slog.String("name", pkg.Name))
 
 			return nil
 		}); err != nil {
@@ -127,23 +131,28 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 			logger.Warn("unknown arg shape", slog.String("value", target))
 		}
 	}
-	logger.Info("discovered packages", slog.Int("count", len(gnomods)))
+	logger.Info("discovered packages", slog.Int("count", len(gnomods)+len(res.Packages)))
 
 	// Convert packages
 
-	for _, pkg := range gnomods {
-		pkg, err := gnoPkgToGo(pkg, logger)
-		if err != nil {
-			logger.Error("failed to convert gno pkg to go pkg", slog.String("error", err.Error()))
-			continue
+	for _, gnomodPath := range gnomods {
+		pkgs := gnoPkgToGo(gnomodPath, logger)
+		for _, pkg := range pkgs {
+			if pkg == nil {
+				logger.Error("failed to convert gno pkg to go pkg", slog.String("gnomod", gnomodPath))
+				continue
+			}
+			if _, ok := pkgsCache[pkg.PkgPath]; ok {
+				// ignore duplicates in later targets, mostly useful to ignore examples present in explicit targets
+				logger.Debug("ignored duplicate", slog.String("pkg-path", pkg.PkgPath), slog.String("new", gnomodPath))
+				continue
+			}
+			res.Packages = append(res.Packages, pkg)
+			res.Roots = append(res.Roots, pkg.ID)
+			if !strings.HasSuffix(pkg.Name, "_test") {
+				pkgsCache[pkg.PkgPath] = pkg
+			}
 		}
-		if _, ok := pkgsCache[pkg.PkgPath]; ok {
-			// ignore duplicates in later targets, mostly useful to ignore examples present in explicit targets
-			continue
-		}
-		pkgsCache[pkg.PkgPath] = pkg
-		res.Packages = append(res.Packages, pkg)
-		res.Roots = append(res.Roots, pkg.ID)
 	}
 
 	// Resolve imports
@@ -154,16 +163,16 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 			imp, ok := pkgsCache[importPath]
 			if ok {
 				pkg.Imports[importPath] = imp
-				logger.Info("found import", slog.String("path", importPath))
+				// logger.Info("found import", slog.String("path", importPath))
 			} else {
-				logger.Info("missed import", slog.String("path", importPath))
+				logger.Info("missed import", slog.String("pkg-path", pkg.PkgPath), slog.String("import", importPath))
 				toDelete = append(toDelete, importPath)
 			}
 		}
 		for _, toDel := range toDelete {
 			delete(pkg.Imports, toDel)
 		}
-		logger.Info("converted package", slog.Any("pkg", pkg))
+		// logger.Info("converted package", slog.Any("pkg", pkg))
 	}
 
 	return &res, nil
