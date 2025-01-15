@@ -143,7 +143,7 @@ func (s *Snapshot) load(ctx context.Context, allowNetwork bool, scopes ...loadSc
 	event.Error(ctx, "DEBUG:inv", fmt.Errorf("debug query: %+v", query))
 
 	cfg := s.config(ctx, inv)
-	if bindriver := os.Getenv("GOPACKAGESDRIVER"); bindriver == "" || bindriver != "off" {
+	if bindriver := os.Getenv("GOPACKAGESDRIVER"); bindriver == ":memory:" {
 		cfg.PackagesDriver = packagesResolver
 	}
 

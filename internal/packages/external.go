@@ -87,7 +87,7 @@ type driver func(cfg *Config, patterns ...string) (*DriverResponse, error)
 // If GOPACKAGESDRIVER is set in the environment findExternalTool returns its
 // value, otherwise it searches for a binary named gopackagesdriver on the PATH.
 func findExternalDriver(cfg *Config) driver {
-	request:= DriverRequest{
+	request := DriverRequest{
 		Mode:       cfg.Mode,
 		Env:        cfg.Env,
 		BuildFlags: cfg.BuildFlags,
@@ -111,12 +111,17 @@ func findExternalDriver(cfg *Config) driver {
 	if tool != "" && tool == "off" {
 		return nil
 	}
+
+	var baseWords []string
 	if tool == "" {
 		var err error
-		tool, err = exec.LookPath("gopackagesdriver")
+
+		tool, err = os.Executable()
 		if err != nil {
-			return nil
+			panic(err)
 		}
+
+		baseWords = append(baseWords, "resolve")
 	}
 	return func(cfg *Config, words ...string) (*DriverResponse, error) {
 		req, err := json.Marshal(request)
@@ -126,6 +131,8 @@ func findExternalDriver(cfg *Config) driver {
 
 		buf := new(bytes.Buffer)
 		stderr := new(bytes.Buffer)
+
+		words = append(baseWords, words...)
 		cmd := exec.CommandContext(cfg.Context, tool, words...)
 		cmd.Dir = cfg.Dir
 		// The cwd gets resolved to the real path. On Darwin, where
