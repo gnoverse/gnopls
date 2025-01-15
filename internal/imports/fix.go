@@ -27,12 +27,12 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"golang.org/x/sync/errgroup"
-	"golang.org/x/tools/go/ast/astutil"
 	"github.com/gnoverse/gnopls/internal/event"
 	"github.com/gnoverse/gnopls/internal/gocommand"
 	"github.com/gnoverse/gnopls/internal/gopathwalk"
 	"github.com/gnoverse/gnopls/internal/stdlib"
+	"golang.org/x/sync/errgroup"
+	"golang.org/x/tools/go/ast/astutil"
 )
 
 // importToGroup is a list of functions which map from an import path to
@@ -111,7 +111,7 @@ type packageInfo struct {
 func parseOtherFiles(ctx context.Context, fset *token.FileSet, srcDir, filename string) ([]*ast.File, error) {
 	// This could use go/packages but it doesn't buy much, and it fails
 	// with https://golang.org/issue/26296 in LoadFiles mode in some cases.
-	considerTests := strings.HasSuffix(filename, "_test.go")
+	considerTests := strings.HasSuffix(filename, "_test.gno")
 
 	fileBase := filepath.Base(filename)
 	packageFileInfos, err := os.ReadDir(srcDir)
@@ -124,10 +124,10 @@ func parseOtherFiles(ctx context.Context, fset *token.FileSet, srcDir, filename 
 		if ctx.Err() != nil {
 			return nil, ctx.Err()
 		}
-		if fi.Name() == fileBase || !strings.HasSuffix(fi.Name(), ".go") {
+		if fi.Name() == fileBase || !strings.HasSuffix(fi.Name(), ".gno") {
 			continue
 		}
-		if !considerTests && strings.HasSuffix(fi.Name(), "_test.go") {
+		if !considerTests && strings.HasSuffix(fi.Name(), "_test.gno") {
 			continue
 		}
 
@@ -1384,10 +1384,10 @@ func packageDirToName(dir string) (packageName string, err error) {
 	var lastErr error
 	var nfile int
 	for _, name := range names {
-		if !strings.HasSuffix(name, ".go") {
+		if !strings.HasSuffix(name, ".gno") {
 			continue
 		}
-		if strings.HasSuffix(name, "_test.go") {
+		if strings.HasSuffix(name, "_test.gno") {
 			continue
 		}
 		nfile++
@@ -1595,7 +1595,7 @@ func loadExportsFromFiles(ctx context.Context, env *ProcessEnv, dir string, incl
 	var files []fs.DirEntry
 	for _, fi := range all {
 		name := fi.Name()
-		if !strings.HasSuffix(name, ".go") || (!includeTest && strings.HasSuffix(name, "_test.go")) {
+		if !strings.HasSuffix(name, ".gno") || (!includeTest && strings.HasSuffix(name, "_test.gno")) {
 			continue
 		}
 		match, err := env.matchFile(dir, fi.Name())

@@ -38,7 +38,7 @@ func main() {
 	windowsImport := []byte("\t\"internal/syscall/windows\"\n")
 	foundWindowsImport := false
 	for _, entry := range entries {
-		if strings.HasSuffix(entry.Name(), ".go") {
+		if strings.HasSuffix(entry.Name(), ".gno") {
 			pth := filepath.Join(dir, entry.Name())
 			content, err := os.ReadFile(pth)
 			if err != nil {

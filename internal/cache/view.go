@@ -850,16 +850,17 @@ func defineView(ctx context.Context, fs file.Source, folder *Folder, forFile fil
 
 	var err error
 	dirURI := protocol.URIFromPath(dir)
-	goworkFromEnv := false
-	if folder.Env.ExplicitGOWORK != "off" && folder.Env.ExplicitGOWORK != "" {
-		goworkFromEnv = true
-		def.gowork = protocol.URIFromPath(folder.Env.ExplicitGOWORK)
-	} else {
-		def.gowork, err = findRootPattern(ctx, dirURI, "go.work", fs)
-		if err != nil {
-			return nil, err
-		}
-	}
+
+	// goworkFromEnv := false
+	// if folder.Env.ExplicitGOWORK != "off" && folder.Env.ExplicitGOWORK != "" {
+	// 	goworkFromEnv = true
+	// 	def.gowork = protocol.URIFromPath(folder.Env.ExplicitGOWORK)
+	// } else {
+	// 	def.gowork, err = findRootPattern(ctx, dirURI, "go.work", fs)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// }
 
 	// When deriving the best view for a given file, we only want to search
 	// up the directory hierarchy for modfiles.
@@ -883,6 +884,9 @@ func defineView(ctx context.Context, fs file.Source, folder *Folder, forFile fil
 		return def, nil
 	}
 
+	// XXX(gfanton): The 'goworkspace' view is disabled as it is not supported in 'gno'.
+	// This commented section is retained for reference comparison with the 'gopls' implementation.
+
 	// From go.dev/ref/mod, module mode is active if GO111MODULE=on, or
 	// GO111MODULE=auto or "" and we are inside a module or have a GOWORK value.
 	// But gopls is less strict, allowing GOPATH mode if GO111MODULE="", and
@@ -890,49 +894,49 @@ func defineView(ctx context.Context, fs file.Source, folder *Folder, forFile fil
 
 	// gomodWorkspace is a helper to compute the correct set of workspace
 	// modfiles for a go.mod file, based on folder options.
-	gomodWorkspace := func() map[protocol.DocumentURI]unit {
-		modFiles := map[protocol.DocumentURI]struct{}{def.gomod: {}}
-		if folder.Options.IncludeReplaceInWorkspace {
-			includingReplace, err := goModModules(ctx, def.gomod, fs)
-			if err == nil {
-				modFiles = includingReplace
-			} else {
-				// If the go.mod file fails to parse, we don't know anything about
-				// replace directives, so fall back to a view of just the root module.
-			}
-		}
-		return modFiles
-	}
+	// gomodWorkspace := func() map[protocol.DocumentURI]unit {
+	// 	modFiles := map[protocol.DocumentURI]struct{}{def.gomod: {}}
+	// 	if folder.Options.IncludeReplaceInWorkspace {
+	// 		includingReplace, err := goModModules(ctx, def.gomod, fs)
+	// 		if err == nil {
+	// 			modFiles = includingReplace
+	// 		} else {
+	// 			// If the go.mod file fails to parse, we don't know anything about
+	// 			// replace directives, so fall back to a view of just the root module.
+	// 		}
+	// 	}
+	// 	return modFiles
+	// }
 
 	// Prefer a go.work file if it is available and contains the module relevant
 	// to forURI.
-	if def.adjustedGO111MODULE() != "off" && folder.Env.ExplicitGOWORK != "off" && def.gowork != "" {
-		def.typ = GoWorkView
-		if goworkFromEnv {
-			// The go.work file could be anywhere, which can lead to confusing error
-			// messages.
-			def.root = dirURI
-		} else {
-			// The go.work file could be anywhere, which can lead to confusing error
-			def.root = def.gowork.Dir()
-		}
-		def.workspaceModFiles, def.workspaceModFilesErr = goWorkModules(ctx, def.gowork, fs)
+	// if def.adjustedGO111MODULE() != "off" && folder.Env.ExplicitGOWORK != "off" && def.gowork != "" {
+	// 	def.typ = GoWorkView
+	// 	if goworkFromEnv {
+	// 		// The go.work file could be anywhere, which can lead to confusing error
+	// 		// messages.
+	// 		def.root = dirURI
+	// 	} else {
+	// 		// The go.work file could be anywhere, which can lead to confusing error
+	// 		def.root = def.gowork.Dir()
+	// 	}
+	// 	def.workspaceModFiles, def.workspaceModFilesErr = goWorkModules(ctx, def.gowork, fs)
 
-		// If forURI is in a module but that module is not
-		// included in the go.work file, use a go.mod view with GOWORK=off.
-		if forFile != nil && def.workspaceModFilesErr == nil && def.gomod != "" {
-			if _, ok := def.workspaceModFiles[def.gomod]; !ok {
-				def.typ = GoModView
-				def.root = def.gomod.Dir()
-				def.workspaceModFiles = gomodWorkspace()
-				if def.envOverlay == nil {
-					def.envOverlay = make(map[string]string)
-				}
-				def.envOverlay["GOWORK"] = "off"
-			}
-		}
-		return def, nil
-	}
+	// 	// If forURI is in a module but that module is not
+	// 	// included in the go.work file, use a go.mod view with GOWORK=off.
+	// 	if forFile != nil && def.workspaceModFilesErr == nil && def.gomod != "" {
+	// 		if _, ok := def.workspaceModFiles[def.gomod]; !ok {
+	// 			def.typ = GoModView
+	// 			def.root = def.gomod.Dir()
+	// 			def.workspaceModFiles = gomodWorkspace()
+	// 			if def.envOverlay == nil {
+	// 				def.envOverlay = make(map[string]string)
+	// 			}
+	// 			def.envOverlay["GOWORK"] = "off"
+	// 		}
+	// 	}
+	// 	return def, nil
+	// }
 
 	// Otherwise, use the active module, if in module mode.
 	//
@@ -940,12 +944,12 @@ func defineView(ctx context.Context, fs file.Source, folder *Folder, forFile fil
 	// support the case where someone opens a module with GO111MODULE=off. But
 	// that is probably not worth worrying about (at this point, folks probably
 	// shouldn't be setting GO111MODULE).
-	if def.adjustedGO111MODULE() != "off" && def.gomod != "" {
-		def.typ = GoModView
-		def.root = def.gomod.Dir()
-		def.workspaceModFiles = gomodWorkspace()
-		return def, nil
-	}
+	// if def.adjustedGO111MODULE() != "off" && def.gomod != "" {
+	// 	def.typ = GoModView
+	// 	def.root = def.gomod.Dir()
+	// 	def.workspaceModFiles = gomodWorkspace()
+	// 	return def, nil
+	// }
 
 	// Check if the workspace is within any GOPATH directory.
 	inGOPATH := false

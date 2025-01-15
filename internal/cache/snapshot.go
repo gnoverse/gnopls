@@ -1812,12 +1812,12 @@ func (s *Snapshot) clone(ctx, bgCtx context.Context, changed StateChange, done f
 		anyFileOpenedOrClosed = anyFileOpenedOrClosed || (oldOpen != newOpen)
 		anyPkgFileChanged = anyPkgFileChanged || (oldFH == nil || !fileExists(oldFH)) && fileExists(newFH)
 
-		// If uri is a Go file, check if it has changed in a way that would
+		// If uri is a Gno file, check if it has changed in a way that would
 		// invalidate metadata. Note that we can't use s.view.FileKind here,
 		// because the file type that matters is not what the *client* tells us,
-		// but what the Go command sees.
+		// but what the Gno command sees.
 		var invalidateMetadata, pkgFileChanged, importDeleted bool
-		if strings.HasSuffix(uri.Path(), ".go") {
+		if strings.HasSuffix(uri.Path(), ".gno") {
 			invalidateMetadata, pkgFileChanged, importDeleted = metadataChanges(ctx, s, oldFH, newFH)
 		}
 		if invalidateMetadata {

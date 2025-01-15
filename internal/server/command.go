@@ -148,7 +148,7 @@ func (h *commandHandler) Packages(ctx context.Context, args command.PackagesArgs
 	// Convert file arguments into directories
 	dirs := make([]protocol.DocumentURI, len(args.Files))
 	for i, file := range args.Files {
-		if filepath.Ext(file.Path()) == ".go" {
+		if filepath.Ext(file.Path()) == ".gno" {
 			dirs[i] = file.Dir()
 		} else {
 			dirs[i] = file

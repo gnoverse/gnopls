@@ -63,7 +63,7 @@ func NewIndex(files []*parsego.File, info *types.Info) *Index {
 // build adds to the index all tests of the specified package.
 func (b *indexBuilder) build(files []*parsego.File, info *types.Info) *Index {
 	for _, file := range files {
-		if !strings.HasSuffix(file.Tok.Name(), "_test.go") {
+		if !strings.HasSuffix(file.Tok.Name(), "_test.gno") {
 			continue
 		}
 

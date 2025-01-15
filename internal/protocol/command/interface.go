@@ -647,7 +647,7 @@ type Package struct {
 	// from the TestFile's file name.
 
 	// TestFiles contains the subset of the files of the package
-	// whose name ends with "_test.go".
+	// whose name ends with "_test.gno".
 	// They are ordered deterministically as determined
 	// by the underlying build system.
 	TestFiles []TestFile

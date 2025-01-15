@@ -531,7 +531,7 @@ func (state *golistState) createDriverResponse(words ...string) (*DriverResponse
 		if len(pkg.CompiledGoFiles) > 0 {
 			out := pkg.CompiledGoFiles[:0]
 			for _, f := range pkg.CompiledGoFiles {
-				if ext := filepath.Ext(f); ext != ".go" && ext != "" { // ext == "" means the file is from the cache, so probably cgo-processed file
+				if ext := filepath.Ext(f); ext != ".gno" && ext != "" { // ext == "" means the file is from the cache, so probably cgo-processed file
 					continue
 				}
 				out = append(out, f)
@@ -997,7 +997,7 @@ func (state *golistState) invokeGo(verb string, args ...string) (*bytes.Buffer, 
 
 func containsGoFile(s []string) bool {
 	for _, f := range s {
-		if strings.HasSuffix(f, ".go") {
+		if strings.HasSuffix(f, ".gno") {
 			return true
 		}
 	}

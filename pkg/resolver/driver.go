@@ -55,7 +55,7 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 
 			pkgDir := filepath.Join(libsRoot, path)
 
-			pkgs := readPkg(pkgDir, path, logger)
+			pkgs := readPkg(req, pkgDir, path, logger)
 			for _, pkg := range pkgs {
 				if len(pkg.GoFiles) == 0 {
 					continue
@@ -77,7 +77,8 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 					}
 
 					filename := entry.Name()
-					if !strings.HasSuffix(filename, ".gno") {
+					isDot := len(filename) > 0 && filename[0] == '.'
+					if isDot || !strings.HasSuffix(filename, ".gno") {
 						continue
 					}
 
@@ -136,7 +137,7 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 	// Convert packages
 
 	for _, gnomodPath := range gnomods {
-		pkgs := gnoPkgToGo(gnomodPath, logger)
+		pkgs := gnoPkgToGo(req, gnomodPath, logger)
 		for _, pkg := range pkgs {
 			if pkg == nil {
 				logger.Error("failed to convert gno pkg to go pkg", slog.String("gnomod", gnomodPath))
@@ -164,10 +165,12 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 			if ok {
 				pkg.Imports[importPath] = imp
 				// logger.Info("found import", slog.String("path", importPath))
-			} else {
-				logger.Info("missed import", slog.String("pkg-path", pkg.PkgPath), slog.String("import", importPath))
-				toDelete = append(toDelete, importPath)
+				continue
 			}
+
+			logger.Info("missed import", slog.String("pkg-path", pkg.PkgPath), slog.String("import", importPath))
+			toDelete = append(toDelete, importPath)
+
 		}
 		for _, toDel := range toDelete {
 			delete(pkg.Imports, toDel)

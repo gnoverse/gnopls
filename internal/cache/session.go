@@ -1169,7 +1169,7 @@ func (s *Session) OrphanedFileDiagnostics(ctx context.Context) (map[protocol.Doc
 			// logic, we should use this diagnostic for the fallback case of
 			// s.views[0] in the ViewOf logic.
 			if errors.Is(err, errNoViews) {
-				if strings.HasSuffix(string(uri), ".go") {
+				if strings.HasSuffix(string(uri), ".gno") {
 					if _, rng, ok := orphanedFileDiagnosticRange(ctx, s.parseCache, o); ok {
 						diagnostics[uri] = []*Diagnostic{{
 							URI:      uri,

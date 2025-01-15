@@ -67,7 +67,7 @@ func copyFiles(dst, src string, cfg rewrite) {
 	for _, e := range entries {
 		fname := e.Name()
 		// we need only non-test go files.
-		if e.IsDir() || !strings.HasSuffix(fname, ".go") || strings.HasSuffix(fname, "_test.go") {
+		if e.IsDir() || !strings.HasSuffix(fname, ".gno") || strings.HasSuffix(fname, "_test.gno") {
 			continue
 		}
 		data, err := os.ReadFile(filepath.Join(src, fname))

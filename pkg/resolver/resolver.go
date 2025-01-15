@@ -15,7 +15,7 @@ import (
 	"golang.org/x/mod/modfile"
 )
 
-func gnoPkgToGo(gnomodPath string, logger *slog.Logger) []*packages.Package {
+func gnoPkgToGo(req *packages.DriverRequest, gnomodPath string, logger *slog.Logger) []*packages.Package {
 	gnomodBytes, err := os.ReadFile(gnomodPath)
 	if err != nil {
 		logger.Error("failed to read gno.mod", slog.String("path", gnomodPath), slog.String("err", err.Error()))
@@ -35,7 +35,7 @@ func gnoPkgToGo(gnomodPath string, logger *slog.Logger) []*packages.Package {
 	// TODO: support subpkgs
 
 	pkgPath := gnomodFile.Module.Mod.Path
-	return readPkg(dir, pkgPath, logger)
+	return readPkg(req, dir, pkgPath, logger)
 }
 
 // listGnomods recursively finds all gnomods at root
@@ -63,7 +63,7 @@ func listGnomods(root string) ([]string, error) {
 	return gnomods, nil
 }
 
-func readPkg(dir string, pkgPath string, logger *slog.Logger) []*packages.Package {
+func readPkg(req *packages.DriverRequest, dir string, pkgPath string, logger *slog.Logger) []*packages.Package {
 	entries, err := os.ReadDir(dir)
 	if err != nil {
 		logger.Error("failed to read pkg dir", slog.String("dir", dir))
@@ -90,10 +90,15 @@ func readPkg(dir string, pkgPath string, logger *slog.Logger) []*packages.Packag
 
 		srcPath := filepath.Join(dir, filename)
 
+		var src any
+		if body, ok := req.Overlay[srcPath]; ok {
+			src = body
+		}
+
 		// TODO: refacto this bit
 		if strings.HasSuffix(filename, "_test.gno") {
 			fset := token.NewFileSet()
-			parsed, err := parser.ParseFile(fset, srcPath, nil, parser.PackageClauseOnly)
+			parsed, err := parser.ParseFile(fset, srcPath, src, parser.PackageClauseOnly)
 			if err != nil {
 				if errList, ok := err.(scanner.ErrorList); ok {
 					for _, err := range errList {
@@ -126,24 +131,31 @@ func readPkg(dir string, pkgPath string, logger *slog.Logger) []*packages.Packag
 
 	pkg.ID = pkgPath
 	pkg.PkgPath = pkgPath
-	resolveNameAndImports(pkg, logger)
+	resolveNameAndImports(req, pkg, logger)
 
 	xTestPkg.ID = pkgPath + "_test"
 	xTestPkg.PkgPath = pkgPath + "_test"
 	xTestPkg.Name = pkg.Name + "_test"
-	resolveNameAndImports(xTestPkg, logger)
+	resolveNameAndImports(req, xTestPkg, logger)
 
 	return []*packages.Package{pkg, xTestPkg}
 }
 
-func resolveNameAndImports(pkg *packages.Package, logger *slog.Logger) {
+func resolveNameAndImports(req *packages.DriverRequest, pkg *packages.Package, logger *slog.Logger) {
 	names := map[string]int{}
 	imports := map[string]*packages.Package{}
 	bestName := ""
 	bestNameCount := 0
+
 	for _, srcPath := range pkg.CompiledGoFiles {
 		fset := token.NewFileSet()
-		f, err := parser.ParseFile(fset, srcPath, nil, parser.SkipObjectResolution|parser.ImportsOnly)
+
+		var src any
+		if body, ok := req.Overlay[srcPath]; ok {
+			src = body
+		}
+
+		f, err := parser.ParseFile(fset, srcPath, src, parser.SkipObjectResolution|parser.ImportsOnly)
 		if err != nil {
 			if errList, ok := err.(scanner.ErrorList); ok {
 				for _, err := range errList {

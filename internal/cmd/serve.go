@@ -16,10 +16,10 @@ import (
 
 	"github.com/gnoverse/gnopls/internal/cache"
 	"github.com/gnoverse/gnopls/internal/debug"
-	"github.com/gnoverse/gnopls/internal/lsprpc"
-	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/fakenet"
 	"github.com/gnoverse/gnopls/internal/jsonrpc2"
+	"github.com/gnoverse/gnopls/internal/lsprpc"
+	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/tool"
 )
 

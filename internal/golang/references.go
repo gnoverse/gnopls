@@ -23,16 +23,16 @@ import (
 	"strings"
 	"sync"
 
-	"golang.org/x/sync/errgroup"
-	"golang.org/x/tools/go/types/objectpath"
 	"github.com/gnoverse/gnopls/internal/cache"
 	"github.com/gnoverse/gnopls/internal/cache/metadata"
 	"github.com/gnoverse/gnopls/internal/cache/methodsets"
 	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/event"
 	"github.com/gnoverse/gnopls/internal/file"
 	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/util/safetoken"
-	"github.com/gnoverse/gnopls/internal/event"
+	"golang.org/x/sync/errgroup"
+	"golang.org/x/tools/go/types/objectpath"
 )
 
 // References returns a list of all references (sorted with
@@ -130,9 +130,9 @@ func packageReferences(ctx context.Context, snapshot *cache.Snapshot, uri protoc
 	// to do that, so pick a file from the same package that
 	// doesn't end in _test.go and start over.
 	narrowest := metas[0]
-	if narrowest.ForTest != "" && strings.HasSuffix(string(uri), "_test.go") {
+	if narrowest.ForTest != "" && strings.HasSuffix(string(uri), "_test.gno") {
 		for _, f := range narrowest.CompiledGoFiles {
-			if !strings.HasSuffix(string(f), "_test.go") {
+			if !strings.HasSuffix(string(f), "_test.gno") {
 				return packageReferences(ctx, snapshot, f)
 			}
 		}
