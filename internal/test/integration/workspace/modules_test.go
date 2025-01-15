@@ -63,7 +63,7 @@ func Bar()
 				checkModules(t, env, env.Editor.DocumentURI(""), -1, []command.Module{
 					{
 						Path:  "foo",
-						GoMod: env.Editor.DocumentURI("go.mod"),
+						GoMod: env.Editor.DocumentURI("gno.mod"),
 					},
 				})
 			})
@@ -80,7 +80,7 @@ func Bar()
 					},
 					{
 						Path:  "foo",
-						GoMod: env.Editor.DocumentURI("go.mod"),
+						GoMod: env.Editor.DocumentURI("gno.mod"),
 					},
 				})
 			})
@@ -93,7 +93,7 @@ func Bar()
 				checkModules(t, env, env.Editor.DocumentURI(""), 1, []command.Module{
 					{
 						Path:  "foo",
-						GoMod: env.Editor.DocumentURI("go.mod"),
+						GoMod: env.Editor.DocumentURI("gno.mod"),
 					},
 				})
 			})

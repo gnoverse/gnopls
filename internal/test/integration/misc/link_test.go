@@ -45,7 +45,7 @@ const Hello = "Hello"
 		WriteGoSum("."),
 	).Run(t, program, func(t *testing.T, env *Env) {
 		env.OpenFile("main.go")
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 
 		modLink := "https://pkg.go.dev/mod/import.test@v1.2.3"
 		pkgLink := "https://pkg.go.dev/import.test@v1.2.3/pkg"
@@ -55,7 +55,7 @@ const Hello = "Hello"
 		if content == nil || !strings.Contains(content.Value, pkgLink) {
 			t.Errorf("hover: got %v in main.go, want contains %q", content, pkgLink)
 		}
-		content, _ = env.Hover(env.RegexpSearch("go.mod", "import.test"))
+		content, _ = env.Hover(env.RegexpSearch("gno.mod", "import.test"))
 		if content == nil || !strings.Contains(content.Value, pkgLink) {
 			t.Errorf("hover: got %v in go.mod, want contains %q", content, pkgLink)
 		}
@@ -63,7 +63,7 @@ const Hello = "Hello"
 		if len(links) != 1 || *links[0].Target != pkgLink {
 			t.Errorf("documentLink: got links %+v for main.go, want one link with target %q", links, pkgLink)
 		}
-		links = env.DocumentLink("go.mod")
+		links = env.DocumentLink("gno.mod")
 		if len(links) != 1 || *links[0].Target != modLink {
 			t.Errorf("documentLink: got links %+v for go.mod, want one link with target %q", links, modLink)
 		}
@@ -78,7 +78,7 @@ const Hello = "Hello"
 		if content == nil || strings.Contains(content.Value, pkgLink) {
 			t.Errorf("hover: got %v in main.go, want non-empty hover without %q", content, pkgLink)
 		}
-		content, _ = env.Hover(env.RegexpSearch("go.mod", "import.test"))
+		content, _ = env.Hover(env.RegexpSearch("gno.mod", "import.test"))
 		if content == nil || strings.Contains(content.Value, modLink) {
 			t.Errorf("hover: got %v in go.mod, want contains %q", content, modLink)
 		}
@@ -86,7 +86,7 @@ const Hello = "Hello"
 		if len(links) != 0 {
 			t.Errorf("documentLink: got %d document links for main.go, want 0\nlinks: %v", len(links), links)
 		}
-		links = env.DocumentLink("go.mod")
+		links = env.DocumentLink("gno.mod")
 		if len(links) != 0 {
 			t.Errorf("documentLink: got %d document links for go.mod, want 0\nlinks: %v", len(links), links)
 		}

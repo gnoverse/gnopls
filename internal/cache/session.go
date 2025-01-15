@@ -585,7 +585,7 @@ func RelevantViews[V viewDefiner](ctx context.Context, fs file.Source, uri proto
 		return nil, nil // avoid the call to findRootPattern
 	}
 	dir := uri.Dir()
-	modURI, err := findRootPattern(ctx, dir, "go.mod", fs)
+	modURI, err := findRootPattern(ctx, dir, "gno.mod", fs)
 	if err != nil {
 		return nil, err
 	}

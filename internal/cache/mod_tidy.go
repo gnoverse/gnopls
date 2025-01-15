@@ -110,7 +110,7 @@ func modTidyImpl(ctx context.Context, snapshot *Snapshot, pm *ParsedModule) (*Ti
 
 	inv, cleanupInvocation, err := snapshot.GoCommandInvocation(false, &gocommand.Invocation{
 		Verb:       "mod",
-		Args:       []string{"tidy", "-modfile=" + filepath.Join(tempDir, "go.mod")},
+		Args:       []string{"tidy", "-modfile=" + filepath.Join(tempDir, "gno.mod")},
 		Env:        []string{"GOWORK=off"},
 		WorkingDir: pm.URI.Dir().Path(),
 	})
@@ -124,7 +124,7 @@ func modTidyImpl(ctx context.Context, snapshot *Snapshot, pm *ParsedModule) (*Ti
 
 	// Go directly to disk to get the temporary mod file,
 	// since it is always on disk.
-	tempMod := filepath.Join(tempDir, "go.mod")
+	tempMod := filepath.Join(tempDir, "gno.mod")
 	tempContents, err := os.ReadFile(tempMod)
 	if err != nil {
 		return nil, err

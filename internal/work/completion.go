@@ -97,7 +97,7 @@ func Completion(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle, p
 		}
 
 		// Check for a match (a module directory).
-		if filepath.Base(rel) == "go.mod" {
+		if filepath.Base(rel) == "gno.mod" {
 			relDir := strings.TrimSuffix(dirNonClean(rel), string(os.PathSeparator))
 			completionPath := join(pathPrefixSlashDir, filepath.ToSlash(relDir))
 

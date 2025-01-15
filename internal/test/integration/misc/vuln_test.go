@@ -70,9 +70,9 @@ func F() { // build error incomplete
 			},
 		},
 	).Run(t, files, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		var result command.RunVulncheckResult
-		env.ExecuteCodeLensCommand("go.mod", command.RunGovulncheck, &result)
+		env.ExecuteCodeLensCommand("gno.mod", command.RunGovulncheck, &result)
 		var ws WorkStatus
 		env.Await(
 			CompletedProgress(result.Token, &ws),
@@ -196,19 +196,19 @@ func main() {
 			},
 		},
 	).Run(t, files, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 
 		// Run Command included in the codelens.
 		var result command.RunVulncheckResult
-		env.ExecuteCodeLensCommand("go.mod", command.RunGovulncheck, &result)
+		env.ExecuteCodeLensCommand("gno.mod", command.RunGovulncheck, &result)
 
 		env.OnceMet(
 			CompletedProgress(result.Token, nil),
 			ShownMessage("Found GOSTDLIB"),
-			NoDiagnostics(ForFile("go.mod")),
+			NoDiagnostics(ForFile("gno.mod")),
 		)
 		testFetchVulncheckResult(t, env, map[string]fetchVulncheckResult{
-			"go.mod": {IDs: []string{"GOSTDLIB"}, Mode: vulncheck.ModeGovulncheck}})
+			"gno.mod": {IDs: []string{"GOSTDLIB"}, Mode: vulncheck.ModeGovulncheck}})
 	})
 }
 func TestFetchVulncheckResultStd(t *testing.T) {
@@ -247,13 +247,13 @@ func main() {
 		},
 		Settings{"ui.diagnostic.vulncheck": "Imports"},
 	).Run(t, files, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		env.AfterChange(
-			NoDiagnostics(ForFile("go.mod")),
+			NoDiagnostics(ForFile("gno.mod")),
 			// we don't publish diagnostics for standard library vulnerability yet.
 		)
 		testFetchVulncheckResult(t, env, map[string]fetchVulncheckResult{
-			"go.mod": {
+			"gno.mod": {
 				IDs:  []string{"GOSTDLIB"},
 				Mode: vulncheck.ModeImports,
 			},
@@ -271,7 +271,7 @@ func testFetchVulncheckResult(t *testing.T, env *Env, want map[string]fetchVulnc
 
 	var result map[protocol.DocumentURI]*vulncheck.Result
 	fetchCmd := command.NewFetchVulncheckResultCommand("fetch", command.URIArg{
-		URI: env.Sandbox.Workdir.URI("go.mod"),
+		URI: env.Sandbox.Workdir.URI("gno.mod"),
 	})
 	env.ExecuteCommand(&protocol.ExecuteCommandParams{
 		Command:   fetchCmd.Command,
@@ -455,16 +455,16 @@ func TestRunVulncheckPackageDiagnostics(t *testing.T) {
 	defer db.Clean()
 
 	checkVulncheckDiagnostics := func(env *Env, t *testing.T) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 
 		gotDiagnostics := &protocol.PublishDiagnosticsParams{}
 		env.AfterChange(
-			Diagnostics(env.AtRegexp("go.mod", `golang.org/amod`)),
-			ReadDiagnostics("go.mod", gotDiagnostics),
+			Diagnostics(env.AtRegexp("gno.mod", `golang.org/amod`)),
+			ReadDiagnostics("gno.mod", gotDiagnostics),
 		)
 
 		testFetchVulncheckResult(t, env, map[string]fetchVulncheckResult{
-			"go.mod": {
+			"gno.mod": {
 				IDs:  []string{"GO-2022-01", "GO-2022-02", "GO-2022-03"},
 				Mode: vulncheck.ModeImports,
 			},
@@ -512,7 +512,7 @@ func TestRunVulncheckPackageDiagnostics(t *testing.T) {
 		for pattern, want := range wantVulncheckDiagnostics {
 			modPathDiagnostics := testVulnDiagnostics(t, env, pattern, want, gotDiagnostics)
 
-			gotActions := env.CodeActionForFile("go.mod", modPathDiagnostics)
+			gotActions := env.CodeActionForFile("gno.mod", modPathDiagnostics)
 			if diff := diffCodeActions(gotActions, want.codeActions); diff != "" {
 				t.Errorf("code actions for %q do not match, got %v, want %v\n%v\n", pattern, gotActions, want.codeActions, diff)
 				continue
@@ -521,11 +521,11 @@ func TestRunVulncheckPackageDiagnostics(t *testing.T) {
 	}
 
 	wantNoVulncheckDiagnostics := func(env *Env, t *testing.T) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 
 		gotDiagnostics := &protocol.PublishDiagnosticsParams{}
 		env.AfterChange(
-			ReadDiagnostics("go.mod", gotDiagnostics),
+			ReadDiagnostics("gno.mod", gotDiagnostics),
 		)
 
 		if len(gotDiagnostics.Diagnostics) > 0 {
@@ -558,15 +558,15 @@ func TestRunVulncheckPackageDiagnostics(t *testing.T) {
 				if tc.name == "imports" && tc.wantDiagnostics {
 					// test we get only govulncheck-based diagnostics after "run govulncheck".
 					var result command.RunVulncheckResult
-					env.ExecuteCodeLensCommand("go.mod", command.RunGovulncheck, &result)
+					env.ExecuteCodeLensCommand("gno.mod", command.RunGovulncheck, &result)
 					gotDiagnostics := &protocol.PublishDiagnosticsParams{}
 					env.OnceMet(
 						CompletedProgress(result.Token, nil),
 						ShownMessage("Found"),
 					)
 					env.OnceMet(
-						Diagnostics(env.AtRegexp("go.mod", "golang.org/bmod")),
-						ReadDiagnostics("go.mod", gotDiagnostics),
+						Diagnostics(env.AtRegexp("gno.mod", "golang.org/bmod")),
+						ReadDiagnostics("gno.mod", gotDiagnostics),
 					)
 					// We expect only one diagnostic for GO-2022-02.
 					count := 0
@@ -603,11 +603,11 @@ func TestRunGovulncheck_Expiry(t *testing.T) {
 	defer db.Clean()
 
 	WithOptions(opts0...).Run(t, workspace1, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		env.OpenFile("x/x.go")
 
 		var result command.RunVulncheckResult
-		env.ExecuteCodeLensCommand("go.mod", command.RunGovulncheck, &result)
+		env.ExecuteCodeLensCommand("gno.mod", command.RunGovulncheck, &result)
 		env.OnceMet(
 			CompletedProgress(result.Token, nil),
 			ShownMessage("Found"),
@@ -617,7 +617,7 @@ func TestRunGovulncheck_Expiry(t *testing.T) {
 		// Make an arbitrary edit to force re-diagnosis of the workspace.
 		env.RegexpReplace("x/x.go", "package x", "package x ")
 		env.AfterChange(
-			NoDiagnostics(env.AtRegexp("go.mod", "golang.org/bmod")),
+			NoDiagnostics(env.AtRegexp("gno.mod", "golang.org/bmod")),
 		)
 	})
 }
@@ -634,10 +634,10 @@ func TestRunVulncheckWarning(t *testing.T) {
 	}
 	defer db.Clean()
 	WithOptions(opts...).Run(t, workspace1, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 
 		var result command.RunVulncheckResult
-		env.ExecuteCodeLensCommand("go.mod", command.RunGovulncheck, &result)
+		env.ExecuteCodeLensCommand("gno.mod", command.RunGovulncheck, &result)
 		gotDiagnostics := &protocol.PublishDiagnosticsParams{}
 		env.OnceMet(
 			CompletedProgress(result.Token, nil),
@@ -645,13 +645,13 @@ func TestRunVulncheckWarning(t *testing.T) {
 		)
 		// Vulncheck diagnostics asynchronous to the vulncheck command.
 		env.OnceMet(
-			Diagnostics(env.AtRegexp("go.mod", `golang.org/amod`)),
-			ReadDiagnostics("go.mod", gotDiagnostics),
+			Diagnostics(env.AtRegexp("gno.mod", `golang.org/amod`)),
+			ReadDiagnostics("gno.mod", gotDiagnostics),
 		)
 
 		testFetchVulncheckResult(t, env, map[string]fetchVulncheckResult{
 			// All vulnerabilities (symbol-level, import-level, module-level) are reported.
-			"go.mod": {IDs: []string{"GO-2022-01", "GO-2022-02", "GO-2022-03", "GO-2022-04"}, Mode: vulncheck.ModeGovulncheck},
+			"gno.mod": {IDs: []string{"GO-2022-01", "GO-2022-02", "GO-2022-03", "GO-2022-04"}, Mode: vulncheck.ModeGovulncheck},
 		})
 		env.OpenFile("x/x.go")
 		env.OpenFile("y/y.go")
@@ -709,7 +709,7 @@ func TestRunVulncheckWarning(t *testing.T) {
 			modPathDiagnostics := testVulnDiagnostics(t, env, mod, want, gotDiagnostics)
 
 			// Check that the actions we get when including all diagnostics at a location return the same result
-			gotActions := env.CodeActionForFile("go.mod", modPathDiagnostics)
+			gotActions := env.CodeActionForFile("gno.mod", modPathDiagnostics)
 			if diff := diffCodeActions(gotActions, want.codeActions); diff != "" {
 				t.Errorf("code actions for %q do not match, expected %v, got %v\n%v\n", mod, want.codeActions, gotActions, diff)
 				continue
@@ -739,7 +739,7 @@ require (
 	golang.org/bmod v0.5.0 // indirect
 )
 `
-		if got := env.BufferText("go.mod"); got != wantGoMod {
+		if got := env.BufferText("gno.mod"); got != wantGoMod {
 			t.Fatalf("go.mod vulncheck fix failed:\n%s", compare.Text(wantGoMod, got))
 		}
 	})
@@ -790,9 +790,9 @@ func TestGovulncheckInfo(t *testing.T) {
 	}
 	defer db.Clean()
 	WithOptions(opts...).Run(t, workspace2, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		var result command.RunVulncheckResult
-		env.ExecuteCodeLensCommand("go.mod", command.RunGovulncheck, &result)
+		env.ExecuteCodeLensCommand("gno.mod", command.RunGovulncheck, &result)
 		gotDiagnostics := &protocol.PublishDiagnosticsParams{}
 		env.OnceMet(
 			CompletedProgress(result.Token, nil),
@@ -801,11 +801,11 @@ func TestGovulncheckInfo(t *testing.T) {
 
 		// Vulncheck diagnostics asynchronous to the vulncheck command.
 		env.OnceMet(
-			Diagnostics(env.AtRegexp("go.mod", "golang.org/bmod")),
-			ReadDiagnostics("go.mod", gotDiagnostics),
+			Diagnostics(env.AtRegexp("gno.mod", "golang.org/bmod")),
+			ReadDiagnostics("gno.mod", gotDiagnostics),
 		)
 
-		testFetchVulncheckResult(t, env, map[string]fetchVulncheckResult{"go.mod": {IDs: []string{"GO-2022-02", "GO-2022-04"}, Mode: vulncheck.ModeGovulncheck}})
+		testFetchVulncheckResult(t, env, map[string]fetchVulncheckResult{"gno.mod": {IDs: []string{"GO-2022-02", "GO-2022-04"}, Mode: vulncheck.ModeGovulncheck}})
 		// wantDiagnostics maps a module path in the require
 		// section of a go.mod to diagnostics that will be returned
 		// when running vulncheck.
@@ -832,7 +832,7 @@ func TestGovulncheckInfo(t *testing.T) {
 		for mod, want := range wantDiagnostics {
 			modPathDiagnostics := testVulnDiagnostics(t, env, mod, want, gotDiagnostics)
 			// Check that the actions we get when including all diagnostics at a location return the same result
-			gotActions := env.CodeActionForFile("go.mod", modPathDiagnostics)
+			gotActions := env.CodeActionForFile("gno.mod", modPathDiagnostics)
 			allActions = append(allActions, gotActions...)
 			if diff := diffCodeActions(gotActions, want.codeActions); diff != "" {
 				t.Errorf("code actions for %q do not match, expected %v, got %v\n%v\n", mod, want.codeActions, gotActions, diff)
@@ -853,7 +853,7 @@ func TestGovulncheckInfo(t *testing.T) {
 		}
 		env.ApplyCodeAction(reset)
 
-		env.Await(NoDiagnostics(ForFile("go.mod")))
+		env.Await(NoDiagnostics(ForFile("gno.mod")))
 	})
 }
 
@@ -861,7 +861,7 @@ func TestGovulncheckInfo(t *testing.T) {
 // and runs checks if diagnostics and code actions associated with the line match expectation.
 func testVulnDiagnostics(t *testing.T, env *Env, pattern string, want vulnDiagExpectation, got *protocol.PublishDiagnosticsParams) []protocol.Diagnostic {
 	t.Helper()
-	loc := env.RegexpSearch("go.mod", pattern)
+	loc := env.RegexpSearch("gno.mod", pattern)
 	var modPathDiagnostics []protocol.Diagnostic
 	for _, w := range want.diagnostics {
 		// Find the diagnostics at loc.start.
@@ -882,7 +882,7 @@ func testVulnDiagnostics(t *testing.T, env *Env, pattern string, want vulnDiagEx
 			t.Errorf("incorrect (severity, source) for %q, want (%s, %s) got (%s, %s)\n", w.msg, w.severity, w.source, diag.Severity, diag.Source)
 		}
 		// Check expected code actions appear.
-		gotActions := env.CodeActionForFile("go.mod", []protocol.Diagnostic{*diag})
+		gotActions := env.CodeActionForFile("gno.mod", []protocol.Diagnostic{*diag})
 		if diff := diffCodeActions(gotActions, w.codeActions); diff != "" {
 			t.Errorf("code actions for %q do not match, want %v, got %v\n%v\n", w.msg, w.codeActions, gotActions, diff)
 			continue

@@ -162,9 +162,9 @@ const F = named.D - 3
 		env.AfterChange(
 			Diagnostics(env.AtRegexp("p/internal/bar/bar.go", "\"mod.test/p/internal/foo\"")),
 		)
-		env.OpenFile("go.mod")
-		env.RegexpReplace("go.mod", "mod.testx", "mod.test")
-		env.SaveBuffer("go.mod") // saving triggers a reload
+		env.OpenFile("gno.mod")
+		env.RegexpReplace("gno.mod", "mod.testx", "mod.test")
+		env.SaveBuffer("gno.mod") // saving triggers a reload
 		env.AfterChange(NoDiagnostics())
 	})
 }

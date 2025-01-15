@@ -110,7 +110,7 @@ type EditorConfig struct {
 	// Map of language ID -> regexp to match, used to set the file type of new
 	// buffers. Applied as an overlay on top of the following defaults:
 	//  "go" -> ".*\.go"
-	//  "go.mod" -> "go\.mod"
+	//  "gno.mod" -> "go\.mod"
 	//  "go.sum" -> "go\.sum"
 	//  "gotmpl" -> ".*tmpl"
 	FileAssociations map[string]string
@@ -583,7 +583,7 @@ func (e *Editor) sendDidOpen(ctx context.Context, item protocol.TextDocumentItem
 
 var defaultFileAssociations = map[string]*regexp.Regexp{
 	"go":      regexp.MustCompile(`^.*\.go$`), // '$' is important: don't match .gotmpl!
-	"go.mod":  regexp.MustCompile(`^go\.mod$`),
+	"gno.mod":  regexp.MustCompile(`^go\.mod$`),
 	"go.sum":  regexp.MustCompile(`^go(\.work)?\.sum$`),
 	"go.work": regexp.MustCompile(`^go\.work$`),
 	"gotmpl":  regexp.MustCompile(`^.*tmpl$`),

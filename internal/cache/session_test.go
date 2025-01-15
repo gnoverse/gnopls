@@ -68,7 +68,7 @@ func TestZeroConfigAlgorithm(t *testing.T) {
 		{
 			"basic go.mod workspace",
 			map[string]string{
-				"go.mod": "module golang.org/a\ngo 1.18\n",
+				"gno.mod": "module golang.org/a\ngo 1.18\n",
 			},
 			[]folderSummary{{dir: "."}},
 			nil,
@@ -237,7 +237,7 @@ func TestZeroConfigAlgorithm(t *testing.T) {
 		{
 			"go.mod with nested replace",
 			map[string]string{
-				"go.mod":   "module golang.org/a\n require golang.org/b v1.2.3\nreplace example.com/b => ./b",
+				"gno.mod":   "module golang.org/a\n require golang.org/b v1.2.3\nreplace example.com/b => ./b",
 				"a.go":     "package a",
 				"b/go.mod": "module golang.org/b\ngo 1.18\n",
 				"b/b.go":   "package b",
@@ -249,7 +249,7 @@ func TestZeroConfigAlgorithm(t *testing.T) {
 		{
 			"go.mod with parent replace, parent folder",
 			map[string]string{
-				"go.mod":   "module golang.org/a",
+				"gno.mod":   "module golang.org/a",
 				"a.go":     "package a",
 				"b/go.mod": "module golang.org/b\ngo 1.18\nrequire golang.org/a v1.2.3\nreplace golang.org/a => ../",
 				"b/b.go":   "package b",
@@ -261,7 +261,7 @@ func TestZeroConfigAlgorithm(t *testing.T) {
 		{
 			"go.mod with multiple replace",
 			map[string]string{
-				"go.mod": `
+				"gno.mod": `
 module golang.org/root
 
 require (
@@ -291,7 +291,7 @@ replace (
 		{
 			"go.mod with replace outside the workspace",
 			map[string]string{
-				"go.mod":   "module golang.org/a\ngo 1.18",
+				"gno.mod":   "module golang.org/a\ngo 1.18",
 				"a.go":     "package a",
 				"b/go.mod": "module golang.org/b\ngo 1.18\nrequire golang.org/a v1.2.3\nreplace golang.org/a => ../",
 				"b/b.go":   "package b",
@@ -303,7 +303,7 @@ replace (
 		{
 			"go.mod with replace directive; workspace replace off",
 			map[string]string{
-				"go.mod":   "module golang.org/a\n require golang.org/b v1.2.3\nreplace example.com/b => ./b",
+				"gno.mod":   "module golang.org/a\n require golang.org/b v1.2.3\nreplace example.com/b => ./b",
 				"a.go":     "package a",
 				"b/go.mod": "module golang.org/b\ngo 1.18\n",
 				"b/b.go":   "package b",

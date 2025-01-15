@@ -864,7 +864,7 @@ func defineView(ctx context.Context, fs file.Source, folder *Folder, forFile fil
 
 	// When deriving the best view for a given file, we only want to search
 	// up the directory hierarchy for modfiles.
-	def.gomod, err = findRootPattern(ctx, dirURI, "go.mod", fs)
+	def.gomod, err = findRootPattern(ctx, dirURI, "gno.mod", fs)
 	if err != nil {
 		return nil, err
 	}

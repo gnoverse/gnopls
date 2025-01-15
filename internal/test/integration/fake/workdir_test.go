@@ -182,10 +182,10 @@ func TestWorkdir_CheckForFileChanges(t *testing.T) {
 		}
 	}
 	// Sleep some positive amount of time to ensure a distinct mtime.
-	if err := writeFileData("go.mod", []byte("module foo.test\n"), wd.RelativeTo); err != nil {
+	if err := writeFileData("gno.mod", []byte("module foo.test\n"), wd.RelativeTo); err != nil {
 		t.Fatal(err)
 	}
-	checkChange("go.mod", protocol.Changed)
+	checkChange("gno.mod", protocol.Changed)
 	if err := writeFileData("newFile", []byte("something"), wd.RelativeTo); err != nil {
 		t.Fatal(err)
 	}

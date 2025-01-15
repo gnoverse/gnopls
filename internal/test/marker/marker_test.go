@@ -782,7 +782,7 @@ func loadMarkerTest(name string, content []byte) (*markerTest, error) {
 			// testdata", so don't allow it as a module name (golang/go#65406).
 			// (Otherwise files within it will end up in an ad hoc
 			// package, "command-line-arguments/$TMPDIR/...".)
-			if filepath.Base(file.Name) == "go.mod" &&
+			if filepath.Base(file.Name) == "gno.mod" &&
 				bytes.Contains(file.Data, []byte("module testdata")) {
 				return nil, fmt.Errorf("'testdata' is not a valid module name")
 			}

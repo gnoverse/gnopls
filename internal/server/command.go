@@ -86,10 +86,10 @@ func (h *commandHandler) Modules(ctx context.Context, args command.ModulesArgs) 
 			return false // "can't happen" (see prior Encloses check)
 		}
 
-		assert(filepath.Base(goMod.Path()) == "go.mod", fmt.Sprintf("invalid go.mod path: want go.mod, got %q", goMod.Path()))
+		assert(filepath.Base(goMod.Path()) == "gno.mod", fmt.Sprintf("invalid go.mod path: want go.mod, got %q", goMod.Path()))
 
 		// Invariant: rel is a relative path without "../" segments and the last
-		// segment is "go.mod"
+		// segment is "gno.mod"
 		nparts := strings.Count(rel, string(filepath.Separator))
 		return args.MaxDepth < 0 || nparts <= args.MaxDepth
 	}
@@ -855,7 +855,7 @@ func (c *commandHandler) GoGetPackage(ctx context.Context, args command.GoGetPac
 
 		inv, cleanupInvocation, err := snapshot.GoCommandInvocation(true, &gocommand.Invocation{
 			Verb:       "list",
-			Args:       []string{"-f", "{{.Module.Path}}@{{.Module.Version}}", "-mod=mod", "-modfile=" + filepath.Join(tempDir, "go.mod"), args.Pkg},
+			Args:       []string{"-f", "{{.Module.Path}}@{{.Module.Version}}", "-mod=mod", "-modfile=" + filepath.Join(tempDir, "gno.mod"), args.Pkg},
 			Env:        []string{"GOWORK=off"},
 			WorkingDir: modURI.Dir().Path(),
 		})

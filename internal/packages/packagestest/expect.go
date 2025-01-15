@@ -181,7 +181,7 @@ func (e *Exported) getNotes() error {
 	}
 	// Check go.mod markers regardless of mode, we need to do this so that our marker count
 	// matches the counts in the summary.txt.golden file for the test directory.
-	if gomod, found := e.written[e.primary]["go.mod"]; found {
+	if gomod, found := e.written[e.primary]["gno.mod"]; found {
 		// If we are in Modules mode, then we need to check the contents of the go.mod.temp.
 		if e.Exporter == Modules {
 			gomod += ".temp"

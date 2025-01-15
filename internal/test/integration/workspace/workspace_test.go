@@ -1023,7 +1023,7 @@ func main() {
 		env.OpenFile("b/go.mod")
 		env.AfterChange(
 			Diagnostics(
-				env.AtRegexp("go.mod", `example.com v1.2.3`),
+				env.AtRegexp("gno.mod", `example.com v1.2.3`),
 				WithMessage("go.sum is out of sync"),
 			),
 			ReadDiagnostics("b/go.mod", params),

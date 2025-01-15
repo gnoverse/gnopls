@@ -46,7 +46,7 @@ func Baz()
 			}, map[string]command.Module{
 				"foo": {
 					Path:  "foo",
-					GoMod: env.Editor.DocumentURI("go.mod"),
+					GoMod: env.Editor.DocumentURI("gno.mod"),
 				},
 			}, []string{})
 		})
@@ -62,7 +62,7 @@ func Baz()
 			}, map[string]command.Module{
 				"foo": {
 					Path:  "foo",
-					GoMod: env.Editor.DocumentURI("go.mod"),
+					GoMod: env.Editor.DocumentURI("gno.mod"),
 				},
 			}, []string{})
 		})
@@ -82,7 +82,7 @@ func Baz()
 			}, map[string]command.Module{
 				"foo": {
 					Path:  "foo",
-					GoMod: env.Editor.DocumentURI("go.mod"),
+					GoMod: env.Editor.DocumentURI("gno.mod"),
 				},
 			}, []string{})
 		})
@@ -183,7 +183,7 @@ func Test(*testing.T)
 			}, map[string]command.Module{
 				"foo": {
 					Path:  "foo",
-					GoMod: env.Editor.DocumentURI("go.mod"),
+					GoMod: env.Editor.DocumentURI("gno.mod"),
 				},
 			}, []string{
 				"func TestFoo(t *testing.T)",
@@ -214,7 +214,7 @@ func Test(*testing.T)
 			}, map[string]command.Module{
 				"foo": {
 					Path:  "foo",
-					GoMod: env.Editor.DocumentURI("go.mod"),
+					GoMod: env.Editor.DocumentURI("gno.mod"),
 				},
 			}, []string{
 				"func TestBaz(*testing.T)",
@@ -277,7 +277,7 @@ func Test(*testing.T)
 			}, map[string]command.Module{
 				"foo": {
 					Path:  "foo",
-					GoMod: env.Editor.DocumentURI("go.mod"),
+					GoMod: env.Editor.DocumentURI("gno.mod"),
 				},
 			}, []string{
 				"func TestFoo(t *testing.T)",
@@ -392,7 +392,7 @@ func (X) SubtestMethod(t *testing.T) {
 		}, map[string]command.Module{
 			"foo": {
 				Path:  "foo",
-				GoMod: env.Editor.DocumentURI("go.mod"),
+				GoMod: env.Editor.DocumentURI("gno.mod"),
 			},
 		}, []string{
 			"func ExampleFoo() {}",

@@ -276,8 +276,8 @@ func TestHoverModMissingModuleStmt(t *testing.T) {
 go 1.16
 `
 	Run(t, source, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
-		env.Hover(env.RegexpSearch("go.mod", "go")) // no panic
+		env.OpenFile("gno.mod")
+		env.Hover(env.RegexpSearch("gno.mod", "go")) // no panic
 	})
 }
 

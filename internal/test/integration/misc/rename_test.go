@@ -561,8 +561,8 @@ func main() {
 		env.RegexpSearch("main.go", "mod.com/foox")
 		env.RegexpSearch("main.go", "foox.Bar()")
 
-		env.RegexpSearch("go.mod", "./foox/bar")
-		env.RegexpSearch("go.mod", "./foox/baz")
+		env.RegexpSearch("gno.mod", "./foox/bar")
+		env.RegexpSearch("gno.mod", "./foox/baz")
 	})
 }
 

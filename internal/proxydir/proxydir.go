@@ -39,7 +39,7 @@ func WriteModuleVersion(rootDir, module, ver string, files map[string][]byte) (r
 
 	// Serve the go.mod file on the <version>.mod url, if it exists. Otherwise,
 	// serve a stub.
-	modContents, ok := files["go.mod"]
+	modContents, ok := files["gno.mod"]
 	if !ok {
 		modContents = []byte("module " + module)
 	}

@@ -25,7 +25,7 @@ import (
 // to the relative path "new" within the directory.
 //
 // Renaming allows tests to hide files whose names have
-// special meaning, such as "go.mod" files or "testdata" directories
+// special meaning, such as "gno.mod" files or "testdata" directories
 // from the go command, or ill-formed Go source files from gofmt.
 //
 // For example if we copy the directory testdata:

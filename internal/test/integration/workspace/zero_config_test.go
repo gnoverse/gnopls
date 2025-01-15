@@ -182,7 +182,7 @@ const C = 0
 	Run(t, files, func(t *testing.T, env *Env) {
 		env.OpenFile("a.go")
 		env.AfterChange(
-			Diagnostics(env.AtRegexp("go.mod", "modul")),
+			Diagnostics(env.AtRegexp("gno.mod", "modul")),
 			Diagnostics(env.AtRegexp("a.go", "broken"), WithMessage("initialization failed")),
 		)
 	})

@@ -708,7 +708,7 @@ func isWorkspacePackageLocked(ctx context.Context, s *Snapshot, meta *metadata.G
 			}
 			dir := pkg.CompiledGoFiles[0].Dir()
 			var err error
-			modURI, err = findRootPattern(ctx, dir, "go.mod", lockedSnapshot{s})
+			modURI, err = findRootPattern(ctx, dir, "gno.mod", lockedSnapshot{s})
 			if err != nil || modURI == "" {
 				// err != nil implies context cancellation, in which case the result of
 				// this query does not matter.

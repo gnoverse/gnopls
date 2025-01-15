@@ -2713,8 +2713,8 @@ func testModule(t *testing.T, exporter packagestest.Exporter) {
 		if a.Module.Path != "golang.org/fake" {
 			t.Fatalf("package.Modile.Path: want \"golang.org/fake\", got %q", a.Module.Path)
 		}
-		if a.Module.GoMod != filepath.Join(rootDir, "go.mod") {
-			t.Fatalf("package.Module.GoMod: want %q, got %q", filepath.Join(rootDir, "go.mod"), a.Module.GoMod)
+		if a.Module.GoMod != filepath.Join(rootDir, "gno.mod") {
+			t.Fatalf("package.Module.GoMod: want %q, got %q", filepath.Join(rootDir, "gno.mod"), a.Module.GoMod)
 		}
 	default:
 		t.Fatalf("Expected exporter to be GOPATH or Modules, got %v", exported.Exporter.Name())
@@ -3002,7 +3002,7 @@ func copyAll(srcPath, dstPath string) error {
 		if err != nil {
 			return err
 		}
-		dstFilePath := strings.Replace(filepath.Join(dstPath, rel), "definitelynot_go.mod", "go.mod", -1)
+		dstFilePath := strings.Replace(filepath.Join(dstPath, rel), "definitelynot_go.mod", "gno.mod", -1)
 		if err := os.MkdirAll(filepath.Dir(dstFilePath), 0755); err != nil {
 			return err
 		}
@@ -3080,7 +3080,7 @@ func TestLoadOverlayGoMod(t *testing.T) {
 	cfg := &packages.Config{
 		Mode: packages.LoadSyntax,
 		Overlay: map[string][]byte{
-			filepath.Join(cwd, "go.mod"): []byte("module example.com\ngo 1.0"),
+			filepath.Join(cwd, "gno.mod"): []byte("module example.com\ngo 1.0"),
 		},
 		Env: append(os.Environ(), "GOFLAGS=-mod=vendor", "GOWORK=off"),
 	}

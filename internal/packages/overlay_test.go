@@ -564,7 +564,7 @@ func TestOverlayModFileChanges(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(mod1, "go.mod"), []byte(`module mod1
+	if err := os.WriteFile(filepath.Join(mod1, "gno.mod"), []byte(`module mod1
 
 	require (
 		golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7
@@ -583,7 +583,7 @@ func TestOverlayModFileChanges(t *testing.T) {
 
 go 1.11
 `
-	if err := os.WriteFile(filepath.Join(mod2, "go.mod"), []byte(want), 0775); err != nil {
+	if err := os.WriteFile(filepath.Join(mod2, "gno.mod"), []byte(want), 0775); err != nil {
 		t.Fatal(err)
 	}
 
@@ -609,7 +609,7 @@ func main() {}
 	}
 
 	// Check that mod2/go.mod has not been modified.
-	got, err := os.ReadFile(filepath.Join(mod2, "go.mod"))
+	got, err := os.ReadFile(filepath.Join(mod2, "gno.mod"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1054,7 +1054,7 @@ func TestOverlaysInReplace(t *testing.T) {
 	if err := os.Mkdir(dirB, 0775); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(dirB, "go.mod"), []byte(fmt.Sprintf("module %s.com", dirB)), 0775); err != nil {
+	if err := os.WriteFile(filepath.Join(dirB, "gno.mod"), []byte(fmt.Sprintf("module %s.com", dirB)), 0775); err != nil {
 		t.Fatal(err)
 	}
 	if err := os.MkdirAll(filepath.Join(dirB, "inner"), 0775); err != nil {
@@ -1077,7 +1077,7 @@ replace (
 	b.com => %s
 )
 `, dirB)
-	if err := os.WriteFile(filepath.Join(tmpWorkspace, "go.mod"), []byte(goModContent), 0775); err != nil {
+	if err := os.WriteFile(filepath.Join(tmpWorkspace, "gno.mod"), []byte(goModContent), 0775); err != nil {
 		t.Fatal(err)
 	}
 

@@ -52,10 +52,10 @@ func _() {
 		env.OpenFile("a/a1.go")
 		d := &protocol.PublishDiagnosticsParams{}
 		env.AfterChange(
-			Diagnostics(env.AtRegexp("go.mod", "module mod.com"), WithMessage("Inconsistent vendoring")),
-			ReadDiagnostics("go.mod", d),
+			Diagnostics(env.AtRegexp("gno.mod", "module mod.com"), WithMessage("Inconsistent vendoring")),
+			ReadDiagnostics("gno.mod", d),
 		)
-		env.ApplyQuickFixes("go.mod", d.Diagnostics)
+		env.ApplyQuickFixes("gno.mod", d.Diagnostics)
 
 		env.AfterChange(
 			Diagnostics(env.AtRegexp("a/a1.go", `q int`), WithMessage("not used")),

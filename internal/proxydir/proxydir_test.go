@@ -23,7 +23,7 @@ func TestWriteModuleVersion(t *testing.T) {
 			modulePath: "mod.test/module",
 			version:    "v1.2.3",
 			files: map[string][]byte{
-				"go.mod":   []byte("module mod.com\n\ngo 1.12"),
+				"gno.mod":   []byte("module mod.com\n\ngo 1.12"),
 				"const.go": []byte("package module\n\nconst Answer = 42"),
 			},
 		},
@@ -31,7 +31,7 @@ func TestWriteModuleVersion(t *testing.T) {
 			modulePath: "mod.test/module",
 			version:    "v1.2.4",
 			files: map[string][]byte{
-				"go.mod":   []byte("module mod.com\n\ngo 1.12"),
+				"gno.mod":   []byte("module mod.com\n\ngo 1.12"),
 				"const.go": []byte("package module\n\nconst Answer = 43"),
 			},
 		},
@@ -58,7 +58,7 @@ func TestWriteModuleVersion(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		wantMod, ok := test.files["go.mod"]
+		wantMod, ok := test.files["gno.mod"]
 		if !ok {
 			wantMod = []byte("module " + test.modulePath)
 		}
