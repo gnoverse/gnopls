@@ -427,7 +427,7 @@ func (s *Snapshot) RunGoModUpdateCommands(ctx context.Context, modURI protocol.D
 	inv, cleanupInvocation, err := s.GoCommandInvocation(true, &gocommand.Invocation{
 		WorkingDir: modURI.Dir().Path(),
 		ModFlag:    "mod",
-		ModFile:    filepath.Join(tempDir, "go.mod"),
+		ModFile:    filepath.Join(tempDir, "gno.mod"),
 		Env:        []string{"GOWORK=off"},
 	})
 	if err != nil {
@@ -443,7 +443,7 @@ func (s *Snapshot) RunGoModUpdateCommands(ctx context.Context, modURI protocol.D
 		return nil, nil, err
 	}
 	var modBytes, sumBytes []byte
-	modBytes, err = os.ReadFile(filepath.Join(tempDir, "go.mod"))
+	modBytes, err = os.ReadFile(filepath.Join(tempDir, "gno.mod"))
 	if err != nil && !os.IsNotExist(err) {
 		return nil, nil, err
 	}
@@ -480,7 +480,7 @@ func TempModDir(ctx context.Context, fs file.Source, modURI protocol.DocumentURI
 		return "", nil, err // context cancelled
 	}
 	if data, err := modFH.Content(); err == nil {
-		if err := os.WriteFile(filepath.Join(dir, "go.mod"), data, 0666); err != nil {
+		if err := os.WriteFile(filepath.Join(dir, "gno.mod"), data, 0666); err != nil {
 			return "", nil, err
 		}
 	}
@@ -1770,7 +1770,7 @@ func (s *Snapshot) clone(ctx, bgCtx context.Context, changed StateChange, done f
 			reinit = true
 		}
 		if base == "go.sum" {
-			modURI := protocol.URIFromPath(filepath.Join(dir, "go.mod"))
+			modURI := protocol.URIFromPath(filepath.Join(dir, "gno.mod"))
 			if _, active := result.view.workspaceModFiles[modURI]; active {
 				reinit = true
 			}

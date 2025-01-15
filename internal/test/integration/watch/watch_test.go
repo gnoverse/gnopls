@@ -539,7 +539,7 @@ func main() {
 `
 	WithOptions(ProxyFiles(proxy)).Run(t, mod, func(t *testing.T, env *Env) {
 		env.WriteWorkspaceFiles(map[string]string{
-			"go.mod": `module mod.com
+			"gno.mod": `module mod.com
 
 go 1.12
 

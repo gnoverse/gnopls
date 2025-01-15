@@ -35,7 +35,7 @@ func TestCapabilities(t *testing.T) {
 	if err := os.WriteFile(tmpFile, []byte(""), 0775); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(tmpDir, "go.mod"), []byte("module fake\n\ngo 1.12\n"), 0775); err != nil {
+	if err := os.WriteFile(filepath.Join(tmpDir, "gno.mod"), []byte("module fake\n\ngo 1.12\n"), 0775); err != nil {
 		t.Fatal(err)
 	}
 	defer os.RemoveAll(tmpDir)

@@ -33,7 +33,7 @@ package p
 		env.OpenFile("p.go")
 		env.AfterChange()
 		want := "module badmod.test/p\n"
-		got := env.ReadWorkspaceFile("go.mod")
+		got := env.ReadWorkspaceFile("gno.mod")
 		if got != want {
 			t.Errorf("go.mod content:\n%s\nwant:\n%s", got, want)
 		}

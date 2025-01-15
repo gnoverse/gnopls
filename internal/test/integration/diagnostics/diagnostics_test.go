@@ -275,11 +275,11 @@ func Hello() {
 				InitialWorkspaceLoad,
 				Diagnostics(env.AtRegexp("main.go", `"mod.com/bob"`)),
 			)
-			env.CreateBuffer("go.mod", `module mod.com
+			env.CreateBuffer("gno.mod", `module mod.com
 
 	go 1.12
 `)
-			env.SaveBuffer("go.mod")
+			env.SaveBuffer("gno.mod")
 			var d protocol.PublishDiagnosticsParams
 			env.AfterChange(
 				NoDiagnostics(ForFile("main.go")),
@@ -674,7 +674,7 @@ func main() {
 	).Run(t, ardanLabs, func(t *testing.T, env *Env) {
 		// Expect a diagnostic with a suggested fix to add
 		// "github.com/ardanlabs/conf" to the go.mod file.
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		env.OpenFile("main.go")
 		var d protocol.PublishDiagnosticsParams
 		env.AfterChange(
@@ -682,7 +682,7 @@ func main() {
 			ReadDiagnostics("main.go", &d),
 		)
 		env.ApplyQuickFixes("main.go", d.Diagnostics)
-		env.SaveBuffer("go.mod")
+		env.SaveBuffer("gno.mod")
 		env.AfterChange(
 			NoDiagnostics(ForFile("main.go")),
 		)
@@ -696,13 +696,13 @@ func main() {
 		// Expect a diagnostic and fix to remove the dependency in the go.mod.
 		env.AfterChange(
 			NoDiagnostics(ForFile("main.go")),
-			Diagnostics(env.AtRegexp("go.mod", "require github.com/ardanlabs/conf"), WithMessage("not used in this module")),
-			ReadDiagnostics("go.mod", &d),
+			Diagnostics(env.AtRegexp("gno.mod", "require github.com/ardanlabs/conf"), WithMessage("not used in this module")),
+			ReadDiagnostics("gno.mod", &d),
 		)
-		env.ApplyQuickFixes("go.mod", d.Diagnostics)
-		env.SaveBuffer("go.mod")
+		env.ApplyQuickFixes("gno.mod", d.Diagnostics)
+		env.SaveBuffer("gno.mod")
 		env.AfterChange(
-			NoDiagnostics(ForFile("go.mod")),
+			NoDiagnostics(ForFile("gno.mod")),
 		)
 		// Uncomment the lines and expect a new diagnostic for the import.
 		env.RegexpReplace("main.go", "//_ = conf.ErrHelpWanted", "_ = conf.ErrHelpWanted")
@@ -1523,22 +1523,22 @@ go 1.12
 package main
 `
 	Run(t, pkg, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		env.AfterChange(
 			OutstandingWork(server.WorkspaceLoadFailure, "unknown directive"),
 		)
-		env.EditBuffer("go.mod", fake.NewEdit(0, 0, 3, 0, `module mod.com
+		env.EditBuffer("gno.mod", fake.NewEdit(0, 0, 3, 0, `module mod.com
 
 go 1.hello
 `))
 		// As of golang/go#42529, go.mod changes do not reload the workspace until
 		// they are saved.
-		env.SaveBufferWithoutActions("go.mod")
+		env.SaveBufferWithoutActions("gno.mod")
 		env.AfterChange(
 			OutstandingWork(server.WorkspaceLoadFailure, "invalid go version"),
 		)
-		env.RegexpReplace("go.mod", "go 1.hello", "go 1.12")
-		env.SaveBufferWithoutActions("go.mod")
+		env.RegexpReplace("gno.mod", "go 1.hello", "go 1.12")
+		env.SaveBufferWithoutActions("gno.mod")
 		env.AfterChange(
 			NoOutstandingWork(IgnoreTelemetryPromptWork),
 		)
@@ -1860,10 +1860,10 @@ go 1.16
 package main
 `
 	Run(t, files, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		env.Await(env.DoneWithOpen())
-		env.RegexpReplace("go.mod", "module", "modul")
-		env.SaveBufferWithoutActions("go.mod")
+		env.RegexpReplace("gno.mod", "module", "modul")
+		env.SaveBufferWithoutActions("gno.mod")
 		env.AfterChange(
 			NoLogMatching(protocol.Error, "initial workspace load failed"),
 		)
@@ -1884,7 +1884,7 @@ package main
 func main() {}
 `
 	Run(t, files, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		env.Await(
 			// Check that we have only loaded "<dir>/..." once.
 			// Log messages are asynchronous to other events on the LSP stream, so we
@@ -1910,7 +1910,7 @@ const C = 0b10
 			InitialWorkspaceLoad,
 			Diagnostics(env.AtRegexp("main.go", `0b10`), WithMessage("go1.13 or later")),
 		)
-		env.WriteWorkspaceFile("go.mod", "module mod.com \n\ngo 1.13\n")
+		env.WriteWorkspaceFile("gno.mod", "module mod.com \n\ngo 1.13\n")
 		env.AfterChange(
 			NoDiagnostics(ForFile("main.go")),
 		)

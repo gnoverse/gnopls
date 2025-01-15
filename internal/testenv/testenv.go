@@ -450,7 +450,7 @@ func NeedsLocalXTools(t testing.TB) {
 
 	// We found the directory where x/tools would exist if we're in a clone of the
 	// repo. Is it there? (If not, we're probably in the module cache instead.)
-	modFilePath := filepath.Join(dir, "go.mod")
+	modFilePath := filepath.Join(dir, "gno.mod")
 	b, err := os.ReadFile(modFilePath)
 	if err != nil {
 		t.Skipf("skipping test: x/tools replacement not found: %v", err)

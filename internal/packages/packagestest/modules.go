@@ -88,7 +88,7 @@ func (modules) Finalize(exported *Exported) error {
 
 	// If the primary module already has a go.mod, write the contents to a temp
 	// go.mod for now and then we will reset it when we are getting all the markers.
-	if gomod := exported.written[exported.primary]["go.mod"]; gomod != "" {
+	if gomod := exported.written[exported.primary]["gno.mod"]; gomod != "" {
 		contents, err := os.ReadFile(gomod)
 		if err != nil {
 			return err
@@ -98,7 +98,7 @@ func (modules) Finalize(exported *Exported) error {
 		}
 	}
 
-	exported.written[exported.primary]["go.mod"] = filepath.Join(primaryDir, "go.mod")
+	exported.written[exported.primary]["gno.mod"] = filepath.Join(primaryDir, "gno.mod")
 	var primaryGomod bytes.Buffer
 	fmt.Fprintf(&primaryGomod, "module %s\nrequire (\n", exported.primary)
 	for other := range exported.written {
@@ -115,7 +115,7 @@ func (modules) Finalize(exported *Exported) error {
 		fmt.Fprintf(&primaryGomod, "\t%v %v\n", other, version)
 	}
 	fmt.Fprintf(&primaryGomod, ")\n")
-	if err := os.WriteFile(filepath.Join(primaryDir, "go.mod"), primaryGomod.Bytes(), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(primaryDir, "gno.mod"), primaryGomod.Bytes(), 0644); err != nil {
 		return err
 	}
 
@@ -130,7 +130,7 @@ func (modules) Finalize(exported *Exported) error {
 			continue
 		}
 		dir := moduleDir(exported, module)
-		modfile := filepath.Join(dir, "go.mod")
+		modfile := filepath.Join(dir, "gno.mod")
 		// If other is of the form `repo1/mod1@v1.1.0`,
 		// then we need to extract the module name without the version.
 		if v, ok := versions[module]; ok {
@@ -139,7 +139,7 @@ func (modules) Finalize(exported *Exported) error {
 		if err := os.WriteFile(modfile, []byte("module "+module+"\n"), 0644); err != nil {
 			return err
 		}
-		files["go.mod"] = modfile
+		files["gno.mod"] = modfile
 	}
 
 	// Zip up all the secondary modules into the proxy dir.

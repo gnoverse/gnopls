@@ -969,28 +969,28 @@
 			"Default": false
 		},
 		{
-			"FileType": "go.mod",
+			"FileType": "gno.mod",
 			"Lens": "run_govulncheck",
 			"Title": "Run govulncheck",
 			"Doc": "\nThis codelens source annotates the `module` directive in a\ngo.mod file with a command to run Govulncheck.\n\n[Govulncheck](https://go.dev/blog/vuln) is a static\nanalysis tool that computes the set of functions reachable\nwithin your application, including dependencies;\nqueries a database of known security vulnerabilities; and\nreports any potential problems it finds.\n",
 			"Default": false
 		},
 		{
-			"FileType": "go.mod",
+			"FileType": "gno.mod",
 			"Lens": "tidy",
 			"Title": "Tidy go.mod file",
 			"Doc": "\nThis codelens source annotates the `module` directive in a\ngo.mod file with a command to run [`go mod\ntidy`](https://go.dev/ref/mod#go-mod-tidy), which ensures\nthat the go.mod file matches the source code in the module.\n",
 			"Default": true
 		},
 		{
-			"FileType": "go.mod",
+			"FileType": "gno.mod",
 			"Lens": "upgrade_dependency",
 			"Title": "Update dependencies",
 			"Doc": "\nThis codelens source annotates the `module` directive in a\ngo.mod file with commands to:\n\n- check for available upgrades,\n- upgrade direct dependencies, and\n- upgrade all dependencies transitively.\n",
 			"Default": true
 		},
 		{
-			"FileType": "go.mod",
+			"FileType": "gno.mod",
 			"Lens": "vendor",
 			"Title": "Update vendor directory",
 			"Doc": "\nThis codelens source annotates the `module` directive in a\ngo.mod file with a command to run [`go mod\nvendor`](https://go.dev/ref/mod#go-mod-vendor), which\ncreates or updates the directory named `vendor` in the\nmodule root so that it contains an up-to-date copy of all\nnecessary package dependencies.\n",

@@ -683,11 +683,11 @@ func main() {
 		Modes(Default),
 	).Run(t, mod, func(t *testing.T, env *Env) {
 		env.OpenFile("main.go")
-		original := env.ReadWorkspaceFile("go.mod")
+		original := env.ReadWorkspaceFile("gno.mod")
 		env.AfterChange(
 			Diagnostics(env.AtRegexp("main.go", `"example.com/blah"`)),
 		)
-		got := env.ReadWorkspaceFile("go.mod")
+		got := env.ReadWorkspaceFile("gno.mod")
 		if got != original {
 			t.Fatalf("go.mod file modified:\n%s", compare.Text(original, got))
 		}
@@ -790,10 +790,10 @@ package main
 func main() {}
 `
 	Run(t, mod, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
-		env.RegexpReplace("go.mod", "module", "modul")
+		env.OpenFile("gno.mod")
+		env.RegexpReplace("gno.mod", "module", "modul")
 		env.AfterChange(
-			Diagnostics(env.AtRegexp("go.mod", "modul")),
+			Diagnostics(env.AtRegexp("gno.mod", "modul")),
 		)
 	})
 }
@@ -824,18 +824,18 @@ func main() {
 		ProxyFiles(workspaceProxy),
 	).Run(t, mod, func(t *testing.T, env *Env) {
 		d := &protocol.PublishDiagnosticsParams{}
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		env.AfterChange(
 			Diagnostics(
-				env.AtRegexp("go.mod", `example.com v1.2.3`),
+				env.AtRegexp("gno.mod", `example.com v1.2.3`),
 				WithMessage("go.sum is out of sync"),
 			),
-			ReadDiagnostics("go.mod", d),
+			ReadDiagnostics("gno.mod", d),
 		)
-		env.ApplyQuickFixes("go.mod", d.Diagnostics)
-		env.SaveBuffer("go.mod") // Save to trigger diagnostics.
+		env.ApplyQuickFixes("gno.mod", d.Diagnostics)
+		env.SaveBuffer("gno.mod") // Save to trigger diagnostics.
 		env.AfterChange(
-			NoDiagnostics(ForFile("go.mod")),
+			NoDiagnostics(ForFile("gno.mod")),
 		)
 	})
 }
@@ -865,9 +865,9 @@ func hello() {}
 		// exercise the workspace module.
 		Modes(Default),
 	).Run(t, mod, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		env.Await(env.DoneWithOpen())
-		env.RegexpReplace("go.mod", "module", "modul")
+		env.RegexpReplace("gno.mod", "module", "modul")
 		// Confirm that we still have metadata with only on-disk edits.
 		env.OpenFile("main.go")
 		loc := env.GoToDefinition(env.RegexpSearch("main.go", "hello"))
@@ -875,7 +875,7 @@ func hello() {}
 			t.Fatalf("expected definition in hello.go, got %s", loc.URI)
 		}
 		// Confirm that we no longer have metadata when the file is saved.
-		env.SaveBufferWithoutActions("go.mod")
+		env.SaveBufferWithoutActions("gno.mod")
 		_, err := env.Editor.Definition(env.Ctx, env.RegexpSearch("main.go", "hello"))
 		if err == nil {
 			t.Fatalf("expected error, got none")
@@ -931,18 +931,18 @@ func main() {}
 		WithOptions(
 			ProxyFiles(proxy),
 		).Run(t, mod, func(t *testing.T, env *Env) {
-			env.OpenFile("go.mod")
+			env.OpenFile("gno.mod")
 			d := &protocol.PublishDiagnosticsParams{}
 			env.AfterChange(
-				Diagnostics(env.AtRegexp("go.mod", "require hasdep.com v1.2.3")),
-				ReadDiagnostics("go.mod", d),
+				Diagnostics(env.AtRegexp("gno.mod", "require hasdep.com v1.2.3")),
+				ReadDiagnostics("gno.mod", d),
 			)
 			const want = `module mod.com
 
 go 1.12
 `
-			env.ApplyQuickFixes("go.mod", d.Diagnostics)
-			if got := env.BufferText("go.mod"); got != want {
+			env.ApplyQuickFixes("gno.mod", d.Diagnostics)
+			if got := env.BufferText("gno.mod"); got != want {
 				t.Fatalf("unexpected content in go.mod:\n%s", compare.Text(want, got))
 			}
 		})
@@ -973,11 +973,11 @@ func main() {}
 			ProxyFiles(proxy),
 		).Run(t, mod, func(t *testing.T, env *Env) {
 			d := &protocol.PublishDiagnosticsParams{}
-			env.OpenFile("go.mod")
-			pos := env.RegexpSearch("go.mod", "require hasdep.com v1.2.3").Range.Start
+			env.OpenFile("gno.mod")
+			pos := env.RegexpSearch("gno.mod", "require hasdep.com v1.2.3").Range.Start
 			env.AfterChange(
-				Diagnostics(AtPosition("go.mod", pos.Line, pos.Character)),
-				ReadDiagnostics("go.mod", d),
+				Diagnostics(AtPosition("gno.mod", pos.Line, pos.Character)),
+				ReadDiagnostics("gno.mod", d),
 			)
 			const want = `module mod.com
 
@@ -992,8 +992,8 @@ require random.com v1.2.3
 				}
 				diagnostics = append(diagnostics, d)
 			}
-			env.ApplyQuickFixes("go.mod", diagnostics)
-			if got := env.BufferText("go.mod"); got != want {
+			env.ApplyQuickFixes("gno.mod", diagnostics)
+			if got := env.BufferText("gno.mod"); got != want {
 				t.Fatalf("unexpected content in go.mod:\n%s", compare.Text(want, got))
 			}
 		})
@@ -1026,16 +1026,16 @@ func main() {
 		ProxyFiles(workspaceProxy),
 		Modes(Default),
 	).Run(t, mod, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 		params := &protocol.PublishDiagnosticsParams{}
 		env.AfterChange(
 			Diagnostics(
-				env.AtRegexp("go.mod", `example.com`),
+				env.AtRegexp("gno.mod", `example.com`),
 				WithMessage("go.sum is out of sync"),
 			),
-			ReadDiagnostics("go.mod", params),
+			ReadDiagnostics("gno.mod", params),
 		)
-		env.ApplyQuickFixes("go.mod", params.Diagnostics)
+		env.ApplyQuickFixes("gno.mod", params.Diagnostics)
 		const want = `example.com v1.2.3 h1:Yryq11hF02fEf2JlOS2eph+ICE2/ceevGV3C9dl5V/c=
 example.com v1.2.3/go.mod h1:Y2Rc5rVWjWur0h3pd9aEvK5Pof8YKDANh9gHA2Maujo=
 `
@@ -1106,7 +1106,7 @@ func main() {
 		env.ApplyQuickFixes("main.go", d.Diagnostics)
 		env.AfterChange(
 			NoDiagnostics(ForFile("main.go")),
-			NoDiagnostics(ForFile("go.mod")),
+			NoDiagnostics(ForFile("gno.mod")),
 		)
 	})
 }
@@ -1123,10 +1123,10 @@ package main
 	Run(t, files, func(t *testing.T, env *Env) {
 		env.OnceMet(
 			InitialWorkspaceLoad,
-			Diagnostics(env.AtRegexp("go.mod", `go foo`), WithMessage("invalid go version")),
+			Diagnostics(env.AtRegexp("gno.mod", `go foo`), WithMessage("invalid go version")),
 		)
-		env.WriteWorkspaceFile("go.mod", "module mod.com \n\ngo 1.12\n")
-		env.AfterChange(NoDiagnostics(ForFile("go.mod")))
+		env.WriteWorkspaceFile("gno.mod", "module mod.com \n\ngo 1.12\n")
+		env.AfterChange(NoDiagnostics(ForFile("gno.mod")))
 	})
 }
 
