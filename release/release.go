@@ -58,7 +58,7 @@ func main() {
 }
 
 func validateGoModFile(goplsDir string) error {
-	filename := filepath.Join(goplsDir, "go.mod")
+	filename := filepath.Join(goplsDir, "gno.mod")
 	data, err := os.ReadFile(filename)
 	if err != nil {
 		return err

@@ -187,7 +187,7 @@ func TestMustCopyFiles(t *testing.T) {
 	// Create the following test directory structure in a temporary directory.
 	src := map[string]string{
 		// copies all files under the specified directory.
-		"go.mod": "module example.com",
+		"gno.mod": "module example.com",
 		"m.go":   "package m",
 		"a/a.go": "package a",
 		// contents from a nested module shouldn't be copied.
@@ -217,7 +217,7 @@ func TestMustCopyFiles(t *testing.T) {
 	for fragment := range copied {
 		got = append(got, filepath.ToSlash(fragment))
 	}
-	want := []string{"go.mod", "m.go", "a/a.go"}
+	want := []string{"gno.mod", "m.go", "a/a.go"}
 
 	sort.Strings(got)
 	sort.Strings(want)

@@ -285,20 +285,20 @@ require golang.org/x/hello v1.3.3
 	).Run(t, shouldUpdateDep, func(t *testing.T, env *Env) {
 		env.RunGoCommand("mod", "vendor")
 		env.AfterChange()
-		env.OpenFile("go.mod")
+		env.OpenFile("gno.mod")
 
-		env.ExecuteCodeLensCommand("go.mod", command.CheckUpgrades, nil)
+		env.ExecuteCodeLensCommand("gno.mod", command.CheckUpgrades, nil)
 		d := &protocol.PublishDiagnosticsParams{}
 		env.OnceMet(
 			CompletedWork(server.DiagnosticWorkTitle(server.FromCheckUpgrades), 1, true),
-			Diagnostics(env.AtRegexp("go.mod", `require`), WithMessage("can be upgraded")),
-			ReadDiagnostics("go.mod", d),
+			Diagnostics(env.AtRegexp("gno.mod", `require`), WithMessage("can be upgraded")),
+			ReadDiagnostics("gno.mod", d),
 		)
 
 		// Apply the diagnostics to a/go.mod.
-		env.ApplyQuickFixes("go.mod", d.Diagnostics)
+		env.ApplyQuickFixes("gno.mod", d.Diagnostics)
 		env.AfterChange()
-		if got := env.BufferText("go.mod"); got != wantGoModA {
+		if got := env.BufferText("gno.mod"); got != wantGoModA {
 			t.Fatalf("go.mod upgrade failed:\n%s", compare.Text(wantGoModA, got))
 		}
 	})
@@ -349,11 +349,11 @@ func main() {
 }
 `
 	WithOptions(ProxyFiles(proxy)).Run(t, shouldRemoveDep, func(t *testing.T, env *Env) {
-		env.OpenFile("go.mod")
-		env.RegexpReplace("go.mod", "// EOF", "// EOF unsaved edit") // unsaved edits ok
-		env.ExecuteCodeLensCommand("go.mod", command.Tidy, nil)
+		env.OpenFile("gno.mod")
+		env.RegexpReplace("gno.mod", "// EOF", "// EOF unsaved edit") // unsaved edits ok
+		env.ExecuteCodeLensCommand("gno.mod", command.Tidy, nil)
 		env.AfterChange()
-		got := env.BufferText("go.mod")
+		got := env.BufferText("gno.mod")
 		const wantGoMod = `module mod.com
 
 go 1.14

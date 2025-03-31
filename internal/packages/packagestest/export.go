@@ -596,7 +596,7 @@ func MustCopyFileTree(root string) map[string]interface{} {
 		if info.IsDir() {
 			// skip nested modules.
 			if path != root {
-				if fi, err := os.Stat(filepath.Join(path, "go.mod")); err == nil && !fi.IsDir() {
+				if fi, err := os.Stat(filepath.Join(path, "gno.mod")); err == nil && !fi.IsDir() {
 					return filepath.SkipDir
 				}
 			}

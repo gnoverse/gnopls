@@ -194,10 +194,10 @@ import _ "rsc.io/quote"
 	}
 
 	// Update the go.mod file of example.com so that it changes its module path (not allowed).
-	if err := os.Chmod(filepath.Join(found.dir, "go.mod"), 0644); err != nil {
+	if err := os.Chmod(filepath.Join(found.dir, "gno.mod"), 0644); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(found.dir, "go.mod"), []byte("module bad.com\n"), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(found.dir, "gno.mod"), []byte("module bad.com\n"), 0644); err != nil {
 		t.Fatal(err)
 	}
 
@@ -205,7 +205,7 @@ import _ "rsc.io/quote"
 	mt.assertScanFinds("rsc.io/quote", "quote")
 
 	// Rewrite the main package so that rsc.io/quote is not in scope.
-	if err := os.WriteFile(filepath.Join(mt.env.WorkingDir, "go.mod"), []byte("module x\n"), 0644); err != nil {
+	if err := os.WriteFile(filepath.Join(mt.env.WorkingDir, "gno.mod"), []byte("module x\n"), 0644); err != nil {
 		t.Fatal(err)
 	}
 	if err := os.WriteFile(filepath.Join(mt.env.WorkingDir, "x.go"), []byte("package x\n"), 0644); err != nil {
@@ -1033,7 +1033,7 @@ func setup(t *testing.T, extraEnv map[string]string, main, wd string) *modTest {
 		env.Logf = log.Printf
 	}
 	// go mod download gets mad if we don't have a go.mod, so make sure we do.
-	_, err = os.Stat(filepath.Join(mainDir, "go.mod"))
+	_, err = os.Stat(filepath.Join(mainDir, "gno.mod"))
 	if err != nil && !os.IsNotExist(err) {
 		t.Fatalf("checking if go.mod exists: %v", err)
 	}

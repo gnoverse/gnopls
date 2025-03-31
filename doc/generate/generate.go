@@ -482,7 +482,7 @@ func loadLenses(settingsPkg *packages.Package, defaults map[settings.CodeLensSou
 		return nil
 	}
 	addAll(golang.CodeLensSources(), "Go")
-	addAll(mod.CodeLensSources(), "go.mod")
+	addAll(mod.CodeLensSources(), "gno.mod")
 	return lenses, nil
 }
 

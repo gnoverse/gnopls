@@ -297,7 +297,7 @@ func ScanModuleCache(dir string, cache *DirInfoCache, logf func(string, ...any))
 		importPath := path.Join(modPath, filepath.ToSlash(matches[3]))
 		index := strings.Index(dir, matches[1]+"@"+matches[2])
 		modDir := filepath.Join(dir[:index], matches[1]+"@"+matches[2])
-		modName := readModName(filepath.Join(modDir, "go.mod"))
+		modName := readModName(filepath.Join(modDir, "gno.mod"))
 		return directoryPackageInfo{
 			status:                 directoryScanned,
 			dir:                    dir,

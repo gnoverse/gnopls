@@ -509,14 +509,14 @@ func (r *ModuleResolver) modInfo(dir string) (modDir, modName string) {
 		if matches := modCacheRegexp.FindStringSubmatch(dir); len(matches) == 3 {
 			index := strings.Index(dir, matches[1]+"@"+matches[2])
 			modDir := filepath.Join(dir[:index], matches[1]+"@"+matches[2])
-			return modDir, readModName(filepath.Join(modDir, "go.mod"))
+			return modDir, readModName(filepath.Join(modDir, "gno.mod"))
 		}
 	}
 	for {
 		if info, ok := r.cacheLoad(dir); ok {
 			return info.moduleDir, info.moduleName
 		}
-		f := filepath.Join(dir, "go.mod")
+		f := filepath.Join(dir, "gno.mod")
 		info, err := os.Stat(f)
 		if err == nil && !info.IsDir() {
 			return dir, readModName(f)

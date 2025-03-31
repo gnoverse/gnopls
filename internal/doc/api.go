@@ -54,7 +54,7 @@ type EnumValue struct {
 }
 
 type Lens struct {
-	FileType string // e.g. "Go", "go.mod"
+	FileType string // e.g. "Go", "gno.mod"
 	Lens     string
 	Title    string
 	Doc      string

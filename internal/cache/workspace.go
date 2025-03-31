@@ -54,7 +54,7 @@ func localModFiles(relativeTo string, goWorkOrModPaths []string) map[protocol.Do
 		if !filepath.IsAbs(modDir) {
 			modDir = filepath.Join(relativeTo, modDir)
 		}
-		modURI := protocol.URIFromPath(filepath.Join(modDir, "go.mod"))
+		modURI := protocol.URIFromPath(filepath.Join(modDir, "gno.mod"))
 		modFiles[modURI] = unit{}
 	}
 	return modFiles
@@ -62,7 +62,7 @@ func localModFiles(relativeTo string, goWorkOrModPaths []string) map[protocol.Do
 
 // isGoMod reports if uri is a go.mod file.
 func isGoMod(uri protocol.DocumentURI) bool {
-	return filepath.Base(uri.Path()) == "go.mod"
+	return filepath.Base(uri.Path()) == "gno.mod"
 }
 
 // goModModules returns the URIs of "workspace" go.mod files defined by a
