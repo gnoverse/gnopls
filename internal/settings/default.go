@@ -100,7 +100,7 @@ func DefaultOptions(overrides ...func(*Options)) *Options {
 					InlayHintOptions: InlayHintOptions{},
 					DocumentationOptions: DocumentationOptions{
 						HoverKind:    FullDocumentation,
-						LinkTarget:   "pkg.go.dev",
+						LinkTarget:   "github.com/gnolang/gno/tree/master/gnovm/stdlibs",
 						LinksInHover: LinksInHover_LinkTarget,
 					},
 					NavigationOptions: NavigationOptions{
