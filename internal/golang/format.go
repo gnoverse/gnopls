@@ -14,7 +14,9 @@ import (
 	"go/format"
 	"go/parser"
 	"go/token"
+	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 	"text/scanner"
 
@@ -51,8 +53,25 @@ func Format(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle) ([]pr
 }
 
 func formatFile(fh file.Handle) ([]byte, error) {
+	// Write file content into tmpFile for gno fmt argument
+	tmpDir, err := os.MkdirTemp(os.TempDir(), "gnofmt")
+	if err != nil {
+		return nil, fmt.Errorf("cant create temp dir: %v", err)
+	}
+	defer os.RemoveAll(tmpDir)
+	data, err := fh.Content()
+	if err != nil {
+		return nil, fmt.Errorf("cant read file %s content: %v", fh.URI().Path(), err)
+	}
+	tmpFile := filepath.Join(tmpDir, filepath.Base(fh.URI().Path()))
+	err = os.WriteFile(tmpFile, data, os.ModePerm)
+	if err != nil {
+		return nil, fmt.Errorf("cant write file %s content: %v", tmpFile, err)
+	}
+
+	// Run gno fmt on tmpFile
 	const gnoBin = "gno"
-	args := []string{"fmt", fh.URI().Path()}
+	args := []string{"fmt", tmpFile}
 	bz, err := exec.Command(gnoBin, args...).CombinedOutput() //nolint:gosec
 	if err != nil {
 		return bz, fmt.Errorf("running '%s %s': %w: %s", gnoBin, strings.Join(args, " "), err, string(bz))
