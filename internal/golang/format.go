@@ -11,7 +11,6 @@ import (
 	"context"
 	"fmt"
 	"go/ast"
-	"go/format"
 	"go/parser"
 	"go/token"
 	"os"
@@ -40,7 +39,7 @@ func Format(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle) ([]pr
 		return nil, fmt.Errorf("can't format %q: file is generated", fh.URI().Path())
 	}
 
-	bz, err := formatFile(fh)
+	bz, err := formatSource(ctx, fh)
 	if err != nil {
 		return nil, fmt.Errorf("can't format %q: %w", fh.URI().Path(), err)
 	}
@@ -52,7 +51,9 @@ func Format(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle) ([]pr
 	return computeTextEdits(ctx, pgf, string(bz))
 }
 
-func formatFile(fh file.Handle) ([]byte, error) {
+func formatSource(ctx context.Context, fh file.Handle) ([]byte, error) {
+	_, done := event.Start(ctx, "golang.formatSource")
+	defer done()
 	// Write file content into tmpFile for gno fmt argument
 	tmpDir, err := os.MkdirTemp(os.TempDir(), "gnofmt")
 	if err != nil {
@@ -77,17 +78,6 @@ func formatFile(fh file.Handle) ([]byte, error) {
 		return bz, fmt.Errorf("running '%s %s': %w: %s", gnoBin, strings.Join(args, " "), err, string(bz))
 	}
 	return bz, nil
-}
-
-func formatSource(ctx context.Context, fh file.Handle) ([]byte, error) {
-	_, done := event.Start(ctx, "golang.formatSource")
-	defer done()
-
-	data, err := fh.Content()
-	if err != nil {
-		return nil, err
-	}
-	return format.Source(data)
 }
 
 type importFix struct {
