@@ -13,20 +13,20 @@ import (
 	"slices"
 	"strings"
 
-	"golang.org/x/tools/go/ast/astutil"
 	"github.com/gnoverse/gnopls/internal/analysis/fillstruct"
 	"github.com/gnoverse/gnopls/internal/analysis/fillswitch"
 	"github.com/gnoverse/gnopls/internal/cache"
 	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/event"
 	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/imports"
 	"github.com/gnoverse/gnopls/internal/label"
 	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/protocol/command"
 	"github.com/gnoverse/gnopls/internal/settings"
-	"github.com/gnoverse/gnopls/internal/util/bug"
-	"github.com/gnoverse/gnopls/internal/event"
-	"github.com/gnoverse/gnopls/internal/imports"
 	"github.com/gnoverse/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"golang.org/x/tools/go/ast/astutil"
 )
 
 // CodeActions returns all enabled code actions (edits and other

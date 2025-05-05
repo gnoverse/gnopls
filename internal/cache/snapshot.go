@@ -38,6 +38,7 @@ import (
 	"github.com/gnoverse/gnopls/internal/gocommand"
 	label1 "github.com/gnoverse/gnopls/internal/label"
 	"github.com/gnoverse/gnopls/internal/memoize"
+	"github.com/gnoverse/gnopls/internal/packages"
 	"github.com/gnoverse/gnopls/internal/packagesinternal"
 	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/protocol/command"
@@ -50,7 +51,6 @@ import (
 	"github.com/gnoverse/gnopls/internal/util/persistent"
 	"github.com/gnoverse/gnopls/internal/vulncheck"
 	"golang.org/x/sync/errgroup"
-	"github.com/gnoverse/gnopls/internal/packages"
 	"golang.org/x/tools/go/types/objectpath"
 )
 

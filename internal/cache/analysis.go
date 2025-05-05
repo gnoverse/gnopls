@@ -31,26 +31,26 @@ import (
 	"sync/atomic"
 	"time"
 
-	"golang.org/x/sync/errgroup"
-	"golang.org/x/tools/go/analysis"
+	"github.com/gnoverse/gnopls/internal/analysisinternal"
 	"github.com/gnoverse/gnopls/internal/cache/metadata"
 	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/facts"
 	"github.com/gnoverse/gnopls/internal/file"
 	"github.com/gnoverse/gnopls/internal/filecache"
+	"github.com/gnoverse/gnopls/internal/gcimporter"
 	"github.com/gnoverse/gnopls/internal/label"
 	"github.com/gnoverse/gnopls/internal/progress"
 	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/settings"
+	"github.com/gnoverse/gnopls/internal/typesinternal"
 	"github.com/gnoverse/gnopls/internal/util/astutil"
 	"github.com/gnoverse/gnopls/internal/util/bug"
 	"github.com/gnoverse/gnopls/internal/util/frob"
 	"github.com/gnoverse/gnopls/internal/util/moremaps"
-	"github.com/gnoverse/gnopls/internal/analysisinternal"
-	"github.com/gnoverse/gnopls/internal/event"
-	"github.com/gnoverse/gnopls/internal/facts"
-	"github.com/gnoverse/gnopls/internal/gcimporter"
-	"github.com/gnoverse/gnopls/internal/typesinternal"
 	"github.com/gnoverse/gnopls/internal/versions"
+	"golang.org/x/sync/errgroup"
+	"golang.org/x/tools/go/analysis"
 )
 
 /*
@@ -1045,6 +1045,10 @@ func (an *analysisNode) typeCheck(parsed []*parsego.File) *analysisPackage {
 	typesinternal.SetUsesCgo(cfg)
 
 	check := types.NewChecker(cfg, pkg.fset, pkg.types, pkg.typesInfo)
+
+	// NOTE: handle and register `crossing` and `cross` call
+	gnoHandleInterRealm(pkg.files)
+	gnoCleanupCrossCall(pkg.files)
 
 	// Type checking errors are handled via the config, so ignore them here.
 	_ = check.Files(pkg.files)
