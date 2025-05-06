@@ -11,27 +11,27 @@ import (
 	"context"
 	"fmt"
 	"go/ast"
+	"go/format"
 	"go/parser"
 	"go/token"
-	"os"
-	"os/exec"
-	"path/filepath"
 	"strings"
 	"text/scanner"
 
 	"github.com/gnoverse/gnopls/internal/cache"
 	"github.com/gnoverse/gnopls/internal/cache/parsego"
-	"github.com/gnoverse/gnopls/internal/diff"
-	"github.com/gnoverse/gnopls/internal/event"
 	"github.com/gnoverse/gnopls/internal/file"
-	"github.com/gnoverse/gnopls/internal/imports"
 	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/diff"
+	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/imports"
+	"github.com/gnoverse/gnopls/internal/tokeninternal"
+	gofumptFormat "mvdan.cc/gofumpt/format"
 )
 
 // Format formats a file with a given range.
 func Format(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle) ([]protocol.TextEdit, error) {
-	ctx, done := event.Start(ctx, "gnolang.Format")
+	ctx, done := event.Start(ctx, "golang.Format")
 	defer done()
 
 	// Generated files shouldn't be edited. So, don't format them
@@ -39,45 +39,71 @@ func Format(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle) ([]pr
 		return nil, fmt.Errorf("can't format %q: file is generated", fh.URI().Path())
 	}
 
-	bz, err := formatSource(ctx, fh)
-	if err != nil {
-		return nil, fmt.Errorf("can't format %q: %w", fh.URI().Path(), err)
-	}
-
 	pgf, err := snapshot.ParseGo(ctx, fh, parsego.Full)
 	if err != nil {
 		return nil, err
 	}
-	return computeTextEdits(ctx, pgf, string(bz))
+	// Even if this file has parse errors, it might still be possible to format it.
+	// Using format.Node on an AST with errors may result in code being modified.
+	// Attempt to format the source of this file instead.
+	if pgf.ParseErr != nil {
+		formatted, err := formatSource(ctx, fh)
+		if err != nil {
+			return nil, err
+		}
+		return computeTextEdits(ctx, pgf, string(formatted))
+	}
+
+	// format.Node changes slightly from one release to another, so the version
+	// of Go used to build the LSP server will determine how it formats code.
+	// This should be acceptable for all users, who likely be prompted to rebuild
+	// the LSP server on each Go release.
+	buf := &bytes.Buffer{}
+	fset := tokeninternal.FileSetFor(pgf.Tok)
+	if err := format.Node(buf, fset, pgf.File); err != nil {
+		return nil, err
+	}
+	formatted := buf.String()
+
+	// Apply additional formatting, if any is supported. Currently, the only
+	// supported additional formatter is gofumpt.
+	if snapshot.Options().Gofumpt {
+		// gofumpt can customize formatting based on language version and module
+		// path, if available.
+		//
+		// Try to derive this information, but fall-back on the default behavior.
+		//
+		// TODO: under which circumstances can we fail to find module information?
+		// Can this, for example, result in inconsistent formatting across saves,
+		// due to pending calls to packages.Load?
+		var opts gofumptFormat.Options
+		meta, err := NarrowestMetadataForFile(ctx, snapshot, fh.URI())
+		if err == nil {
+			if mi := meta.Module; mi != nil {
+				if v := mi.GoVersion; v != "" {
+					opts.LangVersion = "go" + v
+				}
+				opts.ModulePath = mi.Path
+			}
+		}
+		b, err := gofumptFormat.Source(buf.Bytes(), opts)
+		if err != nil {
+			return nil, err
+		}
+		formatted = string(b)
+	}
+	return computeTextEdits(ctx, pgf, formatted)
 }
 
 func formatSource(ctx context.Context, fh file.Handle) ([]byte, error) {
 	_, done := event.Start(ctx, "golang.formatSource")
 	defer done()
-	// Write file content into tmpFile for gno fmt argument
-	tmpDir, err := os.MkdirTemp(os.TempDir(), "gnofmt")
-	if err != nil {
-		return nil, fmt.Errorf("cant create temp dir: %v", err)
-	}
-	defer os.RemoveAll(tmpDir)
+
 	data, err := fh.Content()
 	if err != nil {
-		return nil, fmt.Errorf("cant read file %s content: %v", fh.URI().Path(), err)
+		return nil, err
 	}
-	tmpFile := filepath.Join(tmpDir, filepath.Base(fh.URI().Path()))
-	err = os.WriteFile(tmpFile, data, os.ModePerm)
-	if err != nil {
-		return nil, fmt.Errorf("cant write file %s content: %v", tmpFile, err)
-	}
-
-	// Run gno fmt on tmpFile
-	const gnoBin = "gno"
-	args := []string{"fmt", tmpFile}
-	bz, err := exec.Command(gnoBin, args...).CombinedOutput() //nolint:gosec
-	if err != nil {
-		return bz, fmt.Errorf("running '%s %s': %w: %s", gnoBin, strings.Join(args, " "), err, string(bz))
-	}
-	return bz, nil
+	return format.Source(data)
 }
 
 type importFix struct {

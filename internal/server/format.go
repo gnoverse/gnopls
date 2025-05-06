@@ -9,7 +9,7 @@ import (
 
 	"github.com/gnoverse/gnopls/internal/event"
 	"github.com/gnoverse/gnopls/internal/file"
-	"github.com/gnoverse/gnopls/internal/golang"
+	"github.com/gnoverse/gnopls/internal/gnolang"
 	"github.com/gnoverse/gnopls/internal/label"
 	"github.com/gnoverse/gnopls/internal/mod"
 	"github.com/gnoverse/gnopls/internal/protocol"
@@ -30,7 +30,7 @@ func (s *server) Formatting(ctx context.Context, params *protocol.DocumentFormat
 	case file.Mod:
 		return mod.Format(ctx, snapshot, fh)
 	case file.Gno:
-		return golang.Format(ctx, snapshot, fh)
+		return gnolang.Format(ctx, snapshot, fh)
 	case file.Work:
 		return work.Format(ctx, snapshot, fh)
 	}
