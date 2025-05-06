@@ -7,14 +7,8 @@ import (
 	"go/ast"
 )
 
-// gnoHandleInterRealm replaces and registers gno `crossing` and `cross` calls.
-// XXX: make Godoc works
-func gnoHandleInterRealm(files []*ast.File) {
-	if len(files) == 0 {
-		return
-	}
-
-	crossingDecl := &ast.FuncDecl{
+var (
+	crossingDecl = &ast.FuncDecl{
 		Name: ast.NewIdent("crossing"),
 		Doc: &ast.CommentGroup{List: []*ast.Comment{
 			{Text: "// crossing"}, // XXX: Make Godoc works
@@ -25,7 +19,7 @@ func gnoHandleInterRealm(files []*ast.File) {
 		},
 	}
 
-	crossParams := &ast.FieldList{
+	crossParams = &ast.FieldList{
 		List: []*ast.Field{
 			{
 				Names: []*ast.Ident{ast.NewIdent("args")},
@@ -35,7 +29,8 @@ func gnoHandleInterRealm(files []*ast.File) {
 			},
 		},
 	}
-	crossResults := &ast.FieldList{
+
+	crossResults = &ast.FieldList{
 		List: []*ast.Field{
 			{
 				Type: &ast.ArrayType{
@@ -45,7 +40,7 @@ func gnoHandleInterRealm(files []*ast.File) {
 		},
 	}
 
-	crossDecl := &ast.FuncDecl{
+	crossDecl = &ast.FuncDecl{
 		Name: ast.NewIdent("cross"),
 		Doc: &ast.CommentGroup{List: []*ast.Comment{
 			{Text: "// cross"}, // XXX: Make Godoc works
@@ -71,6 +66,14 @@ func gnoHandleInterRealm(files []*ast.File) {
 			},
 		},
 	}
+)
+
+// gnoHandleInterRealm replaces and registers gno `crossing` and `cross` calls.
+// XXX: make Godoc works
+func gnoHandleInterRealm(files []*ast.File) {
+	if len(files) == 0 {
+		return
+	}
 
 	files[0].Decls = append([]ast.Decl{crossingDecl, crossDecl}, files[0].Decls...)
 }
@@ -94,13 +97,14 @@ func gnoCleanupCrossCall(files []*ast.File) (restore func()) {
 
 			// Check if innerCall is calling "cross"
 			if ident, ok := innerCall.Fun.(*ast.Ident); ok && ident.Name == "cross" {
-				// Replace outerCall.Fun with innerCall.Args[0] (i.e., pkg.Func)
+
 				if len(innerCall.Args) == 1 {
 					oldFun := outerCall.Fun
+
+					// Replace outerCall.Fun with innerCall.Args[0] (i.e., pkg.Func)
 					outerCall.Fun = innerCall.Args[0]
-					restoreCb = append(restoreCb, func() {
-						outerCall.Fun = oldFun
-					})
+
+					restoreCb = append(restoreCb, func() { outerCall.Fun = oldFun })
 				}
 			}
 
