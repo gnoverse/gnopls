@@ -16,6 +16,7 @@ import (
 	"go/token"
 	"go/types"
 	"io/fs"
+	"log"
 	"path/filepath"
 	"sort"
 	"strconv"
@@ -24,25 +25,25 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"golang.org/x/text/unicode/runenames"
-	"golang.org/x/tools/go/ast/astutil"
-	"golang.org/x/tools/go/types/typeutil"
+	"github.com/gnoverse/gnopls/internal/aliases"
 	"github.com/gnoverse/gnopls/internal/cache"
 	"github.com/gnoverse/gnopls/internal/cache/metadata"
 	"github.com/gnoverse/gnopls/internal/cache/parsego"
+	"github.com/gnoverse/gnopls/internal/event"
 	"github.com/gnoverse/gnopls/internal/file"
 	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/settings"
-	gastutil "github.com/gnoverse/gnopls/internal/util/astutil"
-	"github.com/gnoverse/gnopls/internal/util/bug"
-	"github.com/gnoverse/gnopls/internal/util/safetoken"
-	"github.com/gnoverse/gnopls/internal/util/typesutil"
-	"github.com/gnoverse/gnopls/internal/aliases"
-	"github.com/gnoverse/gnopls/internal/event"
 	"github.com/gnoverse/gnopls/internal/stdlib"
 	"github.com/gnoverse/gnopls/internal/tokeninternal"
 	"github.com/gnoverse/gnopls/internal/typeparams"
 	"github.com/gnoverse/gnopls/internal/typesinternal"
+	gastutil "github.com/gnoverse/gnopls/internal/util/astutil"
+	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/internal/util/typesutil"
+	"golang.org/x/text/unicode/runenames"
+	"golang.org/x/tools/go/ast/astutil"
+	"golang.org/x/tools/go/types/typeutil"
 )
 
 // hoverJSON contains the structured result of a hover query. It is
@@ -161,6 +162,7 @@ func hover(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle, pp pro
 			if id.Name == "Error" {
 				obj = types.Universe.Lookup("error").Type().Underlying().(*types.Interface).Method(0)
 			} else {
+
 				obj = types.Universe.Lookup(id.Name)
 			}
 			if obj != nil {
@@ -622,6 +624,8 @@ func hover(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle, pp pro
 // hoverBuiltin computes hover information when hovering over a builtin
 // identifier.
 func hoverBuiltin(ctx context.Context, snapshot *cache.Snapshot, obj types.Object) (*hoverJSON, error) {
+	log.Println("HOVER BUILTIN")
+
 	// Special handling for error.Error, which is the only builtin method.
 	//
 	// TODO(rfindley): can this be unified with the handling below?

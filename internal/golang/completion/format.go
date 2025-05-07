@@ -13,13 +13,13 @@ import (
 	"go/types"
 	"strings"
 
-	"github.com/gnoverse/gnopls/internal/golang"
-	"github.com/gnoverse/gnopls/internal/golang/completion/snippet"
-	"github.com/gnoverse/gnopls/internal/protocol"
-	"github.com/gnoverse/gnopls/internal/util/safetoken"
 	"github.com/gnoverse/gnopls/internal/aliases"
 	"github.com/gnoverse/gnopls/internal/event"
+	"github.com/gnoverse/gnopls/internal/golang"
+	"github.com/gnoverse/gnopls/internal/golang/completion/snippet"
 	"github.com/gnoverse/gnopls/internal/imports"
+	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/util/safetoken"
 )
 
 var (

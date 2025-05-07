@@ -63,6 +63,23 @@ func listGnomods(root string) ([]string, error) {
 	return gnomods, nil
 }
 
+func getBuiltinPkg() (*packages.Package, error) {
+	const builtinPath = "builtin"
+
+	builtindir, err := GuessBuiltinDir()
+	if err != nil {
+		return nil, fmt.Errorf("unable to guess builtin dir: %w", err)
+	}
+
+	var pkg packages.Package
+	pkg.GoFiles = []string{filepath.Join(builtindir, "builtin.gno")}
+	pkg.PkgPath = builtinPath
+	pkg.ID = builtinPath
+	pkg.Name = builtinPath
+
+	return &pkg, nil
+}
+
 func readPkg(req *packages.DriverRequest, dir string, pkgPath string, logger *slog.Logger) []*packages.Package {
 	entries, err := os.ReadDir(dir)
 	if err != nil {

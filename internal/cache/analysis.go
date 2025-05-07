@@ -1046,10 +1046,6 @@ func (an *analysisNode) typeCheck(parsed []*parsego.File) *analysisPackage {
 
 	check := types.NewChecker(cfg, pkg.fset, pkg.types, pkg.typesInfo)
 
-	// NOTE: handle and register `crossing` and `cross` call
-	gnoHandleInterRealm(pkg.files)
-	gnoCleanupCrossCall(pkg.files)
-
 	// Type checking errors are handled via the config, so ignore them here.
 	_ = check.Files(pkg.files)
 

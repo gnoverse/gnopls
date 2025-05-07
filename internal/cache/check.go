@@ -739,10 +739,6 @@ func (b *typeCheckBatch) checkPackageForImport(ctx context.Context, ph *packageH
 		return nil, ctx.Err()
 	}
 
-	// NOTE: do not  handle and register `crossing` and `cross` call
-	gnoHandleInterRealm(files)
-	gnoCleanupCrossCall(files)
-
 	_ = check.Files(files) // ignore errors
 
 	// If the context was cancelled, we may have returned a ton of transient
@@ -1587,14 +1583,8 @@ func (b *typeCheckBatch) checkPackage(ctx context.Context, ph *packageHandle) (*
 			return nil, ctx.Err()
 		}
 
-		// NOTE: handle and register `crossing` and `cross` call
-		gnoHandleInterRealm(files)
-		restore := gnoCleanupCrossCall(files) // remove cross call from ast for typecheck
-
 		// Type checking errors are handled via the config, so ignore them here.
 		_ = check.Files(files) // 50us-15ms, depending on size of package
-
-		restore() // restore ast with cross to avoid formating to remove `cross`
 
 		// If the context was cancelled, we may have returned a ton of transient
 		// errors to the type checker. Swallow them.

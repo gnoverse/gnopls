@@ -17,10 +17,10 @@ import (
 	"github.com/gnoverse/gnopls/internal/cache/metadata"
 	"github.com/gnoverse/gnopls/internal/cache/parsego"
 	"github.com/gnoverse/gnopls/internal/protocol"
+	"github.com/gnoverse/gnopls/internal/tokeninternal"
 	"github.com/gnoverse/gnopls/internal/util/astutil"
 	"github.com/gnoverse/gnopls/internal/util/bug"
 	"github.com/gnoverse/gnopls/internal/util/safetoken"
-	"github.com/gnoverse/gnopls/internal/tokeninternal"
 )
 
 // IsGenerated gets and reads the file denoted by uri and reports
@@ -353,7 +353,13 @@ func (f ImporterFunc) Import(path string) (*types.Package, error) { return f(pat
 
 // isBuiltin reports whether obj is a built-in symbol (e.g. append, iota, error.Error, unsafe.Slice).
 // All other symbols have a valid position and a valid package.
-func isBuiltin(obj types.Object) bool { return !obj.Pos().IsValid() }
+func isBuiltin(obj types.Object) bool {
+	if !obj.Pos().IsValid() {
+		return true
+	}
+
+	return cache.IsGnoBuiltin(obj)
+}
 
 // btoi returns int(b) as proposed in #64825.
 func btoi(b bool) int {
