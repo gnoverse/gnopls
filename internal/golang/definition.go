@@ -23,6 +23,7 @@ import (
 	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/util/astutil"
 	"github.com/gnoverse/gnopls/internal/util/bug"
+	"github.com/gnoverse/gnopls/pkg/gnotypes"
 )
 
 // Definition handles the textDocument/definition request for Go files.
@@ -221,7 +222,7 @@ func builtinDecl(ctx context.Context, snapshot *cache.Snapshot, obj types.Object
 			return nil, nil, err
 		}
 
-		if obj.Parent() == types.Universe || cache.IsGnoBuiltin(obj) {
+		if obj.Parent() == types.Universe || gnotypes.IsGnoBuiltin(obj) {
 			// built-in function or type
 			_, ident, err = declaringIdent(pgf.File, obj.Name())
 			if err != nil {
