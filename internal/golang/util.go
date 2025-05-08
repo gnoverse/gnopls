@@ -21,6 +21,7 @@ import (
 	"github.com/gnoverse/gnopls/internal/util/astutil"
 	"github.com/gnoverse/gnopls/internal/util/bug"
 	"github.com/gnoverse/gnopls/internal/util/safetoken"
+	"github.com/gnoverse/gnopls/pkg/gnotypes"
 )
 
 // IsGenerated gets and reads the file denoted by uri and reports
@@ -358,7 +359,7 @@ func isBuiltin(obj types.Object) bool {
 		return true
 	}
 
-	return cache.IsGnoBuiltin(obj)
+	return gnotypes.IsGnoBuiltin(obj)
 }
 
 // btoi returns int(b) as proposed in #64825.

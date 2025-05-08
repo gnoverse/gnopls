@@ -16,7 +16,6 @@ import (
 	"go/token"
 	"go/types"
 	"io/fs"
-	"log"
 	"path/filepath"
 	"sort"
 	"strconv"
@@ -624,8 +623,6 @@ func hover(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle, pp pro
 // hoverBuiltin computes hover information when hovering over a builtin
 // identifier.
 func hoverBuiltin(ctx context.Context, snapshot *cache.Snapshot, obj types.Object) (*hoverJSON, error) {
-	log.Println("HOVER BUILTIN")
-
 	// Special handling for error.Error, which is the only builtin method.
 	//
 	// TODO(rfindley): can this be unified with the handling below?

@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/pkg/gnotypes"
 	"golang.org/x/mod/modfile"
 )
 
@@ -66,7 +67,7 @@ func listGnomods(root string) ([]string, error) {
 func getBuiltinPkg() (*packages.Package, error) {
 	const builtinPath = "builtin"
 
-	builtindir, err := GuessBuiltinDir()
+	builtindir, err := gnotypes.GuessBuiltinDir()
 	if err != nil {
 		return nil, fmt.Errorf("unable to guess builtin dir: %w", err)
 	}
