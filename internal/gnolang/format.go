@@ -61,10 +61,11 @@ func formatSource(ctx context.Context, fh file.Handle) ([]byte, error) {
 	// Run gno fmt on tmpFile
 	const gnoBin = "gno"
 	args := []string{"fmt", tmpFile}
-	bz, err := exec.Command(gnoBin, args...).CombinedOutput() //nolint:gosec
+	bz, err := exec.Command(gnoBin, args...).Output()
 	if err != nil {
 		return bz, fmt.Errorf("running '%s %s': %w: %s", gnoBin, strings.Join(args, " "), err, string(bz))
 	}
+
 	return bz, nil
 }
 
