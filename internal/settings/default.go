@@ -100,8 +100,8 @@ func DefaultOptions(overrides ...func(*Options)) *Options {
 					InlayHintOptions: InlayHintOptions{},
 					DocumentationOptions: DocumentationOptions{
 						HoverKind:    FullDocumentation,
-						LinkTarget:   "gno.land",
-						LinksInHover: LinksInHover_None,
+						LinkTarget:   "pkg.go.dev",
+						LinksInHover: LinksInHover_LinkTarget,
 					},
 					NavigationOptions: NavigationOptions{
 						ImportShortcut: BothShortcuts,
