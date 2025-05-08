@@ -5,15 +5,15 @@ module github.com/gnoverse/gnopls
 go 1.23.1
 
 require (
-	github.com/gnolang/gno v0.0.0-20250404071429-057d88b0bb54
+	github.com/gnolang/gno v0.0.0-20250505094409-7c8053fe218f
 	github.com/google/go-cmp v0.6.0
 	github.com/jba/templatecheck v0.7.0
-	golang.org/x/mod v0.22.0
-	golang.org/x/sync v0.10.0
-	golang.org/x/sys v0.29.0
+	golang.org/x/mod v0.24.0
+	golang.org/x/sync v0.13.0
+	golang.org/x/sys v0.32.0
 	golang.org/x/telemetry v0.0.0-20240829154258-f29ab539cc98
-	golang.org/x/text v0.21.0
-	golang.org/x/tools v0.29.0
+	golang.org/x/text v0.24.0
+	golang.org/x/tools v0.32.0
 	golang.org/x/vuln v1.0.4
 	gopkg.in/yaml.v3 v3.0.1
 	honnef.co/go/tools v0.4.7
@@ -32,7 +32,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/crypto v0.32.0 // indirect
+	golang.org/x/crypto v0.37.0 // indirect
 	golang.org/x/exp v0.0.0-20240613232115-7f521ea00fb8 // indirect
 	golang.org/x/exp/typeparams v0.0.0-20221212164502-fae10dda9338 // indirect
 	google.golang.org/protobuf v1.36.3 // indirect

@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/gnoverse/gnopls/internal/packages"
+	"github.com/gnoverse/gnopls/pkg/gnotypes"
 	"golang.org/x/mod/modfile"
 )
 
@@ -61,6 +62,23 @@ func listGnomods(root string) ([]string, error) {
 	}
 
 	return gnomods, nil
+}
+
+func getBuiltinPkg() (*packages.Package, error) {
+	const builtinPath = "builtin"
+
+	builtindir, err := gnotypes.GuessBuiltinDir()
+	if err != nil {
+		return nil, fmt.Errorf("unable to guess builtin dir: %w", err)
+	}
+
+	var pkg packages.Package
+	pkg.GoFiles = []string{filepath.Join(builtindir, "builtin.gno")}
+	pkg.PkgPath = builtinPath
+	pkg.ID = builtinPath
+	pkg.Name = builtinPath
+
+	return &pkg, nil
 }
 
 func readPkg(req *packages.DriverRequest, dir string, pkgPath string, logger *slog.Logger) []*packages.Package {

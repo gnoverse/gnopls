@@ -116,12 +116,12 @@ func DefaultOptions(overrides ...func(*Options)) *Options {
 						CompleteFunctionCalls:          true,
 					},
 					Codelenses: map[CodeLensSource]bool{
-						CodeLensGenerate:          true,
-						CodeLensRegenerateCgo:     true,
-						CodeLensTidy:              true,
+						CodeLensGenerate:          false,
+						CodeLensRegenerateCgo:     false,
+						CodeLensTidy:              false,
 						CodeLensGCDetails:         false,
-						CodeLensUpgradeDependency: true,
-						CodeLensVendor:            true,
+						CodeLensUpgradeDependency: false,
+						CodeLensVendor:            false,
 						CodeLensRunGovulncheck:    false, // TODO(hyangah): enable
 					},
 				},

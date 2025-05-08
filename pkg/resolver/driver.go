@@ -39,8 +39,14 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 	pkgsCache := map[string]*packages.Package{}
 	res := packages.DriverResponse{}
 
-	// Inject stdlibs
+	// Inject gnobuiltin
+	if pkg, err := getBuiltinPkg(); err == nil {
+		pkgsCache[pkg.Name] = pkg
+		res.Packages = append(res.Packages, pkg)
+		res.Roots = append(res.Roots, pkg.ID)
+	}
 
+	// Inject stdlibs
 	if gnoRoot != "" {
 		libsRoot := filepath.Join(gnoRoot, "gnovm", "stdlibs")
 		testLibsRoot := filepath.Join(gnoRoot, "gnovm", "tests", "stdlibs")
@@ -159,6 +165,10 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 	// Resolve imports
 
 	for _, pkg := range res.Packages {
+		if pkg.PkgPath == "builtin" {
+			continue
+		}
+
 		toDelete := []string{}
 		for importPath := range pkg.Imports {
 			imp, ok := pkgsCache[importPath]
