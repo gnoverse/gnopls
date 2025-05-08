@@ -63,7 +63,7 @@ func GuessBuiltinDir() (string, error) {
 func guessBuiltinDir() (string, error) {
 	// Attempt to guess `GNOBUILTIN` from go.mod by using the `go list` command.
 	if gnopls, err := inferBuiltinFromGoMod(); err == nil {
-		return filepath.Join(gnopls, "pkg", "resolver", "builtin"), nil
+		return filepath.Join(gnopls, "pkg", "gnotypes", "builtin"), nil
 	}
 
 	// If the above method fails, ultimately try to determine `GNOBUILTIN` based
