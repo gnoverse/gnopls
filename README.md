@@ -1,10 +1,10 @@
 # `gnopls`, the Gno language server
 
-`gnopls` is a modified fork of https://github.com/gnoverse/gnopls
+`gnopls` is a modified fork of https://github.com/golang/tools/tree/master/gopls
 
 ⚠️  `gnopls` is in an experimental phase; use with caution.
 
-[![PkgGnoDev](https://pkg.gno.dev/badge/github.com/gnoverse/gnopls)](https://pkg.gno.dev/github.com/gnoverse/gnopls)
+[![PkgGnoDev](https://pkg.go.dev/badge/github.com/gnoverse/gnopls)](https://pkg.go.dev/github.com/gnoverse/gnopls)
 
 It provides a wide variety of [IDE features](doc/features/README.md) to any [LSP]-compatible editor.
 
