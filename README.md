@@ -4,7 +4,7 @@
 
 ⚠️  `gnopls` is in an experimental phase; use with caution.
 
-[![PkgGnoDev](https://pkg.gno.dev/badge/github.com/gnoverse/gnopls)](https://pkg.gno.dev/github.com/gnoverse/gnopls)
+[![PkgGnoDev](https://pkg.go.dev/badge/github.com/gnoverse/gnopls)](https://pkg.go.dev/github.com/gnoverse/gnopls)
 
 It provides a wide variety of [IDE features](doc/features/README.md) to any [LSP]-compatible editor.
 
