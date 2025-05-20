@@ -1,6 +1,6 @@
 # `gnopls`, the Gno language server
 
-`gnopls` is a modified fork of https://github.com/gnoverse/gnopls
+`gnopls` is a modified fork of https://github.com/golang/tools/tree/master/gopls
 
 ⚠️  `gnopls` is in an experimental phase; use with caution.
 
