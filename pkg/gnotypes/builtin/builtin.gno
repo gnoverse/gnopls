@@ -310,6 +310,8 @@ type error interface {
 	Error() string
 }
 
+// Gno Custom
+
 // The crossing built-in statement marks a function as a "crossing function" in Gno.
 // Crossing functions are allowed to modify the state of the realm they are explicitly
 // invoked from. This keyword must appear as the very first statement in the function
@@ -334,29 +336,35 @@ type error interface {
 // crossing statements.
 func crossing()
 
-// The cross built-in function enables explicit interrealm function calls.
-// When you call a crossing function declared in another realm, you must wrap
-// the function in `cross(fn)` to signal a realm boundary is being crossed.
-//
-// The returned value of `cross(fn)` is a function of the same signature that,
-// when invoked, executes in the target realm and updates the `std.CurrentRealm()`
-// and `std.PreviousRealm()` accordingly.
-//
-// `cross(fn)` must only wrap functions marked with `crossing()` if they belong
-// to a different realm. Wrapping non-crossing or non-realm functions is invalid.
-//
-// Example:
-//
-//	import "gno.land/r/alice/tokens"
-//
-//	func main() {
-//	    cross(tokens.Transfer)(addr1, addr2, 10)
-//	}
-//
-// Calling a crossing function without `cross()` results in a panic or logic error
-// when realms do not match. Similarly, calling a non-crossing function with `cross()`
-// will result in a type error.
-//
-// Only realm functions can be used with `cross()`. P package functions or methods
-// not declared in a realm cannot be wrapped with `cross`.
 func cross[F any](fn F) F
+
+type Address = address
+
+type address string
+
+func (a address) String() string
+
+func (a address) IsValid() bool
+
+type gnocoin struct {
+	Denom  string
+	Amount int64
+}
+
+type gnocoins []gnocoin
+
+type Gnocoins = gnocoins
+
+type Gnocoin = gnocoin
+
+type realm interface {
+	// Address() address
+	PkgPath() string
+	Coins() gnocoins
+	Send(coins gnocoins, to address) error
+	Previous() realm
+	Origin() realm
+	String() string
+}
+
+type Realm = realm
