@@ -148,7 +148,6 @@ func GnoBuiltin(includeFn bool) []types.Object {
 
 func AdditionalGnoPredeclared() []types.Type {
 	gnobuiltins := GnoBuiltin(false)
-	fmt.Println(gnobuiltins)
 	ts := make([]types.Type, len(gnobuiltins))
 	for i, obj := range gnobuiltins {
 		ts[i] = types.Universe.Lookup(obj.Name()).Type() // register func
@@ -196,17 +195,25 @@ func newBuiltinDef(src []byte) []types.Object {
 			continue
 		}
 
-		// Skip type parameters
-		if tn, ok := obj.(*types.TypeName); ok {
-			if _, isTypeParam := tn.Type().(*types.TypeParam); isTypeParam {
+		switch o := obj.(type) {
+		case *types.Func:
+			defs = append(defs, obj)
+		case *types.TypeName:
+			if _, isTypeParam := o.Type().(*types.TypeParam); isTypeParam {
 				continue
 			}
-		}
-
-		switch obj.(type) {
-		case *types.Func, *types.TypeName:
 			defs = append(defs, obj)
+		case *types.Var:
+			if o.IsField() {
+				continue
+			}
+
+			if p := o.Parent(); p != nil && p == o.Pkg().Scope() {
+				defs = append(defs, obj)
+			}
+
 		default:
+			// XXX: handle other types
 		}
 	}
 
@@ -461,7 +468,6 @@ func init() {
 
 	for name, obj := range gnoBuiltin {
 		switch o := obj.(type) {
-		// XXX: handle types.TypeName
 		case *types.Func:
 			sig := o.Type().(*types.Signature)
 			newFn := types.NewFunc(token.NoPos, nil, name, sig) // a builtin don't have a pos
@@ -474,6 +480,11 @@ func init() {
 			nameobj := types.NewTypeName(token.NoPos, nil, o.Name(), t) // a builtin don't have a pos
 			types.Universe.Insert(nameobj)                              // register type
 			log.Printf("builtin type %q has been registered", o.Name())
+		case *types.Var:
+			t := ctx.CloneTypeWithNilPackage(o.Type())
+			vobj := types.NewVar(token.NoPos, nil, o.Name(), t)
+			types.Universe.Insert(vobj)
+			log.Printf("builtin var %q has been registered", o.Name())
 		}
 
 	}

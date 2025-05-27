@@ -336,7 +336,6 @@ type error interface {
 // crossing statements.
 func crossing()
 
-func cross[F any](fn F) F
 
 type Address = address
 
@@ -358,7 +357,7 @@ type Gnocoins = gnocoins
 type Gnocoin = gnocoin
 
 type realm interface {
-	// Address() address
+	Address() address
 	PkgPath() string
 	Coins() gnocoins
 	Send(coins gnocoins, to address) error
@@ -368,3 +367,7 @@ type realm interface {
 }
 
 type Realm = realm
+
+var cross realm
+
+// func cross[F any](fn F) F
