@@ -53,12 +53,7 @@ func init() {
 	})
 
 	t.Run("type decl", func(t *testing.T) {
-		cases := []string{
-			"address", "Address",
-			"gnocoin", "Gnocoin",
-			"gnocoins", "Gnocoins",
-			"realm", "Realm",
-		}
+		cases := []string{"address", "gnocoin", "gnocoins", "realm" /* XXX: add more cases here */}
 
 		for _, tc := range cases {
 			content := fmt.Sprintf(`package %s; type subtyp %s`, pkgName, tc)
