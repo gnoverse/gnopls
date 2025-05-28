@@ -47,7 +47,6 @@ func TestGnoBuiltin(t *testing.T) {
 		content := fmt.Sprintf(`package %s;
 func init() {
     crossing()
-    cross(crossing)()
 }`, pkgName)
 		process(pkgName, content)
 	})
