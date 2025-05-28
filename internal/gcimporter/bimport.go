@@ -12,6 +12,8 @@ import (
 	"go/token"
 	"go/types"
 	"sync"
+
+	"github.com/gnoverse/gnopls/pkg/gnotypes"
 )
 
 func errorf(format string, args ...interface{}) {
@@ -140,6 +142,8 @@ func predeclared() []types.Type {
 			anyType{},
 		}
 		predecl = append(predecl, additionalPredeclared()...)
+		predecl = append(predecl, gnotypes.AdditionalGnoPredeclared()...)
+
 	})
 	return predecl
 }

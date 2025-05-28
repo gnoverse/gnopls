@@ -21,9 +21,9 @@ import (
 	"sort"
 	"strings"
 
-	"golang.org/x/tools/go/types/objectpath"
 	"github.com/gnoverse/gnopls/internal/aliases"
 	"github.com/gnoverse/gnopls/internal/typesinternal"
+	"golang.org/x/tools/go/types/objectpath"
 )
 
 type intReader struct {
@@ -62,7 +62,7 @@ type ident struct {
 	name string
 }
 
-const predeclReserved = 32
+const predeclReserved = 64
 
 type itag uint64
 

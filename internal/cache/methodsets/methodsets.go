@@ -51,10 +51,11 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/tools/go/types/objectpath"
+	"github.com/gnoverse/gnopls/internal/aliases"
 	"github.com/gnoverse/gnopls/internal/util/frob"
 	"github.com/gnoverse/gnopls/internal/util/safetoken"
-	"github.com/gnoverse/gnopls/internal/aliases"
+	"github.com/gnoverse/gnopls/pkg/gnotypes"
+	"golang.org/x/tools/go/types/objectpath"
 )
 
 // An Index records the non-empty method sets of all package-level
@@ -338,7 +339,8 @@ func fingerprint(method *types.Func) (string, bool) {
 			if tname.Pkg() != nil {
 				buf.WriteString(strconv.Quote(tname.Pkg().Path()))
 				buf.WriteByte('.')
-			} else if tname.Name() != "error" && tname.Name() != "comparable" {
+			} else if tname.Name() != "error" && tname.Name() != "comparable" &&
+				!gnotypes.IsGnoBuiltin(tname) { // XXX(gfanton): gno: maybe should limit this to interface ?
 				panic(tname) // error and comparable the only named types with no package
 			}
 			buf.WriteString(tname.Name())

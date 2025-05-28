@@ -1556,7 +1556,6 @@ func (b *typeCheckBatch) checkPackage(ctx context.Context, ph *packageHandle) (*
 		// race to Unsafe.completed.
 		pkg.types = types.Unsafe
 	} else {
-
 		if len(pkg.compiledGoFiles) == 0 {
 			// No files most likely means go/packages failed.
 			//
