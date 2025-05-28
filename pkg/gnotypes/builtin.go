@@ -187,7 +187,11 @@ func newBuiltinDef(src []byte) []types.Object {
 
 	// Type-check the package
 	if _, err = conf.Check("builtin", fset, []*ast.File{f}, info); err != nil {
-		log.Printf("err: %s", err.Error())
+		// XXX uncoment next line to debug, but we should not worry
+		// about syntax error here as we mostly want to fillup file
+		// types.Info
+
+		// log.Printf("err: %s", err.Error())
 	}
 
 	for ident, obj := range info.Defs {
