@@ -240,9 +240,9 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/tools/go/types/objectpath"
 	"github.com/gnoverse/gnopls/internal/aliases"
 	"github.com/gnoverse/gnopls/internal/tokeninternal"
+	"golang.org/x/tools/go/types/objectpath"
 )
 
 // IExportShallow encodes "shallow" export data for the specified package.
@@ -663,9 +663,10 @@ type exportWriter struct {
 }
 
 func (w *exportWriter) exportPath(pkg *types.Package) string {
-	if pkg == w.p.localpkg {
+	if pkg == w.p.localpkg || pkg == nil {
 		return ""
 	}
+
 	return pkg.Path()
 }
 
@@ -918,10 +919,13 @@ func (w *exportWriter) posV0(pos token.Pos) {
 }
 
 func (w *exportWriter) pkg(pkg *types.Package) {
-	// Ensure any referenced packages are declared in the main index.
-	w.p.allPkgs[pkg] = true
+	if pkg != nil {
+		// Ensure any referenced packages are declared in the main index.
+		w.p.allPkgs[pkg] = true
+	}
 
 	w.string(w.exportPath(pkg))
+
 }
 
 func (w *exportWriter) qualifiedType(obj *types.TypeName) {
