@@ -110,19 +110,19 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 
 	// Discover packages
 
-	gnomods := []string{}
+	pkgpaths := []string{}
 	for _, target := range targets {
 		dir, file := filepath.Split(target)
 		if file == "..." {
-			gnomodsRes, err := listGnomods(dir)
+			gnomodsRes, err := listPackagesPath(dir)
 			if err != nil {
 				logger.Error("failed to get pkg list", slog.String("error", err.Error()))
 				return nil, err
 			}
-			gnomods = append(gnomods, gnomodsRes...)
+			pkgpaths = append(pkgpaths, gnomodsRes...)
 		} else if strings.HasPrefix(target, "file=") {
 			dir = strings.TrimPrefix(dir, "file=")
-			gnomodsRes, err := listGnomods(dir)
+			gnomodsRes, err := listPackagesPath(dir)
 			if err != nil {
 				logger.Error("failed to get pkg", slog.String("error", err.Error()))
 				return nil, err
@@ -133,16 +133,16 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 					slog.Int("count", len(gnomodsRes)),
 				)
 			}
-			gnomods = append(gnomods, gnomodsRes...)
+			pkgpaths = append(pkgpaths, gnomodsRes...)
 		} else {
 			logger.Warn("unknown arg shape", slog.String("value", target))
 		}
 	}
-	logger.Info("discovered packages", slog.Int("count", len(gnomods)+len(res.Packages)))
+	logger.Info("discovered packages", slog.Int("count", len(pkgpaths)+len(res.Packages)))
 
 	// Convert packages
 
-	for _, gnomodPath := range gnomods {
+	for _, gnomodPath := range pkgpaths {
 		pkgs := gnoPkgToGo(req, gnomodPath, logger)
 		for _, pkg := range pkgs {
 			if pkg == nil {
