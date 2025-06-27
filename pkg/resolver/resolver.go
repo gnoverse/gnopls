@@ -11,36 +11,26 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/gnolang/gno/gnovm/pkg/gnolang"
+	"github.com/gnolang/gno/gnovm/pkg/gnomod"
 	"github.com/gnoverse/gnopls/internal/packages"
 	"github.com/gnoverse/gnopls/pkg/gnotypes"
-	"golang.org/x/mod/modfile"
 )
 
-func gnoPkgToGo(req *packages.DriverRequest, gnomodPath string, logger *slog.Logger) []*packages.Package {
-	gnomodBytes, err := os.ReadFile(gnomodPath)
+func gnoPkgToGo(req *packages.DriverRequest, path string, logger *slog.Logger) []*packages.Package {
+	mod, err := gnomod.ParseDir(path)
 	if err != nil {
-		logger.Error("failed to read gno.mod", slog.String("path", gnomodPath), slog.String("err", err.Error()))
+		logger.Error("failed to read mod file", "path", path, "err", err)
 		return nil
 	}
-	gnomodFile, err := modfile.ParseLax(gnomodPath, gnomodBytes, nil)
-	if err != nil {
-		logger.Error("failed to parse lax gno.mod", slog.String("path", gnomodPath), slog.String("err", err.Error()))
-		return nil
-	}
-	if gnomodFile == nil || gnomodFile.Module == nil {
-		logger.Error("gno.mod has no module", slog.String("path", gnomodPath))
-		return nil
-	}
-	dir := filepath.Dir(gnomodPath)
 
 	// TODO: support subpkgs
-
-	pkgPath := gnomodFile.Module.Mod.Path
-	return readPkg(req, dir, pkgPath, logger)
+	module := mod.Module
+	return readPkg(req, path, module, logger)
 }
 
-// listGnomods recursively finds all gnomods at root
-func listGnomods(root string) ([]string, error) {
+// listPackagesPath recursively finds all gnomods at root
+func listPackagesPath(root string) ([]string, error) {
 	var gnomods []string
 
 	err := filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
@@ -50,18 +40,19 @@ func listGnomods(root string) ([]string, error) {
 		if !d.IsDir() {
 			return nil
 		}
-		gnoModPath := filepath.Join(path, "gno.mod")
-		if _, err := os.Stat(gnoModPath); err != nil {
-			return nil
+
+		for _, fname := range []string{"gnomod.toml", "gno.mod"} {
+			fpath := filepath.Join(path, fname)
+			if _, err := os.Stat(fpath); err != nil {
+				continue
+			}
+
+			gnomods = append(gnomods, path)
+			break
 		}
-		gnomods = append(gnomods, gnoModPath)
 		return nil
 	})
-	if err != nil {
-		return nil, err
-	}
-
-	return gnomods, nil
+	return gnomods, err
 }
 
 func getBuiltinPkg() (*packages.Package, error) {
@@ -82,39 +73,34 @@ func getBuiltinPkg() (*packages.Package, error) {
 }
 
 func readPkg(req *packages.DriverRequest, dir string, pkgPath string, logger *slog.Logger) []*packages.Package {
-	entries, err := os.ReadDir(dir)
+	mempkg, err := gnolang.ReadMemPackage(dir, pkgPath)
 	if err != nil {
-		logger.Error("failed to read pkg dir", slog.String("dir", dir))
+		logger.Error("unable to parse mempkg", "dir", dir, "module", pkgPath, "err", err)
 		return nil
 	}
 
 	pkg := &packages.Package{}
 	xTestPkg := &packages.Package{}
 
-	for _, entry := range entries {
-		if entry.IsDir() {
-			continue
-		}
-
-		filename := entry.Name()
-		if !strings.HasSuffix(filename, ".gno") {
+	for _, file := range mempkg.Files {
+		if !strings.HasSuffix(file.Name, ".gno") {
 			continue
 		}
 
 		// ignore filetests
-		if strings.HasSuffix(filename, "_filetest.gno") {
+		if strings.HasSuffix(file.Name, "_filetest.gno") {
 			continue
 		}
 
-		srcPath := filepath.Join(dir, filename)
+		srcPath := filepath.Join(dir, file.Name)
 
-		var src any
+		src := []byte(file.Body)
 		if body, ok := req.Overlay[srcPath]; ok {
 			src = body
 		}
 
 		// TODO: refacto this bit
-		if strings.HasSuffix(filename, "_test.gno") {
+		if strings.HasSuffix(file.Name, "_test.gno") {
 			fset := token.NewFileSet()
 			parsed, err := parser.ParseFile(fset, srcPath, src, parser.PackageClauseOnly)
 			if err != nil {
