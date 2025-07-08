@@ -10,7 +10,14 @@ It provides a wide variety of [IDE features](doc/features/README.md) to any [LSP
 
 ## Editor Setup
 
-`gnopls` is compatible with any editor that supports the Language Server Protocol (LSP). Below are setup instructions for popular editors.
+`gnopls` is compatible with any editor that supports the Language Server Protocol (LSP). Below are setup instructions for popular editors, including both LSP and non-LSP configurations.
+
+### Prerequisites
+
+For full functionality, ensure you have:
+- `gno` command-line tool installed for linting and formatting
+- `gnopls` installed: `go install github.com/gnoverse/gnopls@latest`
+- `GNOROOT` environment variable set to your gno repository path (required for LSP features)
 
 ### Visual Studio Code
 
@@ -21,11 +28,44 @@ There is an unofficial [Visual Studio Code extension](https://marketplace.visual
 
 ### Vim/Neovim
 
-#### Prerequisites
-- Install `gnopls`: `go install github.com/gnoverse/gnopls@latest`
-- Set `GNOROOT` environment variable to your gno repository path
+#### Vim Support (without LSP)
 
-#### Using vim-lsp
+For basic Vim support with syntax highlighting and formatting, add to your `.vimrc`:
+
+```vim
+function! GnoFmt()
+	cexpr system('gofmt -e -w ' . expand('%')) " or replace with gofumpt, see below
+	edit!
+	set syntax=go
+endfunction
+command! GnoFmt call GnoFmt()
+augroup gno_autocmd
+	autocmd!
+	autocmd BufNewFile,BufRead *.gno set syntax=go
+	autocmd BufWritePost *.gno GnoFmt
+augroup END
+```
+
+To use `gofumpt` instead of `gofmt`, substitute the cexpr line with:
+```vim
+cexpr system('go run -modfile <path/to/gno>/misc/devdeps/go.mod mvdan.cc/gofumpt -w ' . expand('%'))
+```
+
+##### Vim Linting Support
+
+To integrate GNO linting in Vim, add the following to your `.vimrc`:
+
+```vim
+autocmd FileType gno setlocal makeprg=gno\ tool\ lint\ %
+autocmd FileType gno setlocal errorformat=%f:%l:\ %m
+
+" Optional: Key binding to run :make on the current file
+autocmd FileType gno nnoremap <buffer> <F5> :make<CR>
+```
+
+#### Vim Support (with LSP)
+
+##### Using vim-lsp
 
 Install the [`vim-lsp`](https://github.com/prabirshrestha/vim-lsp) plugin, then add to your `.vimrc`:
 
@@ -68,7 +108,7 @@ augroup lsp_install
 augroup END
 ```
 
-#### Using Neovim built-in LSP
+##### Using Neovim built-in LSP
 
 For Neovim users, you can use the built-in LSP client. Add to your `init.lua`:
 
