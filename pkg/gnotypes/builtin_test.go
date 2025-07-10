@@ -45,8 +45,7 @@ func TestGnoBuiltin(t *testing.T) {
 	const pkgName = "mypkg"
 	t.Run("cross func decl", func(t *testing.T) {
 		content := fmt.Sprintf(`package %s;
-func init() {
-    crossing()
+func itscrossing(_ realm) {
 }`, pkgName)
 		process(pkgName, content)
 	})
