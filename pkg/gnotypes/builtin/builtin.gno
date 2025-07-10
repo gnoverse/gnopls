@@ -312,43 +312,55 @@ type error interface {
 
 // Gno Custom
 
-// The crossing built-in statement marks a function as a "crossing function" in Gno.
-// Crossing functions are allowed to modify the state of the realm they are explicitly
-// invoked from. This keyword must appear as the very first statement in the function
-// body. It is illegal to use `crossing` elsewhere in the code.
+// About Crossing
+// Crossing functions in Gno are functions that are allowed to modify the state of a realm
+// other than the caller’s current realm. To declare a crossing function, the function’s
+// first argument must be of type `realm`. This indicates that the function intends to
+// operate within the state of that realm.
 //
-// Crossing functions must be called using the `cross(fn)(...)` syntax if they are
-// defined in a realm different from the caller's current realm.
+// To call a crossing function from a different realm, you must pass the special built-in
+// value `cross` as the first argument. This signals to the runtime that the function is
+// crossing realms.
 //
 // Example:
 //
-//	func TransferCoins(from, to Address, amount int) {
-//	    crossing() // must be the first statement
-//	    // modify state of 'from' and 'to' in the realm context
+//	func TransferCoins(_ realm, from, to Address, amount int) {
+//	    // modify state of 'from' and 'to' in the target realm
 //	}
 //
 //	func main() {
-//	    cross(TransferCoins)(addr1, addr2, 100)
+//	    anotherApp.TransferCoins(cross, addr1, addr2, 100)
 //	}
 //
 // Only functions declared in realm packages (i.e., with package paths beginning
-// with `/r/`) can use `crossing()`. P package functions (non-realm) cannot contain
-// crossing statements.
-func crossing()
+// with `/r/`) can accept a `realm` parameter for crossing. Functions in regular
+// `p/` packages (non-realm) cannot use this mechanism.
 
+// cross is a custom built-in keyword passed along when calling
+// a crossing function in a different realm. For an exposed function to
+// be crossing, its first argument must be of type "realm", ie
+//
+//	func MyCrossingFunc(_ realm, ...) {...}
+//
+// Then, calling this function from a different realm is done as so:
+//
+//	anotherApp.MyCrossingFunc(cross, ...)
 var cross realm
 
+// address is an alias to std.Address
 type address string
 
 func (a address) String() string
 
 func (a address) IsValid() bool
 
+// gnocoin is an alias to std.Coin
 type gnocoin struct {
 	Denom  string
 	Amount int64
 }
 
+// gnocoins is an alias to std.Coins
 type gnocoins []gnocoin
 
 type realm interface {
@@ -360,5 +372,3 @@ type realm interface {
 	Origin() realm
 	String() string
 }
-
-// func cross[F any](fn F) F
