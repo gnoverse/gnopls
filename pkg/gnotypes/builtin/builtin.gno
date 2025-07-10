@@ -324,12 +324,17 @@ type error interface {
 //
 // Example:
 //
-//	func TransferCoins(_ realm, from, to Address, amount int) {
-//	    // modify state of 'from' and 'to' in the target realm
+//  package myapp
+//
+//	func DoSomething(_ realm, input string) {
+//	    // modify state
 //	}
 //
-//	func main() {
-//	    anotherApp.TransferCoins(cross, addr1, addr2, 100)
+// ---
+//  package anotherapp
+//
+//	func Call() {
+//	    myapp.DoSomething(cross, "hello")
 //	}
 //
 // Only functions declared in realm packages (i.e., with package paths beginning
