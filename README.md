@@ -12,6 +12,16 @@ It provides a wide variety of [IDE features](doc/features/README.md) to any [LSP
 
 `gnopls` is compatible with any editor that supports the Language Server Protocol (LSP). Below are setup instructions for popular editors.
 
+## Installation
+
+For the most part, you should not need to install or update `gnopls`. Your editor should handle that step for you.
+
+If you do want to get the latest stable version of `gnopls`, run the following command:
+
+```sh
+go install github.com/gnoverse/gnopls@latest
+```
+
 ### Visual Studio Code
 
 There is an unofficial [Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=harry-hov.gno) for working with `*.gno` files that includes LSP support.
@@ -22,7 +32,6 @@ There is an unofficial [Visual Studio Code extension](https://marketplace.visual
 ### Vim/Neovim
 
 #### Prerequisites
-- Install `gnopls`: `go install github.com/gnoverse/gnopls@latest`
 - Set `GNOROOT` environment variable to your gno repository path
 
 #### Using vim-lsp
@@ -89,7 +98,7 @@ if not configs.gnopls then
     default_config = {
       cmd = {'gnopls'},
       filetypes = {'gno'},
-      root_dir = lspconfig.util.root_pattern('gno.mod', '.git'),
+      root_dir = lspconfig.util.root_pattern('gnomod.toml', '.git'),
       settings = {},
     },
   }
@@ -114,7 +123,7 @@ lspconfig.gnopls.setup{}
 
 ;; Register file associations
 (add-to-list 'auto-mode-alist '("\\.gno\\'" . gno-mode))
-(add-to-list 'auto-mode-alist '("gno\\.mod\\'" . gno-dot-mod-mode))
+(add-to-list 'auto-mode-alist '("gnomod\\.toml\\'" . gno-dot-mod-mode))
 ```
 
 #### LSP Setup with lsp-mode
@@ -161,13 +170,3 @@ There is a community-developed [Gno Language Server](https://github.com/jdkato/g
 ### Other Editors
 
 If you use `gnopls` with an editor that is not on this list, please send us a PR to add instructions!
-
-## Installation
-
-For the most part, you should not need to install or update `gnopls`. Your editor should handle that step for you.
-
-If you do want to get the latest stable version of `gnopls`, run the following command:
-
-```sh
-go install github.com/gnoverse/gnopls@latest
-```
