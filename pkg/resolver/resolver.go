@@ -13,20 +13,20 @@ import (
 
 	"github.com/gnolang/gno/gnovm/pkg/gnolang"
 	"github.com/gnolang/gno/gnovm/pkg/gnomod"
+	gnopackages "github.com/gnolang/gno/gnovm/pkg/packages"
 	"github.com/gnoverse/gnopls/internal/packages"
 	"github.com/gnoverse/gnopls/pkg/gnotypes"
 )
 
-func gnoPkgToGo(req *packages.DriverRequest, path string, logger *slog.Logger) []*packages.Package {
-	mod, err := gnomod.ParseDir(path)
+func gnoPkgToGo(req *packages.DriverRequest, pkg *gnopackages.Package, logger *slog.Logger) []*packages.Package {
+	mod, err := gnomod.ParseDir(pkg.Dir)
 	if err != nil {
-		logger.Error("failed to read mod file", "path", path, "err", err)
+		logger.Error("failed to read mod file", "path", pkg.Dir, "err", err)
 		return nil
 	}
 
-	// TODO: support subpkgs
 	module := mod.Module
-	return readPkg(req, path, module, logger)
+	return readPkg(req, pkg.Dir, module, logger)
 }
 
 // listPackagesPath recursively finds all gnomods at root
@@ -73,7 +73,7 @@ func getBuiltinPkg() (*packages.Package, error) {
 }
 
 func readPkg(req *packages.DriverRequest, dir string, pkgPath string, logger *slog.Logger) []*packages.Package {
-	mempkg, err := gnolang.ReadMemPackage(dir, pkgPath)
+	mempkg, err := gnolang.ReadMemPackage(dir, pkgPath, gnolang.MPAnyAll)
 	if err != nil {
 		logger.Error("unable to parse mempkg", "dir", dir, "module", pkgPath, "err", err)
 		return nil
