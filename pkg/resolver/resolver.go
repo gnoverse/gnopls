@@ -73,7 +73,7 @@ func getBuiltinPkg() (*packages.Package, error) {
 }
 
 func readPkg(req *packages.DriverRequest, dir string, pkgPath string, logger *slog.Logger) []*packages.Package {
-	mempkg, err := gnolang.ReadMemPackage(dir, pkgPath)
+	mempkg, err := gnolang.ReadMemPackage(dir, pkgPath, gnolang.MPAnyAll)
 	if err != nil {
 		logger.Error("unable to parse mempkg", "dir", dir, "module", pkgPath, "err", err)
 		return nil
