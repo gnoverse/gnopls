@@ -89,7 +89,7 @@ if not configs.gnopls then
     default_config = {
       cmd = {'gnopls'},
       filetypes = {'gno'},
-      root_dir = lspconfig.util.root_pattern('gno.mod', '.git'),
+      root_dir = lspconfig.util.root_pattern('gnomod.toml', '.git'),
       settings = {},
     },
   }
@@ -114,7 +114,7 @@ lspconfig.gnopls.setup{}
 
 ;; Register file associations
 (add-to-list 'auto-mode-alist '("\\.gno\\'" . gno-mode))
-(add-to-list 'auto-mode-alist '("gno\\.mod\\'" . gno-dot-mod-mode))
+(add-to-list 'auto-mode-alist '("gnomod\\.toml\\'" . gno-dot-mod-mode))
 ```
 
 #### LSP Setup with lsp-mode
