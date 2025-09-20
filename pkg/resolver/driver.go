@@ -183,6 +183,7 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 		Out:     os.Stderr,
 		Deps:    true,
 		GnoRoot: gnoRoot,
+		// Overlay: req.Overlay,
 	}
 	loadedPkgs, err := gnopackages.Load(loadCfg, loaderPatterns...)
 	if err != nil {

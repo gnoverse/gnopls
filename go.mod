@@ -64,3 +64,5 @@ require (
 	google.golang.org/grpc v1.69.4 // indirect
 	google.golang.org/protobuf v1.36.3 // indirect
 )
+
+replace github.com/gnolang/gno => github.com/n0izn0iz/gno v0.1.2-0.20250920103332-3549e304804d
