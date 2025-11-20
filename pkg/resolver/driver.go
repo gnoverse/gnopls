@@ -59,6 +59,11 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 				return nil
 			}
 
+			// Skip the root directory itself, as "." is not a valid package path
+			if path == "." {
+				return nil
+			}
+
 			pkgDir := filepath.Join(libsRoot, path)
 
 			pkgs := readPkg(req, pkgDir, path, logger)
