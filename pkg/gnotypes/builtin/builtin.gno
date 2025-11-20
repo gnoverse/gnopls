@@ -377,3 +377,29 @@ type realm interface {
 	Origin() realm
 	String() string
 }
+
+// The revive built-in function executes a function and captures any exception that
+// crosses a realm finalization boundary, returning it instead of aborting the program.
+//
+// In Gno's multi-user environment, when a panic crosses a realm boundary (as defined by
+// explicit cross-calls with fn(cross, ...) or implicit method calls on external realm
+// objects), the Machine normally aborts the program rather than allowing recover(), since
+// realm panics often leave state in an invalid state. The revive function allows tests
+// and controlled code to detect and handle these cross-realm aborts.
+//
+// If the function fn causes an exception that crosses a realm boundary, revive returns
+// that exception value. If fn completes normally or panics without crossing a realm
+// boundary, revive returns nil.
+//
+// Example:
+//
+//	abort := revive(func() {
+//	    myapp.CrossingFunc(cross, "arg")  // might panic across realm boundary
+//	})
+//	if abort != nil {
+//	    println("Cross-realm abort occurred:", abort)
+//	}
+//
+// Current behavior: This function is only enabled in testing mode. The function is not
+// cache-wrapped, so state mutations made during fn's execution remain even after an abort.
+func revive(fn func()) any
