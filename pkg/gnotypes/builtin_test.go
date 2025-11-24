@@ -69,6 +69,20 @@ func TestRevive() {
 }`, pkgName)
 		process(pkgName, content)
 	})
+
+	t.Run("istypednil usage", func(t *testing.T) {
+		content := fmt.Sprintf(`package %s
+func TestIsTypedNil() {
+	var ptr *int = nil
+	var slice []string = nil
+
+	result1 := istypednil(ptr)
+	result2 := istypednil(slice)
+	result3 := istypednil(nil)
+	_, _, _ = result1, result2, result3
+}`, pkgName)
+		process(pkgName, content)
+	})
 }
 
 type importerFunc func(path string) (*types.Package, error)

@@ -403,3 +403,22 @@ type realm interface {
 // Current behavior: This function is only enabled in testing mode. The function is not
 // cache-wrapped, so state mutations made during fn's execution remain even after an abort.
 func revive(fn func()) any
+
+// The istypednil built-in function determines whether a value is a "typed nil" - a nil
+// value that has a type associated with it, such as (*int)(nil), []string(nil), or
+// map[string]int(nil).
+//
+// istypednil returns true when the value is nil and has an associated type in one of
+// these categories: Slice, Func, Map, Interface, Pointer, or Chan. It returns false
+// for untyped nil or non-nil values.
+//
+// Since reflect is not available in Gno, this function is useful for testing and
+// debugging scenarios where the distinction between typed and untyped nil matters.
+//
+// Example:
+//
+//	var ptr *int = nil
+//	istypednil(ptr)       // returns true
+//	istypednil(nil)       // returns false (untyped nil)
+//	istypednil(42)        // returns false (non-nil value)
+func istypednil(x any) bool
