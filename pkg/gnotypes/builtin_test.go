@@ -58,6 +58,31 @@ func itscrossing(_ realm) {
 			process(pkgName, content)
 		}
 	})
+
+	t.Run("revive usage", func(t *testing.T) {
+		content := fmt.Sprintf(`package %s
+func TestRevive() {
+	result := revive(func() {
+		panic("test panic")
+	})
+	_ = result
+}`, pkgName)
+		process(pkgName, content)
+	})
+
+	t.Run("istypednil usage", func(t *testing.T) {
+		content := fmt.Sprintf(`package %s
+func TestIsTypedNil() {
+	var ptr *int = nil
+	var slice []string = nil
+
+	result1 := istypednil(ptr)
+	result2 := istypednil(slice)
+	result3 := istypednil(nil)
+	_, _, _ = result1, result2, result3
+}`, pkgName)
+		process(pkgName, content)
+	})
 }
 
 type importerFunc func(path string) (*types.Package, error)
@@ -93,7 +118,6 @@ func MyInterface interface {
 	if err != nil {
 		t.Fatalf("export: %v", err) // any failure to export is a bug
 	}
-
 }
 
 func TestGnoBuiltinExporterVar(t *testing.T) {
@@ -127,5 +151,4 @@ func init() {
 	if err != nil {
 		t.Fatalf("export: %v", err) // any failure to export is a bug
 	}
-
 }
