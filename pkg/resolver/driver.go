@@ -50,6 +50,10 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 	if gnoRoot != "" {
 		libsRoot := filepath.Join(gnoRoot, "gnovm", "stdlibs")
 		testLibsRoot := filepath.Join(gnoRoot, "gnovm", "tests", "stdlibs")
+
+		// Track which packages we've already processed from libsRoot
+		processedPkgs := make(map[string]bool)
+
 		if err := fs.WalkDir(os.DirFS(libsRoot), ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return nil
@@ -76,6 +80,7 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 				if !strings.HasSuffix(pkg.Name, "_test") {
 					pkgsCache[path] = pkg
 				}
+				processedPkgs[path] = true
 
 				testLibDir := filepath.Join(testLibsRoot, path)
 				testsDir, err := os.ReadDir(testLibDir)
@@ -111,6 +116,46 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 		}); err != nil {
 			logger.Warn("failed to inject all stdlibs", slog.String("error", err.Error()))
 		}
+
+		// Inject test-only stdlibs (packages that exist only in tests/stdlibs)
+		if err := fs.WalkDir(os.DirFS(testLibsRoot), ".", func(path string, d fs.DirEntry, err error) error {
+			if err != nil {
+				return nil
+			}
+
+			if !d.IsDir() {
+				return nil
+			}
+
+			if path == "." {
+				return nil
+			}
+
+			// Skip if we already processed this package from libsRoot
+			if processedPkgs[path] {
+				return nil
+			}
+
+			pkgDir := filepath.Join(testLibsRoot, path)
+
+			pkgs := readPkg(req, pkgDir, path, logger)
+			for _, pkg := range pkgs {
+				if len(pkg.GoFiles) == 0 {
+					continue
+				}
+
+				res.Packages = append(res.Packages, pkg)
+				if !strings.HasSuffix(pkg.Name, "_test") {
+					pkgsCache[path] = pkg
+				}
+			}
+
+			// logger.Info("injected test-only stdlib", slog.String("path", path))
+
+			return nil
+		}); err != nil {
+			logger.Warn("failed to inject test-only stdlibs", slog.String("error", err.Error()))
+		}
 	}
 
 	// Discover packages
@@ -121,7 +166,13 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 		if file == "..." {
 			gnomodsRes, err := listPackagesPath(dir)
 			if err != nil {
-				logger.Error("failed to get pkg list", slog.String("error", err.Error()))
+				logger.Error(
+					"failed to get pkg list",
+					slog.String("target", target),
+					slog.String("file", file),
+					slog.String("dir", dir),
+					slog.String("error", err.Error()),
+				)
 				return nil, err
 			}
 			pkgpaths = append(pkgpaths, gnomodsRes...)
@@ -129,7 +180,13 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 			dir = strings.TrimPrefix(dir, "file=")
 			gnomodsRes, err := listPackagesPath(dir)
 			if err != nil {
-				logger.Error("failed to get pkg", slog.String("error", err.Error()))
+				logger.Error(
+					"failed to get pkg",
+					slog.String("target", target),
+					slog.String("file", file),
+					slog.String("dir", dir),
+					slog.String("error", err.Error()),
+				)
 				return nil, err
 			}
 			if len(gnomodsRes) != 1 {

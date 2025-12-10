@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/tools/internal/pkgbits"
+	"github.com/gnoverse/gnopls/internal/pkgbits"
 )
 
 func TestRoundTrip(t *testing.T) {
@@ -35,8 +35,10 @@ func TestRoundTrip(t *testing.T) {
 }
 
 // Type checker to enforce that know V* have the constant values they must have.
-var _ [0]bool = [pkgbits.V0]bool{}
-var _ [1]bool = [pkgbits.V1]bool{}
+var (
+	_ [0]bool = [pkgbits.V0]bool{}
+	_ [1]bool = [pkgbits.V1]bool{}
+)
 
 func TestVersions(t *testing.T) {
 	type vfpair struct {
