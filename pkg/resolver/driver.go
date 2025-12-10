@@ -121,7 +121,13 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 		if file == "..." {
 			gnomodsRes, err := listPackagesPath(dir)
 			if err != nil {
-				logger.Error("failed to get pkg list", slog.String("error", err.Error()))
+				logger.Error(
+					"failed to get pkg list",
+					slog.String("target", target),
+					slog.String("file", file),
+					slog.String("dir", dir),
+					slog.String("error", err.Error()),
+				)
 				return nil, err
 			}
 			pkgpaths = append(pkgpaths, gnomodsRes...)
@@ -129,7 +135,13 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 			dir = strings.TrimPrefix(dir, "file=")
 			gnomodsRes, err := listPackagesPath(dir)
 			if err != nil {
-				logger.Error("failed to get pkg", slog.String("error", err.Error()))
+				logger.Error(
+					"failed to get pkg",
+					slog.String("target", target),
+					slog.String("file", file),
+					slog.String("dir", dir),
+					slog.String("error", err.Error()),
+				)
 				return nil, err
 			}
 			if len(gnomodsRes) != 1 {
