@@ -51,7 +51,7 @@ func (*Resolver) Run(ctx context.Context, args ...string) error {
 
 	reqBytes, err := io.ReadAll(os.Stdin)
 	if err != nil {
-		return fmt.Errorf("failed to read request: %w", err.Error)
+		return fmt.Errorf("failed to read request: %v", err.Error())
 	}
 
 	req := packages.DriverRequest{}
