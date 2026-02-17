@@ -158,6 +158,10 @@ For linting with Flycheck:
 
 There is a community-developed [Gno Language Server](https://github.com/jdkato/gnols) with installation instructions for Sublime Text.
 
+### Zed
+
+A community-developed extension for [Zed](https://zed.dev) is available at [julienrbrt/zed-gno](https://github.com/julienrbrt/zed-gno).
+
 ### Other Editors
 
 If you use `gnopls` with an editor that is not on this list, please send us a PR to add instructions!
