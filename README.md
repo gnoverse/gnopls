@@ -56,7 +56,7 @@ cexpr system('go run -modfile <path/to/gno>/misc/devdeps/go.mod mvdan.cc/gofumpt
 To integrate GNO linting in Vim, add the following to your `.vimrc`:
 
 ```vim
-autocmd FileType gno setlocal makeprg=gno\ tool\ lint\ %
+autocmd FileType gno setlocal makeprg=gno\ lint\ %
 autocmd FileType gno setlocal errorformat=%f:%l:\ %m
 
 " Optional: Key binding to run :make on the current file
