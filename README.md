@@ -15,16 +15,21 @@ It provides a wide variety of [IDE features](doc/features/README.md) to any [LSP
 ### Prerequisites
 
 For full functionality, ensure you have:
-- `gno` command-line tool installed for linting and formatting
+- [`gno`](https://github.com/gnolang/gno) command-line tool installed for linting and formatting
 - `gnopls` installed: `go install github.com/gnoverse/gnopls@latest`
 - `GNOROOT` environment variable set to your gno repository path (required for LSP features)
 
+## Official Editor Plugins
+
 ### Visual Studio Code
+→ Install the [official extension](https://github.com/gnoverse/vscode-gno)  
+→ Configure through VS Code settings
 
-There is an unofficial [Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=harry-hov.gno) for working with `*.gno` files that includes LSP support.
+### Jetbrains IntelliJ IDEA
+→ Install the [official plugin](https://github.com/gnoverse/intellij-gno)  
+→ Follow setup instructions in repository README
 
-1. Install the extension from the VS Code Marketplace
-2. The extension will automatically use `gnopls` if it's installed in your PATH
+## LSP-Compatible Editor Configurations
 
 ### Vim/Neovim
 
@@ -201,13 +206,3 @@ There is a community-developed [Gno Language Server](https://github.com/jdkato/g
 ### Other Editors
 
 If you use `gnopls` with an editor that is not on this list, please send us a PR to add instructions!
-
-## Installation
-
-For the most part, you should not need to install or update `gnopls`. Your editor should handle that step for you.
-
-If you do want to get the latest stable version of `gnopls`, run the following command:
-
-```sh
-go install github.com/gnoverse/gnopls@latest
-```
