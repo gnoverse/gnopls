@@ -1,8 +1,6 @@
 module github.com/gnoverse/gnopls
 
-// go 1.23.1 fixes some bugs in go/types Alias support.
-// (golang/go#68894 and golang/go#68905).
-go 1.23.1
+go 1.25.0
 
 require (
 	github.com/gnolang/gno v0.0.0-20250911110843-956c0ddde9af
