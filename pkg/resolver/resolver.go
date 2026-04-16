@@ -40,6 +40,10 @@ func listPackagesPath(root string) ([]string, error) {
 			return nil
 		}
 
+		if path != root && fileExists(filepath.Join(path, workspaceConfigFile)) {
+			return filepath.SkipDir
+		}
+
 		if hasGnoModule(path) {
 			gnomods = append(gnomods, path)
 		}
