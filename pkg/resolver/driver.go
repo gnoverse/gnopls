@@ -13,6 +13,14 @@ import (
 	"github.com/gnoverse/gnopls/pkg/eventlogger"
 )
 
+const (
+	filePatternPrefix   = "file="
+	recursivePattern    = "..."
+	workspaceConfigFile = "gnowork.toml"
+	gnoModTomlFile      = "gnomod.toml"
+	gnoModFile          = "gno.mod"
+)
+
 func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverResponse, error) {
 	logger := eventlogger.EventLoggerWrapper()
 
@@ -32,11 +40,11 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 
 	targets := append([]string{}, patterns...)
 	if workspaceRoot := discoverWorkspaceRoot(patterns); workspaceRoot != "" {
-		targets = append(targets, filepath.Join(workspaceRoot, "..."))
+		targets = append(targets, filepath.Join(workspaceRoot, recursivePattern))
 	}
 
 	if gnoRoot != "" {
-		targets = append(targets, filepath.Join(gnoRoot, "examples", "..."))
+		targets = append(targets, filepath.Join(gnoRoot, "examples", recursivePattern))
 	}
 
 	pkgsCache := map[string]*packages.Package{}
@@ -166,7 +174,7 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 	pkgpaths := []string{}
 	for _, target := range targets {
 		dir, file := filepath.Split(target)
-		if file == "..." {
+		if file == recursivePattern {
 			gnomodsRes, err := listPackagesPath(dir)
 			if err != nil {
 				logger.Error(
@@ -179,8 +187,8 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 				return nil, err
 			}
 			pkgpaths = append(pkgpaths, gnomodsRes...)
-		} else if strings.HasPrefix(target, "file=") {
-			dir = strings.TrimPrefix(dir, "file=")
+		} else if strings.HasPrefix(target, filePatternPrefix) {
+			dir = strings.TrimPrefix(dir, filePatternPrefix)
 			gnomodsRes, err := listPackagesPath(dir)
 			if err != nil {
 				logger.Error(
@@ -267,11 +275,11 @@ func discoverWorkspaceRoot(patterns []string) string {
 
 func workspaceSeedDir(patterns []string) string {
 	for _, pattern := range patterns {
-		if path, ok := strings.CutPrefix(pattern, "file="); ok {
+		if path, ok := strings.CutPrefix(pattern, filePatternPrefix); ok {
 			return filepath.Dir(path)
 		}
 
-		if base, ok := strings.CutSuffix(pattern, "..."); ok {
+		if base, ok := strings.CutSuffix(pattern, recursivePattern); ok {
 			return base
 		}
 	}
@@ -287,7 +295,7 @@ func findWorkspaceRoot(seedDir string) string {
 	seedDir = filepath.Clean(seedDir)
 	origSeedDir := seedDir
 	for {
-		if fileExists(filepath.Join(seedDir, "gnowork.toml")) {
+		if fileExists(filepath.Join(seedDir, workspaceConfigFile)) {
 			return seedDir
 		}
 
@@ -307,7 +315,7 @@ func findWorkspaceRoot(seedDir string) string {
 
 // gnoModFiles lists the recognized module definition file names for Gno
 // packages, checked in priority order (gnomod.toml takes precedence).
-var gnoModFiles = []string{"gnomod.toml", "gno.mod"}
+var gnoModFiles = []string{gnoModTomlFile, gnoModFile}
 
 // hasGnoModule reports whether dir contains a Gno module definition file.
 func hasGnoModule(dir string) bool {
