@@ -34,6 +34,9 @@ type DriverRequest struct {
 	// Tests specifies whether the patterns should also return test packages.
 	Tests bool `json:"tests"`
 
+	// Dir is the working directory associated with the load request.
+	Dir string `json:"dir"`
+
 	// Overlay maps file paths (relative to the driver's working directory)
 	// to the contents of overlay files (see Config.Overlay).
 	Overlay map[string][]byte `json:"overlay"`
@@ -92,6 +95,7 @@ func findExternalDriver(cfg *Config) driver {
 		Env:        cfg.Env,
 		BuildFlags: cfg.BuildFlags,
 		Tests:      cfg.Tests,
+		Dir:        cfg.Dir,
 		Overlay:    cfg.Overlay,
 	}
 

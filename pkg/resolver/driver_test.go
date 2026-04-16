@@ -47,6 +47,35 @@ func TestDiscoverWorkspaceRootFallsBackToSeedModule(t *testing.T) {
 	}
 }
 
+func TestResolveUsesRequestDirForRelativeWorkspacePattern(t *testing.T) {
+	root := t.TempDir()
+
+	mustWriteFile(t, filepath.Join(root, "gnowork.toml"), "")
+	mustWriteFile(t, filepath.Join(root, "p", "mylib", "gnomod.toml"), `module = "gno.land/p/mylib"`+"\n")
+	mustWriteFile(t, filepath.Join(root, "p", "mylib", "mylib.gno"), "package mylib\n")
+	mustWriteFile(t, filepath.Join(root, "r", "myapp", "gnomod.toml"), `module = "gno.land/r/myapp"`+"\n")
+	mustWriteFile(t, filepath.Join(root, "r", "myapp", "myapp.gno"), "package myapp\n\nimport \"gno.land/p/mylib\"\n")
+
+	res, err := Resolve(&packages.DriverRequest{Dir: root}, "./...")
+	if err != nil {
+		t.Fatalf("Resolve() error = %v", err)
+	}
+
+	pkgs := make(map[string]*packages.Package)
+	for _, pkg := range res.Packages {
+		pkgs[pkg.PkgPath] = pkg
+	}
+
+	app := pkgs["gno.land/r/myapp"]
+	lib := pkgs["gno.land/p/mylib"]
+	if app == nil || lib == nil {
+		t.Fatalf("relative workspace load missed packages: app=%v lib=%v", app != nil, lib != nil)
+	}
+	if got := app.Imports["gno.land/p/mylib"]; got != lib {
+		t.Fatalf("relative workspace import not resolved to workspace package: got %#v, want %#v", got, lib)
+	}
+}
+
 func TestResolveDiscoversWorkspacePackages(t *testing.T) {
 	root := t.TempDir()
 

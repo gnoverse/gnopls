@@ -1,6 +1,7 @@
 package resolver
 
 import (
+	"go/build"
 	"io/fs"
 	"log/slog"
 	"os"
@@ -37,6 +38,8 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 	if err != nil {
 		logger.Warn("can't find gno root, examples and std packages are ignored", slog.String("error", err.Error()))
 	}
+
+	patterns = normalizePatterns(req, patterns)
 
 	targets := append([]string{}, patterns...)
 	if workspaceRoot := discoverWorkspaceRoot(patterns); workspaceRoot != "" {
@@ -271,6 +274,54 @@ func discoverWorkspaceRoot(patterns []string) string {
 	}
 
 	return findWorkspaceRoot(seedDir)
+}
+
+func normalizePatterns(req *packages.DriverRequest, patterns []string) []string {
+	if len(patterns) == 0 {
+		return nil
+	}
+
+	baseDir := ""
+	if req != nil {
+		baseDir = req.Dir
+	}
+
+	normalized := make([]string, 0, len(patterns))
+	for _, pattern := range patterns {
+		normalized = append(normalized, normalizePattern(pattern, baseDir))
+	}
+	return normalized
+}
+
+func normalizePattern(pattern string, baseDir string) string {
+	if path, ok := strings.CutPrefix(pattern, filePatternPrefix); ok {
+		return filePatternPrefix + normalizePath(path, baseDir)
+	}
+
+	if base, ok := strings.CutSuffix(pattern, recursivePattern); ok {
+		if isFilesystemPath(base) {
+			return filepath.Join(normalizePath(base, baseDir), recursivePattern)
+		}
+	}
+
+	return pattern
+}
+
+func normalizePath(path string, baseDir string) string {
+	if path == "" {
+		return ""
+	}
+	if filepath.IsAbs(path) || baseDir == "" {
+		return filepath.Clean(path)
+	}
+	return filepath.Clean(filepath.Join(baseDir, path))
+}
+
+// isFilesystemPath reports whether path looks like a filesystem path rather
+// than a module/package path (e.g. "gno.land/foo/bar/"). Filesystem paths
+// are absolute, start with "./" or "../", or are empty (representing ".").
+func isFilesystemPath(path string) bool {
+	return path == "" || filepath.IsAbs(path) || build.IsLocalImport(path)
 }
 
 func workspaceSeedDir(patterns []string) string {
