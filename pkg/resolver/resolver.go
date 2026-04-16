@@ -7,7 +7,6 @@ import (
 	"go/token"
 	"io/fs"
 	"log/slog"
-	"os"
 	"path/filepath"
 	"strings"
 
@@ -41,14 +40,8 @@ func listPackagesPath(root string) ([]string, error) {
 			return nil
 		}
 
-		for _, fname := range []string{"gnomod.toml", "gno.mod"} {
-			fpath := filepath.Join(path, fname)
-			if _, err := os.Stat(fpath); err != nil {
-				continue
-			}
-
+		if hasGnoModule(path) {
 			gnomods = append(gnomods, path)
-			break
 		}
 		return nil
 	})

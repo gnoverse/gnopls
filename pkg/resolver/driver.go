@@ -30,7 +30,10 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 		logger.Warn("can't find gno root, examples and std packages are ignored", slog.String("error", err.Error()))
 	}
 
-	targets := patterns
+	targets := append([]string{}, patterns...)
+	if workspaceRoot := discoverWorkspaceRoot(patterns); workspaceRoot != "" {
+		targets = append(targets, filepath.Join(workspaceRoot, "..."))
+	}
 
 	if gnoRoot != "" {
 		targets = append(targets, filepath.Join(gnoRoot, "examples", "..."))
@@ -251,4 +254,75 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 	}
 
 	return &res, nil
+}
+
+func discoverWorkspaceRoot(patterns []string) string {
+	seedDir := workspaceSeedDir(patterns)
+	if seedDir == "" {
+		return ""
+	}
+
+	return findWorkspaceRoot(seedDir)
+}
+
+func workspaceSeedDir(patterns []string) string {
+	for _, pattern := range patterns {
+		if path, ok := strings.CutPrefix(pattern, "file="); ok {
+			return filepath.Dir(path)
+		}
+
+		if base, ok := strings.CutSuffix(pattern, "..."); ok {
+			return base
+		}
+	}
+
+	return ""
+}
+
+func findWorkspaceRoot(seedDir string) string {
+	if seedDir == "" {
+		return ""
+	}
+
+	seedDir = filepath.Clean(seedDir)
+	origSeedDir := seedDir
+	for {
+		if fileExists(filepath.Join(seedDir, "gnowork.toml")) {
+			return seedDir
+		}
+
+		parent := filepath.Dir(seedDir)
+		if parent == seedDir {
+			break
+		}
+		seedDir = parent
+	}
+
+	if hasGnoModule(origSeedDir) {
+		return origSeedDir
+	}
+
+	return ""
+}
+
+// gnoModFiles lists the recognized module definition file names for Gno
+// packages, checked in priority order (gnomod.toml takes precedence).
+var gnoModFiles = []string{"gnomod.toml", "gno.mod"}
+
+// hasGnoModule reports whether dir contains a Gno module definition file.
+func hasGnoModule(dir string) bool {
+	for _, f := range gnoModFiles {
+		if fileExists(filepath.Join(dir, f)) {
+			return true
+		}
+	}
+	return false
+}
+
+func fileExists(path string) bool {
+	info, err := os.Stat(path)
+	if err != nil {
+		return false
+	}
+	return !info.IsDir()
 }
