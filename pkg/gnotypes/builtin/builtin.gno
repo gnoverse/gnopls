@@ -371,6 +371,7 @@ type gnocoins []gnocoin
 type realm interface {
 	Address() address
 	PkgPath() string
+	SentCoins() gnocoins
 	Coins() gnocoins
 	Send(coins gnocoins, to address) error
 	Previous() realm
