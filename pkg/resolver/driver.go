@@ -41,7 +41,7 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 
 	patterns = normalizePatterns(req, patterns)
 
-	targets := append([]string{}, patterns...)
+	targets := slices.Clone(patterns)
 	if workspaceRoot := discoverWorkspaceRoot(patterns); workspaceRoot != "" {
 		targets = append(targets, filepath.Join(workspaceRoot, recursivePattern))
 	}
