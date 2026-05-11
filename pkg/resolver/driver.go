@@ -295,26 +295,38 @@ func normalizePatterns(req *packages.DriverRequest, patterns []string) []string 
 
 func normalizePattern(pattern string, baseDir string) string {
 	if path, ok := strings.CutPrefix(pattern, filePatternPrefix); ok {
-		return filePatternPrefix + normalizePath(path, baseDir)
+		normalized, resolved := resolvePath(path, baseDir)
+		if !resolved {
+			return pattern
+		}
+		return filePatternPrefix + normalized
 	}
 
 	if base, ok := strings.CutSuffix(pattern, recursivePattern); ok {
 		if isFilesystemPath(base) {
-			return filepath.Join(normalizePath(base, baseDir), recursivePattern)
+			normalized, resolved := resolvePath(base, baseDir)
+			if !resolved {
+				return pattern
+			}
+			return filepath.Join(normalized, recursivePattern)
 		}
 	}
 
 	return pattern
 }
 
-func normalizePath(path string, baseDir string) string {
+// resolvePath returns an absolute, cleaned form of path.
+func resolvePath(path string, baseDir string) (string, bool) {
 	if path == "" {
-		return ""
+		return "", true
 	}
-	if filepath.IsAbs(path) || baseDir == "" {
-		return filepath.Clean(path)
+	if filepath.IsAbs(path) {
+		return filepath.Clean(path), true
 	}
-	return filepath.Clean(filepath.Join(baseDir, path))
+	if baseDir == "" {
+		return "", false
+	}
+	return filepath.Clean(filepath.Join(baseDir, path)), true
 }
 
 // isFilesystemPath reports whether path looks like a filesystem path rather

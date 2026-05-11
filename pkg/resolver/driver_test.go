@@ -142,6 +142,30 @@ func TestResolveDeduplicatesWorkspaceTargets(t *testing.T) {
 	}
 }
 
+func TestNormalizePatternPreservesRelativeWithoutBaseDir(t *testing.T) {
+	tests := []struct {
+		name    string
+		pattern string
+		baseDir string
+		want    string
+	}{
+		{name: "recursive relative no base", pattern: "./...", baseDir: "", want: "./..."},
+		{name: "recursive parent relative no base", pattern: "../foo/...", baseDir: "", want: "../foo/..."},
+		{name: "file relative no base", pattern: "file=./main.gno", baseDir: "", want: "file=./main.gno"},
+		{name: "module pattern unchanged", pattern: "gno.land/r/foo/...", baseDir: "", want: "gno.land/r/foo/..."},
+		{name: "absolute path cleaned without base", pattern: "/abs/./path/...", baseDir: "", want: "/abs/path/..."},
+		{name: "relative resolved against base", pattern: "./...", baseDir: "/work", want: "/work/..."},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := normalizePattern(tt.pattern, tt.baseDir); got != tt.want {
+				t.Fatalf("normalizePattern(%q, %q) = %q, want %q", tt.pattern, tt.baseDir, got, tt.want)
+			}
+		})
+	}
+}
+
 func mustWriteFile(t *testing.T, path string, content string) {
 	t.Helper()
 
