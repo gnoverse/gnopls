@@ -60,6 +60,7 @@ func main() {
 		Env:        append(request.Env, "GOPACKAGESDRIVER=off"), // avoid recursive invocation
 		BuildFlags: request.BuildFlags,
 		Tests:      request.Tests,
+		Dir:        request.Dir,
 		Overlay:    request.Overlay,
 	}
 	pkgs, err := packages.Load(&config, flag.Args()...)
