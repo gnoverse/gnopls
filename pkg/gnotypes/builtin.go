@@ -261,6 +261,15 @@ func (ctx *cloneContext) CloneTypeWithNilPackage(t types.Type) types.Type {
 		// will be filled in after its components (underlying type, methods) are cloned.
 
 		newTypeName := types.NewTypeName(token.NoPos, nil /* pkg = nil */, origObj.Name(), nil)
+		// Create the Named with a nil underlying and cache it BEFORE cloning
+		// the underlying type and methods. A recursive self-reference (e.g. a
+		// method returning the same named type, like realm.Previous() realm)
+		// then resolves to this instance via cloneMap instead of cloning a
+		// divergent, method-incomplete copy. The underlying is filled in with
+		// SetUnderlying once cloned.
+		named := types.NewNamed(newTypeName, nil, nil)
+		ctx.cloneMap[T] = named
+
 		underlying := ctx.CloneTypeWithNilPackage(T.Underlying())
 		for {
 			if _, ok := underlying.(*types.Named); !ok {
@@ -271,23 +280,17 @@ func (ctx *cloneContext) CloneTypeWithNilPackage(t types.Type) types.Type {
 			// by its own NewNamed call during the recursive CloneTypeWithNilPackage.
 			underlying = underlying.Underlying()
 		}
+		named.SetUnderlying(underlying)
 
-		var newMethods []*types.Func
-		if T.NumMethods() > 0 {
-			newMethods = make([]*types.Func, T.NumMethods())
-			for i := range T.NumMethods() {
-				origMethod := T.Method(i)
-				// Clone the signature. Types within the signature will also be cloned.
-				clonedSig := ctx.CloneTypeWithNilPackage(origMethod.Type()).(*types.Signature)
-				// Create the new Func. types.NewNamed will set its Pkg based on newTypeName.Pkg (which is nil).
-				newMethods[i] = types.NewFunc(token.NoPos, nil /* pkg */, origMethod.Name(), clonedSig)
-			}
+		for i := range T.NumMethods() {
+			origMethod := T.Method(i)
+			// Clone the signature. Types within the signature will also be cloned.
+			clonedSig := ctx.CloneTypeWithNilPackage(origMethod.Type()).(*types.Signature)
+			// Create the new Func. types.NewFunc uses newTypeName.Pkg (nil).
+			named.AddMethod(types.NewFunc(token.NoPos, nil /* pkg */, origMethod.Name(), clonedSig))
 		}
 
-		// Construct the final *types.Named object.
-		// This will also correctly set newTypeName.obj and newNamedInstance.obj.
-		result = types.NewNamed(newTypeName, underlying, newMethods)
-		ctx.cloneMap[T] = result // Map original T to the placeholder
+		result = named
 
 	case *types.Pointer:
 		elem := ctx.CloneTypeWithNilPackage(T.Elem())
@@ -473,7 +476,14 @@ func init() {
 	for name, obj := range gnoBuiltin {
 		switch o := obj.(type) {
 		case *types.Func:
-			sig := o.Type().(*types.Signature)
+			// Clone the signature with the shared ctx so any custom builtin
+			// named types it references resolve to the same package-less
+			// instances registered in the Universe below — not the
+			// package-qualified originals from the parsed builtin file.
+			// Without this, cross(cur) fails to type-check: cross's param
+			// would be builtin.realm while the Universe realm is the cloned,
+			// package-less type (identity mismatch).
+			sig := ctx.CloneTypeWithNilPackage(o.Type()).(*types.Signature)
 			newFn := types.NewFunc(token.NoPos, nil, name, sig) // a builtin don't have a pos
 			types.Universe.Insert(newFn)                        // register func
 			log.Printf("builtin func %q has been registered", o.Name())

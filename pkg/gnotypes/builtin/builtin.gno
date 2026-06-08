@@ -341,16 +341,16 @@ type error interface {
 // with `/r/`) can accept a `realm` parameter for crossing. Functions in regular
 // `p/` packages (non-realm) cannot use this mechanism.
 
-// cross is a custom built-in keyword passed along when calling
-// a crossing function in a different realm. For an exposed function to
-// be crossing, its first argument must be of type "realm", ie
+// cross marks an explicit cross-realm call. For an exposed function to be
+// crossing, its first argument must be of type "realm", ie
 //
-//	func MyCrossingFunc(_ realm, ...) {...}
+//	func MyCrossingFunc(cur realm, ...) {...}
 //
-// Then, calling this function from a different realm is done as so:
+// Then, calling this function from a different realm is done by applying cross
+// to the current realm value and passing the result as the first argument:
 //
-//	anotherApp.MyCrossingFunc(cross, ...)
-var cross realm
+//	anotherApp.MyCrossingFunc(cross(cur), ...)
+func cross(rlm realm) realm { return rlm }
 
 // address is an alias to std.Address
 type address string
@@ -371,10 +371,13 @@ type gnocoins []gnocoin
 type realm interface {
 	Address() address
 	PkgPath() string
-	Coins() gnocoins
-	Send(coins gnocoins, to address) error
 	Previous() realm
-	Origin() realm
+	IsCode() bool
+	IsUser() bool
+	IsUserCall() bool
+	IsUserRun() bool
+	IsEphemeral() bool
+	IsCurrent() bool
 	String() string
 }
 
