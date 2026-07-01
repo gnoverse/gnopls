@@ -59,6 +59,36 @@ func itscrossing(_ realm) {
 		}
 	})
 
+	t.Run("cross call", func(t *testing.T) {
+		// cross is a function in the interrealm v2 (gno 0.9) semantics:
+		// cross(cur) is passed as the first arg of a crossing call.
+		content := fmt.Sprintf(`package %s
+func Crossing(cur realm) {}
+func Caller(cur realm) {
+	Crossing(cross(cur))
+}`, pkgName)
+		process(pkgName, content)
+	})
+
+	t.Run("realm methods", func(t *testing.T) {
+		// The realm interface must expose the gno 0.9 ACL predicates so
+		// code like cur.IsUserCall() / cur.Previous().IsCurrent() resolves.
+		content := fmt.Sprintf(`package %s
+func Uses(cur realm) {
+	_ = cur.Address()
+	_ = cur.PkgPath()
+	_ = cur.IsCode()
+	_ = cur.IsUser()
+	_ = cur.IsUserCall()
+	_ = cur.IsUserRun()
+	_ = cur.IsEphemeral()
+	_ = cur.IsCurrent()
+	_ = cur.Previous().IsUserCall()
+	_ = cur.String()
+}`, pkgName)
+		process(pkgName, content)
+	})
+
 	t.Run("revive usage", func(t *testing.T) {
 		content := fmt.Sprintf(`package %s
 func TestRevive() {
@@ -127,8 +157,8 @@ func CrossingFunc(cur realm) {
     _ = cur
 }
 
-func init() {
-    CrossingFunc(cross)
+func Caller(cur realm) {
+    CrossingFunc(cross(cur))
 }
 
 `
