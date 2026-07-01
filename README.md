@@ -10,22 +10,67 @@ It provides a wide variety of [IDE features](doc/features/README.md) to any [LSP
 
 ## Editor Setup
 
-`gnopls` is compatible with any editor that supports the Language Server Protocol (LSP). Below are setup instructions for popular editors.
+`gnopls` is compatible with any editor that supports the Language Server Protocol (LSP). Below are setup instructions for popular editors, including both LSP and non-LSP configurations.
+
+### Prerequisites
+
+For full functionality, ensure you have:
+- [`gno`](https://github.com/gnolang/gno) command-line tool installed for linting and formatting
+- `gnopls` installed: `go install github.com/gnoverse/gnopls@latest`
+- `GNOROOT` environment variable set to your gno repository path (required for LSP features)
+
+## Official Editor Plugins
 
 ### Visual Studio Code
+→ Install the [official extension](https://github.com/gnoverse/vscode-gno)  
+→ Configure through VS Code settings
 
-There is an unofficial [Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=harry-hov.gno) for working with `*.gno` files that includes LSP support.
+### Jetbrains IntelliJ IDEA
+→ Install the [official plugin](https://github.com/gnoverse/intellij-gno)  
+→ Follow setup instructions in repository README
 
-1. Install the extension from the VS Code Marketplace
-2. The extension will automatically use `gnopls` if it's installed in your PATH
+## LSP-Compatible Editor Configurations
 
 ### Vim/Neovim
 
-#### Prerequisites
-- Install `gnopls`: `go install github.com/gnoverse/gnopls@latest`
-- Set `GNOROOT` environment variable to your gno repository path
+#### Vim Support (without LSP)
 
-#### Using vim-lsp
+For basic Vim support with syntax highlighting and formatting, add to your `.vimrc`:
+
+```vim
+function! GnoFmt()
+	cexpr system('gofmt -e -w ' . expand('%')) " or replace with gofumpt, see below
+	edit!
+	set syntax=go
+endfunction
+command! GnoFmt call GnoFmt()
+augroup gno_autocmd
+	autocmd!
+	autocmd BufNewFile,BufRead *.gno set syntax=go
+	autocmd BufWritePost *.gno GnoFmt
+augroup END
+```
+
+To use `gofumpt` instead of `gofmt`, substitute the cexpr line with:
+```vim
+cexpr system('go run -modfile <path/to/gno>/misc/devdeps/go.mod mvdan.cc/gofumpt -w ' . expand('%'))
+```
+
+##### Vim Linting Support
+
+To integrate GNO linting in Vim, add the following to your `.vimrc`:
+
+```vim
+autocmd FileType gno setlocal makeprg=gno\ lint\ %
+autocmd FileType gno setlocal errorformat=%f:%l:\ %m
+
+" Optional: Key binding to run :make on the current file
+autocmd FileType gno nnoremap <buffer> <F5> :make<CR>
+```
+
+#### Vim Support (with LSP)
+
+##### Using vim-lsp
 
 Install the [`vim-lsp`](https://github.com/prabirshrestha/vim-lsp) plugin, then add to your `.vimrc`:
 
@@ -68,7 +113,7 @@ augroup lsp_install
 augroup END
 ```
 
-#### Using Neovim built-in LSP
+##### Using Neovim built-in LSP
 
 For Neovim users, you can use the built-in LSP client. Add to your `init.lua`:
 
@@ -165,13 +210,3 @@ A community-developed extension for [Zed](https://zed.dev) is available at [juli
 ### Other Editors
 
 If you use `gnopls` with an editor that is not on this list, please send us a PR to add instructions!
-
-## Installation
-
-For the most part, you should not need to install or update `gnopls`. Your editor should handle that step for you.
-
-If you do want to get the latest stable version of `gnopls`, run the following command:
-
-```sh
-go install github.com/gnoverse/gnopls@latest
-```
