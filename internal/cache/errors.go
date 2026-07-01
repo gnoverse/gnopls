@@ -19,15 +19,15 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gnoverse/gnopls/internal/packages"
 	"github.com/gnoverse/gnopls/internal/cache/metadata"
 	"github.com/gnoverse/gnopls/internal/cache/parsego"
 	"github.com/gnoverse/gnopls/internal/file"
+	"github.com/gnoverse/gnopls/internal/packages"
 	"github.com/gnoverse/gnopls/internal/protocol"
 	"github.com/gnoverse/gnopls/internal/protocol/command"
 	"github.com/gnoverse/gnopls/internal/settings"
-	"github.com/gnoverse/gnopls/internal/util/bug"
 	"github.com/gnoverse/gnopls/internal/typesinternal"
+	"github.com/gnoverse/gnopls/internal/util/bug"
 )
 
 // goPackagesErrorDiagnostics translates the given go/packages Error into a
@@ -376,7 +376,14 @@ func typesCodeHref(linkTarget string, code typesinternal.ErrorCode) string {
 
 // BuildLink constructs a URL with the given target, path, and anchor.
 func BuildLink(target, path, anchor string) protocol.URI {
-	link := fmt.Sprintf("https://%s/%s", target, path)
+	var link string
+
+	if strings.HasPrefix(path, "gno.land") {
+		link = fmt.Sprintf("https://%s", path)
+	} else {
+		link = fmt.Sprintf("https://%s/%s", target, path)
+	}
+
 	if anchor == "" {
 		return link
 	}
