@@ -114,9 +114,12 @@ func IsGnoBuiltin(obj types.Object) bool {
 
 	switch obj.(type) {
 	case *types.Func:
-		// lookup for function only
-		if obj.Type().(*types.Signature).Recv() != nil {
-			return false // method
+		// lookup for function only. A nil/non-signature type means the func
+		// failed to type-check; treat it as not a builtin (same defensive
+		// handling as isMethod) rather than panicking on the assertion.
+		sig, ok := obj.Type().(*types.Signature)
+		if !ok || sig.Recv() != nil {
+			return false // unresolved signature or method
 		}
 
 	case *types.TypeName:
