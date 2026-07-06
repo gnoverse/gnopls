@@ -476,6 +476,13 @@ func init() {
 	for name, obj := range gnoBuiltin {
 		switch o := obj.(type) {
 		case *types.Func:
+			// Skip funcs whose signature failed to type-check (nil Type).
+			// See isMethod for why this can happen.
+			origSig, ok := o.Type().(*types.Signature)
+			if !ok {
+				log.Printf("builtin func %q skipped: signature did not type-check", o.Name())
+				continue
+			}
 			// Clone the signature with the shared ctx so any custom builtin
 			// named types it references resolve to the same package-less
 			// instances registered in the Universe below — not the
@@ -483,7 +490,7 @@ func init() {
 			// Without this, cross(cur) fails to type-check: cross's param
 			// would be builtin.realm while the Universe realm is the cloned,
 			// package-less type (identity mismatch).
-			sig := ctx.CloneTypeWithNilPackage(o.Type()).(*types.Signature)
+			sig := ctx.CloneTypeWithNilPackage(origSig).(*types.Signature)
 			newFn := types.NewFunc(token.NoPos, nil, name, sig) // a builtin don't have a pos
 			types.Universe.Insert(newFn)                        // register func
 			log.Printf("builtin func %q has been registered", o.Name())
@@ -510,6 +517,14 @@ func isMethod(obj types.Object) bool {
 	if !ok {
 		return false
 	}
+	// A func whose signature failed to type-check has a nil Type (e.g. when a
+	// recursive-type error elsewhere in the builtin file aborts resolution).
+	// Treat it as a non-method so callers can filter it out instead of
+	// panicking on the type assertion below.
+	sig, ok := fn.Type().(*types.Signature)
+	if !ok {
+		return false
+	}
 	// Check if the function has a receiver (i.e., is a method)
-	return fn.Type().(*types.Signature).Recv() != nil
+	return sig.Recv() != nil
 }

@@ -13,77 +13,22 @@ import "cmp"
    for the language's special identifiers.
 */
 
-// bool is the set of boolean values, true and false.
-type bool bool
+// NOTE: The predeclared scalar types (bool, the sized ints/uints, floats,
+// complex, string, int, uint, uintptr) and the `comparable` constraint are
+// intentionally NOT redeclared here. Go's own builtin.go documents them with
+// self-referential stubs such as `type bool bool`, but go/types rejects those
+// as an "invalid recursive type" error. On Go 1.26+ that error aborts type
+// resolution for the whole file, leaving every builtin func (including gno's
+// cross/revive/istypednil) with a nil signature — which crashed gnopls at
+// init. These identifiers are already provided by types.Universe and are
+// skipped during registration regardless, so the stubs served no purpose here
+// beyond documentation.
 
 // true and false are the two untyped boolean values.
 const (
 	true  = 0 == 0 // Untyped bool.
 	false = 0 != 0 // Untyped bool.
 )
-
-// uint8 is the set of all unsigned 8-bit integers.
-// Range: 0 through 255.
-type uint8 uint8
-
-// uint16 is the set of all unsigned 16-bit integers.
-// Range: 0 through 65535.
-type uint16 uint16
-
-// uint32 is the set of all unsigned 32-bit integers.
-// Range: 0 through 4294967295.
-type uint32 uint32
-
-// uint64 is the set of all unsigned 64-bit integers.
-// Range: 0 through 18446744073709551615.
-type uint64 uint64
-
-// int8 is the set of all signed 8-bit integers.
-// Range: -128 through 127.
-type int8 int8
-
-// int16 is the set of all signed 16-bit integers.
-// Range: -32768 through 32767.
-type int16 int16
-
-// int32 is the set of all signed 32-bit integers.
-// Range: -2147483648 through 2147483647.
-type int32 int32
-
-// int64 is the set of all signed 64-bit integers.
-// Range: -9223372036854775808 through 9223372036854775807.
-type int64 int64
-
-// float32 is the set of all IEEE 754 32-bit floating-point numbers.
-type float32 float32
-
-// float64 is the set of all IEEE 754 64-bit floating-point numbers.
-type float64 float64
-
-// complex64 is the set of all complex numbers with float32 real and
-// imaginary parts.
-type complex64 complex64
-
-// complex128 is the set of all complex numbers with float64 real and
-// imaginary parts.
-type complex128 complex128
-
-// string is the set of all strings of 8-bit bytes, conventionally but not
-// necessarily representing UTF-8-encoded text. A string may be empty, but
-// not nil. Values of string type are immutable.
-type string string
-
-// int is a signed integer type that is at least 32 bits in size. It is a
-// distinct type, however, and not an alias for, say, int32.
-type int int
-
-// uint is an unsigned integer type that is at least 32 bits in size. It is a
-// distinct type, however, and not an alias for, say, uint32.
-type uint uint
-
-// uintptr is an integer type that is large enough to hold the bit pattern of
-// any pointer.
-type uintptr uintptr
 
 // byte is an alias for uint8 and is equivalent to uint8 in all ways. It is
 // used, by convention, to distinguish byte values from 8-bit unsigned
@@ -97,12 +42,10 @@ type rune = int32
 // any is an alias for interface{} and is equivalent to interface{} in all ways.
 type any = interface{}
 
-// comparable is an interface that is implemented by all comparable types
-// (booleans, numbers, strings, pointers, channels, arrays of comparable types,
-// structs whose fields are all comparable types).
-// The comparable interface may only be used as a type parameter constraint,
-// not as the type of a variable.
-type comparable interface{ comparable }
+// comparable is intentionally omitted here; see the note above. It is
+// provided by types.Universe and its self-referential documentation stub
+// (`type comparable interface{ comparable }`) triggers the same recursive-type
+// error.
 
 // iota is a predeclared identifier representing the untyped integer ordinal
 // number of the current const specification in a (usually parenthesized)
