@@ -9,7 +9,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os"
 	"path/filepath"
 	"slices"
 	"sort"
@@ -143,7 +142,12 @@ func (s *Snapshot) load(ctx context.Context, allowNetwork bool, scopes ...loadSc
 	event.Error(ctx, "DEBUG:inv", fmt.Errorf("debug query: %+v", query))
 
 	cfg := s.config(ctx, inv)
-	if bindriver := os.Getenv("GOPACKAGESDRIVER"); bindriver == ":memory:" {
+	// Use the folder's effective driver rather than the process environment, so
+	// that a driver configured through gnopls' build.env setting selects the
+	// in-process resolver too. Reading os.Getenv here would leave such a folder
+	// with a GoPackagesDriverView whose driver is never installed, and
+	// go/packages would then try to exec ":memory:" as a binary.
+	if s.view.folder.Env.EffectiveGOPACKAGESDRIVER == ":memory:" {
 		cfg.PackagesDriver = packagesResolver
 	}
 

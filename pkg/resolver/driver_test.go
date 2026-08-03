@@ -3,8 +3,10 @@ package resolver
 import (
 	"os"
 	"path/filepath"
+	"slices"
 	"testing"
 
+	"github.com/gnolang/gno/gnovm/pkg/gnoenv"
 	"github.com/gnoverse/gnopls/internal/packages"
 )
 
@@ -174,5 +176,28 @@ func mustWriteFile(t *testing.T, path string, content string) {
 	}
 	if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
 		t.Fatalf("WriteFile(%q): %v", path, err)
+	}
+}
+
+// TestResolveTestOnlyStdlibs checks that standard libraries which exist only
+// under gnovm/tests/stdlibs are resolvable. fmt, os, testing and runtime have
+// no counterpart under gnovm/stdlibs, so a walk of that directory alone never
+// discovers them and every import of them fails to resolve.
+func TestResolveTestOnlyStdlibs(t *testing.T) {
+	if root, err := gnoenv.GuessRootDir(); err != nil || root == "" {
+		t.Skipf("no gno root available: %v", err)
+	}
+
+	res, err := Resolve(&packages.DriverRequest{})
+	if err != nil {
+		t.Fatalf("Resolve: %v", err)
+	}
+
+	for _, want := range []string{"fmt", "os", "testing", "runtime"} {
+		if !slices.ContainsFunc(res.Packages, func(p *packages.Package) bool {
+			return p.PkgPath == want && len(p.GoFiles) > 0
+		}) {
+			t.Errorf("stdlib %q missing from resolved packages", want)
+		}
 	}
 }
