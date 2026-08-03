@@ -107,3 +107,28 @@ func init(n int) { x = n }
 		)
 	})
 }
+
+// TestGnoMainDecl_CrossingForm checks the crossing form of main in package
+// main, where go/types reports the signature complaint under InvalidMainDecl
+// rather than InvalidInitDecl.
+func TestGnoMainDecl_CrossingForm(t *testing.T) {
+	requireGnoRoot(t)
+	const files = `
+-- gnomod.toml --
+module = "gno.land/r/test/mainpkg"
+gno = "0.9"
+
+-- realm.gno --
+package main
+
+var x int
+
+func main(cur realm) { x = 1 }
+`
+	WithOptions(
+		EnvVars{"GOPACKAGESDRIVER": ":memory:"},
+	).Run(t, files, func(t *testing.T, env *Env) {
+		env.OpenFile("realm.gno")
+		env.AfterChange(NoDiagnostics(ForFile("realm.gno")))
+	})
+}

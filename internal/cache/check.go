@@ -1895,6 +1895,9 @@ func isGnoCrossingEntryPoint(decl *ast.FuncDecl) bool {
 	if decl.Recv != nil || decl.Type.Results != nil {
 		return false
 	}
+	if decl.Type.TypeParams != nil {
+		return false
+	}
 	if name := decl.Name.Name; name != "init" && name != "main" {
 		return false
 	}
@@ -1906,16 +1909,20 @@ func isGnoCrossingEntryPoint(decl *ast.FuncDecl) bool {
 	return ok && ident.Name == "realm"
 }
 
-// filterGnoEntryPointErrors drops InvalidInitDecl errors reported against gno's
+// filterGnoEntryPointErrors drops the signature errors reported against gno's
 // crossing entry points. The parameter still resolves inside the body, so only
-// the signature complaint has to go.
+// the signature complaint has to go. go/types reports init with
+// InvalidInitDecl and main with InvalidMainDecl, so both codes are matched.
 func filterGnoEntryPointErrors(pkg *syntaxPackage, errs []types.Error) []types.Error {
 	return slices.DeleteFunc(slices.Clone(errs), func(e types.Error) bool {
 		code, start, _, ok := typesinternal.ReadGo116ErrorData(e)
 		if !ok {
 			code, start = 0, e.Pos
 		}
-		if code != typesinternal.InvalidInitDecl || !start.IsValid() {
+		if code != typesinternal.InvalidInitDecl && code != typesinternal.InvalidMainDecl {
+			return false
+		}
+		if !start.IsValid() {
 			return false
 		}
 		posn := safetoken.StartPosition(e.Fset, start)
