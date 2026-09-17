@@ -1,0 +1,109 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # Honour the Go the matrix installs.
+  #
+  # With the default GOTOOLCHAIN=auto, the `go`/`toolchain` lines in go.mod make every
+  # job switch to the same toolchain whatever the matrix says — the old workflows asked
+  # for 1.23 and silently built with exactly go1.25.0, every run, which is why the
+  # go1.26 init() panic in #59 was invisible here for 2.5 months.
+  GOTOOLCHAIN: local
+
+jobs:
+  test:
+    name: test (go ${{ matrix.go }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The floor declared in go.mod, and whatever is current — users get the latter
+        # by default, so both have to stay green.
+        go: ['1.26.4', 'stable']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+          check-latest: true
+      - run: go version
+      - run: go build ./...
+      - run: go test -timeout 10m ./pkg/...
+      # NOTE: ./internal/... — 250 of the repo's 254 test files, inherited from gopls —
+      # is deliberately not run yet: 10 packages fail and 6 hang to the test timeout.
+      # Triaging it into fix / skip / delete is tracked separately; add it here once
+      # `go test ./...` can finish green.
+
+  smoke:
+    name: smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          check-latest: true
+      - run: go build -o "${RUNNER_TEMP}/gnopls" .
+      # Actually start the binary and ask it a real question. `go build` alone cannot
+      # see a package-level init() panic, which is the exact way #59 shipped.
+      - run: .github/scripts/smoke.sh "${RUNNER_TEMP}/gnopls"
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          check-latest: true
+      # Scoped to the Gno-owned code only. internal/ is a vendored gopls tree; linting
+      # it would drown real findings in upstream noise.
+      - name: gofmt
+        run: |
+          unformatted="$(gofmt -l main.go pkg internal/gnolang)"
+          if [ -n "$unformatted" ]; then
+            echo "these files need gofmt:"
+            echo "$unformatted"
+            exit 1
+          fi
+      - run: go vet ./pkg/... ./internal/gnolang/...
+
+  cross-build:
+    name: build (${{ matrix.goos }}/${{ matrix.goarch }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {goos: linux, goarch: amd64}
+          - {goos: linux, goarch: arm64}
+          - {goos: darwin, goarch: amd64}
+          - {goos: darwin, goarch: arm64}
+          - {goos: windows, goarch: amd64}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          check-latest: true
+      - env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: go build -o /dev/null .

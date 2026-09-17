@@ -1,0 +1,77 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to build and attach binaries to (e.g. v0.1.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  GOTOOLCHAIN: local
+
+jobs:
+  binaries:
+    name: binaries
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+          fetch-depth: 0
+          # The upload below authenticates with GH_TOKEN, not with the checkout's
+          # credentials — leaving them in .git/config is pure blast radius.
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          check-latest: true
+          # A release must be built from a clean module cache, never a warm one.
+          cache: false
+
+      - name: Resolve tag
+        id: tag
+        run: echo "name=${TAG:-${GITHUB_REF_NAME}}" >> "$GITHUB_OUTPUT"
+        env:
+          TAG: ${{ inputs.tag }}
+
+      - name: Build
+        env:
+          VERSION: ${{ steps.tag.outputs.name }}
+        run: |
+          mkdir -p dist
+          for target in linux/amd64 linux/arm64 darwin/amd64 darwin/arm64 windows/amd64; do
+            goos="${target%/*}"
+            goarch="${target#*/}"
+            name="gnopls_${VERSION}_${goos}_${goarch}"
+            bin="gnopls"
+            if [ "$goos" = "windows" ]; then bin="gnopls.exe"; fi
+            echo "building ${name}"
+            GOOS="$goos" GOARCH="$goarch" CGO_ENABLED=0 \
+              go build -trimpath -ldflags "-s -w -X main.version=${VERSION}" -o "dist/${bin}" .
+            if [ "$goos" = "windows" ]; then
+              (cd dist && zip -q "${name}.zip" "$bin" && rm "$bin")
+            else
+              (cd dist && tar -czf "${name}.tar.gz" "$bin" && rm "$bin")
+            fi
+          done
+          (cd dist && sha256sum ./* > checksums.txt)
+          ls -l dist
+
+      # The binary has to start, not merely link — see .github/scripts/smoke.sh.
+      - name: Smoke-test the release build
+        run: |
+          go build -o "${RUNNER_TEMP}/gnopls" .
+          .github/scripts/smoke.sh "${RUNNER_TEMP}/gnopls"
+
+      - name: Upload to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.tag.outputs.name }}
+        run: gh release upload "$VERSION" dist/* --clobber --repo "$GITHUB_REPOSITORY"

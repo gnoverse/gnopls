@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
+
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # One PR per family. This is a gopls fork: ungrouped, x/* alone would open a
+      # handful of PRs a week and nobody would read any of them.
+      golang-x:
+        patterns: ['golang.org/x/*']
+      others:
+        patterns: ['*']
+        exclude-patterns: ['golang.org/x/*', 'github.com/gnolang/gno']
+    ignore:
+      # Bumping gno is not a dependency update, it is a porting job — the pin is
+      # currently ~5 months and 344 commits behind master, and the API has moved.
+      # Tracked separately; a weekly automated PR here would just fail to build.
+      - dependency-name: github.com/gnolang/gno
