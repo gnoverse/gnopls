@@ -2,6 +2,8 @@ module github.com/gnoverse/gnopls
 
 go 1.25.0
 
+toolchain go1.26.4
+
 require (
 	github.com/gnolang/gno v0.0.0-20260415100849-375fe89c6d20
 	github.com/google/go-cmp v0.7.0
