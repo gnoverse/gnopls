@@ -1,0 +1,46 @@
+# Packages under ./internal/... that do not pass, excluded from the `internal` CI job.
+#
+# This list is the inherited-gopls test debt, made visible so it can shrink. Anything not
+# in here is a merge gate: 77 packages, which until now nobody ran at all.
+#
+# Measured on ubuntu-latest with GOPACKAGESDRIVER=off, 2026-09-17, at abd65a4.
+# Format: <package> # <first failing test> — <what we know>
+#
+# Re-measure after touching any of these:
+#   GOPACKAGESDRIVER=off go test -count=1 -timeout 5m ./internal/...
+#
+# NOTE: measured on linux, which is what CI runs. macOS diverges — internal/diff/difftest
+# fails locally there because its `diff` behaves differently, and is green in CI.
+
+# --- tests of Go concepts that do not exist in Gno: cgo, GOPATH, go.mod, the module cache.
+# Almost certainly `t.Skip` material rather than something to fix.
+internal/test/integration/codelens   # TestRegenerateCgo — cgo
+internal/test/integration/watch      # TestSwitchFromModulesToGOPATH — GOPATH
+internal/test/integration/modfile    # TestTempModfileUnchanged — go.mod
+internal/imports                     # TestFindModFileModCache — the Go module cache
+internal/packages/packagestest       # TestModulesExport — Go modules fixtures
+
+# --- gopls housekeeping tests, inherited and never adapted to this fork.
+internal/licenses                    # TestLicenses — checks the vendored license list against deps
+internal/settings                    # TestVetSuite — asserts the shipped vet analyzer set
+internal/util/safetoken              # TestGoplsSourceDoesNotCallTokenFileMethods — a source-level self-check
+
+# --- type/export-data failures. `internal error: package "a" without types was imported
+# from "b"` in both of the first two — likely one root cause.
+internal/facts                       # (fails before any test reports)
+internal/refactor/inline             # (fails before any test reports)
+internal/gcimporter                  # TestImportedConsts
+
+# --- the resolver / driver surface: these exercise package loading, which is exactly what
+# this fork replaces. The most likely to be real gnopls bugs.
+internal/cache                       # TestZeroConfigAlgorithm
+internal/cache/typerefs              # times out
+internal/packages                    # times out
+internal/cmd                         # TestCodeAction
+internal/debug                       # (fails before any test reports)
+internal/test/marker                 # Test — 240 marker fixtures, all Go; see the .gno fixture work
+internal/test/integration/completion # TestOverlayCompletion
+internal/test/integration/diagnostics # TestOrphanedFiles — times out
+internal/test/integration/workspace  # TestOneBrokenModule — times out
+internal/test/integration/misc       # TestHoverInternalLinks — hover links; cf. #14
+internal/gopathwalk                  # TestSymlinkTraversal
