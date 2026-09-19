@@ -1888,6 +1888,61 @@ func missingPkgError(from PackageID, pkgPath string, viewType ViewType) error {
 	}
 }
 
+// isGnoCrossingEntryPoint reports whether decl is a gno entry point declared in
+// its crossing form, `func init(cur realm)` or `func main(cur realm)`. Go
+// rejects both signatures; gno accepts them and binds cur to the current realm.
+func isGnoCrossingEntryPoint(decl *ast.FuncDecl) bool {
+	if decl.Recv != nil || decl.Type.Results != nil {
+		return false
+	}
+	if decl.Type.TypeParams != nil {
+		return false
+	}
+	if name := decl.Name.Name; name != "init" && name != "main" {
+		return false
+	}
+	params := decl.Type.Params
+	if params == nil || len(params.List) != 1 || len(params.List[0].Names) != 1 {
+		return false
+	}
+	ident, ok := params.List[0].Type.(*ast.Ident)
+	return ok && ident.Name == "realm"
+}
+
+// filterGnoEntryPointErrors drops the signature errors reported against gno's
+// crossing entry points. The parameter still resolves inside the body, so only
+// the signature complaint has to go. go/types reports init with
+// InvalidInitDecl and main with InvalidMainDecl, so both codes are matched.
+func filterGnoEntryPointErrors(pkg *syntaxPackage, errs []types.Error) []types.Error {
+	return slices.DeleteFunc(slices.Clone(errs), func(e types.Error) bool {
+		code, start, _, ok := typesinternal.ReadGo116ErrorData(e)
+		if !ok {
+			code, start = 0, e.Pos
+		}
+		if code != typesinternal.InvalidInitDecl && code != typesinternal.InvalidMainDecl {
+			return false
+		}
+		if !start.IsValid() {
+			return false
+		}
+		posn := safetoken.StartPosition(e.Fset, start)
+		if !posn.IsValid() {
+			return false
+		}
+		pgf, err := pkg.File(protocol.URIFromPath(posn.Filename))
+		if err != nil {
+			return false
+		}
+		for _, decl := range pgf.File.Decls {
+			fn, ok := decl.(*ast.FuncDecl)
+			if ok && fn.Name.Pos() <= start && start <= fn.Type.End() {
+				return isGnoCrossingEntryPoint(fn)
+			}
+		}
+		return false
+	})
+}
+
 // typeErrorsToDiagnostics translates a slice of types.Errors into a slice of
 // Diagnostics.
 //
@@ -1901,6 +1956,8 @@ func missingPkgError(from PackageID, pkgPath string, viewType ViewType) error {
 // Fields in typeCheckInputs may affect the resulting diagnostics.
 func typeErrorsToDiagnostics(pkg *syntaxPackage, inputs typeCheckInputs, errs []types.Error) []*Diagnostic {
 	var result []*Diagnostic
+
+	errs = filterGnoEntryPointErrors(pkg, errs)
 
 	// batch records diagnostics for a set of related types.Errors.
 	// (related[0] is the primary error.)
