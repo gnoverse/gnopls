@@ -176,3 +176,55 @@ func mustWriteFile(t *testing.T, path string, content string) {
 		t.Fatalf("WriteFile(%q): %v", path, err)
 	}
 }
+
+func TestResolveDirPattern(t *testing.T) {
+	// gopls loads an opened folder by asking the driver for "./"; before this was
+	// handled the driver logged "unknown arg shape", discovered nothing, and every
+	// file in the folder came back with no package data.
+	root := t.TempDir()
+
+	mustWriteFile(t, filepath.Join(root, "gnowork.toml"), "")
+	mustWriteFile(t, filepath.Join(root, "p", "mylib", "gnomod.toml"), `module = "gno.land/p/mylib"`+"\n")
+	mustWriteFile(t, filepath.Join(root, "p", "mylib", "mylib.gno"), "package mylib\n\nfunc Name() string {\n\treturn \"mylib\"\n}\n")
+	mustWriteFile(t, filepath.Join(root, "r", "myapp", "gnomod.toml"), `module = "gno.land/r/myapp"`+"\n")
+	mustWriteFile(t, filepath.Join(root, "r", "myapp", "myapp.gno"), "package myapp\n\nimport \"gno.land/p/mylib\"\n\nfunc Use() string {\n\treturn mylib.Name()\n}\n")
+
+	appDir := filepath.Join(root, "r", "myapp")
+
+	for _, pattern := range []string{"./", ".", appDir} {
+		t.Run(pattern, func(t *testing.T) {
+			res, err := Resolve(&packages.DriverRequest{Dir: appDir}, pattern)
+			if err != nil {
+				t.Fatalf("Resolve() error = %v", err)
+			}
+
+			pkgs := make(map[string]*packages.Package)
+			for _, pkg := range res.Packages {
+				pkgs[pkg.PkgPath] = pkg
+			}
+
+			app := pkgs["gno.land/r/myapp"]
+			if app == nil {
+				t.Fatalf("directory pattern %q did not resolve the package in that directory", pattern)
+			}
+
+			lib := pkgs["gno.land/p/mylib"]
+			if lib == nil {
+				t.Fatalf("directory pattern %q did not reach the rest of the workspace", pattern)
+			}
+			if got := app.Imports["gno.land/p/mylib"]; got != lib {
+				t.Fatalf("import not resolved to the workspace package: got %#v, want %#v", got, lib)
+			}
+		})
+	}
+}
+
+func TestWorkspaceSeedDirFromDirPattern(t *testing.T) {
+	root := t.TempDir()
+	mustWriteFile(t, filepath.Join(root, "gnowork.toml"), "")
+	mustWriteFile(t, filepath.Join(root, "gnomod.toml"), `module = "gno.land/r/myapp"`+"\n")
+
+	if got := discoverWorkspaceRoot([]string{root}); got != root {
+		t.Fatalf("discoverWorkspaceRoot(%q) = %q, want %q", root, got, root)
+	}
+}
