@@ -1,33 +1,97 @@
 # `gnopls`, the Gno language server
 
-`gnopls` is a modified fork of https://github.com/golang/tools/tree/master/gopls
+`gnopls` gives any [LSP]-capable editor Gno support: diagnostics, go-to-definition,
+references, document symbols, folding, and formatting through `gno fmt`. It is a fork of
+[`gopls`](https://github.com/golang/tools/tree/master/gopls), the Go language server, with
+the package resolver and the type checker taught about Gno.
 
-⚠️  `gnopls` is in an experimental phase; use with caution.
+> [!WARNING]
+> **Experimental.** Cross-package and stdlib resolution is unreliable — see
+> [Known limitations](#known-limitations) before you rely on it.
 
 [![PkgGnoDev](https://pkg.go.dev/badge/github.com/gnoverse/gnopls)](https://pkg.go.dev/github.com/gnoverse/gnopls)
 
-It provides a wide variety of [IDE features](doc/features/README.md) to any [LSP]-compatible editor.
+## Install
 
-## Editor Setup
+Most editors install and update `gnopls` for you — check [Editor setup](#editor-setup)
+first, and skip this section if yours does.
 
-`gnopls` is compatible with any editor that supports the Language Server Protocol (LSP). Below are setup instructions for popular editors.
+```sh
+go install github.com/gnoverse/gnopls@v0.1.0
+```
 
-### Visual Studio Code
+- **Go 1.26.4 or newer** is required (`toolchain go1.26.4` in `go.mod`). Older toolchains
+  are refused at build time rather than producing a broken binary.
+- Prebuilt binaries for linux, macOS and Windows are attached to every
+  [release](https://github.com/gnoverse/gnopls/releases).
+- `@latest` tracks `main` and is where fixes land first; `@v0.1.0` is the pinnable one.
 
-There is an unofficial [Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=harry-hov.gno) for working with `*.gno` files that includes LSP support.
+You also need the [`gno` toolchain](https://github.com/gnolang/gno) on your `PATH`:
+formatting shells out to `gno fmt`, and package resolution needs a `GNOROOT` that points at
+a real gno checkout.
 
-1. Install the extension from the VS Code Marketplace
-2. The extension will automatically use `gnopls` if it's installed in your PATH
+Confirm the install actually runs — a language server that crashes at startup looks
+identical to one that is missing:
 
-### Vim/Neovim
+```sh
+gnopls version
+```
 
-#### Prerequisites
-- Install `gnopls`: `go install github.com/gnoverse/gnopls@latest`
-- Set `GNOROOT` environment variable to your gno repository path
+## Editor setup
 
-#### Using vim-lsp
+| Editor | Use | Maintained |
+|---|---|---|
+| **VS Code** | [Gnolang](https://marketplace.visualstudio.com/items?itemName=Gnoverse.gnolang) (`Gnoverse.gnolang`), from [`gnoverse/vscode-gno`](https://github.com/gnoverse/vscode-gno) — installs and updates `gnopls` for you | ✅ official |
+| **Zed** | [`julienrbrt/zed-gno`](https://github.com/julienrbrt/zed-gno) | ✅ community |
+| **JetBrains / GoLand** | [`gnoverse/intellij-gno`](https://github.com/gnoverse/intellij-gno) | ✅ community |
+| **Neovim / Vim** | manual config, below | — |
+| **Emacs** | manual config, below | — |
+| **Sublime Text** | no `gnopls` client. [`jdkato/gnols`](https://github.com/jdkato/gnols) is a *different*, unrelated language server, unmaintained since 2023 | ❌ |
 
-Install the [`vim-lsp`](https://github.com/prabirshrestha/vim-lsp) plugin, then add to your `.vimrc`:
+`x1unix/gno.nvim` was archived in January 2025; use the Neovim configuration below instead.
+
+End-user setup is also documented at
+[docs.gno.land/builders/editor-setup](https://docs.gno.land/builders/editor-setup), which is
+the canonical page for getting an editor working. This README owns installation,
+limitations and development.
+
+<details>
+<summary><b>Neovim</b> (built-in LSP)</summary>
+
+```lua
+-- Register .gno files
+vim.filetype.add({
+  extension = {
+    gno = 'gno',
+  },
+})
+
+-- Set up gnopls
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
+
+if not configs.gnopls then
+  configs.gnopls = {
+    default_config = {
+      cmd = {'gnopls'},
+      filetypes = {'gno'},
+      root_dir = lspconfig.util.root_pattern('gnomod.toml', 'gnowork.toml', '.git'),
+      settings = {},
+    },
+  }
+end
+
+lspconfig.gnopls.setup{}
+```
+
+Neovim 0.11 and newer also offer the built-in `vim.lsp.config` / `vim.lsp.enable` API; this
+snippet has not been retested against it.
+</details>
+
+<details>
+<summary><b>Vim</b> (vim-lsp)</summary>
+
+Install [`vim-lsp`](https://github.com/prabirshrestha/vim-lsp), then add to your `.vimrc`:
 
 ```vim
 augroup gno_autocmd
@@ -50,11 +114,8 @@ else
 endif
 
 function! s:on_lsp_buffer_enabled() abort
-    " Autocompletion
     setlocal omnifunc=lsp#complete
-    " Format on save
     autocmd BufWritePre <buffer> LspDocumentFormat
-    " Key mappings
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> <leader>rr <Plug>(lsp-rename)
     nmap <buffer> <leader>ri <Plug>(lsp-implementation)
@@ -67,44 +128,13 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 ```
+</details>
 
-#### Using Neovim built-in LSP
-
-For Neovim users, you can use the built-in LSP client. Add to your `init.lua`:
-
-```lua
--- Register .gno files
-vim.filetype.add({
-  extension = {
-    gno = 'gno',
-  },
-})
-
--- Set up gnopls
-local lspconfig = require('lspconfig')
-local configs = require('lspconfig.configs')
-
-if not configs.gnopls then
-  configs.gnopls = {
-    default_config = {
-      cmd = {'gnopls'},
-      filetypes = {'gno'},
-      root_dir = lspconfig.util.root_pattern('gnomod.toml', '.git'),
-      settings = {},
-    },
-  }
-end
-
-lspconfig.gnopls.setup{}
-```
-
-### Emacs
-
-1. Install [go-mode.el](https://github.com/dominikh/go-mode.el)
-2. Add to your Emacs configuration:
+<details>
+<summary><b>Emacs</b> (lsp-mode)</summary>
 
 ```lisp
-;; Define gno-mode based on go-mode
+;; gno-mode as an alias for go-mode
 (define-derived-mode gno-mode go-mode "GNO"
   "Major mode for GNO files, an alias for go-mode."
   (setq-local tab-width 8))
@@ -112,19 +142,11 @@ lspconfig.gnopls.setup{}
 (define-derived-mode gno-dot-mod-mode go-dot-mod-mode "GNO Mod"
   "Major mode for GNO mod files, an alias for go-dot-mod-mode.")
 
-;; Register file associations
 (add-to-list 'auto-mode-alist '("\\.gno\\'" . gno-mode))
 (add-to-list 'auto-mode-alist '("gnomod\\.toml\\'" . gno-dot-mod-mode))
-```
 
-#### LSP Setup with lsp-mode
-
-If using [lsp-mode](https://github.com/emacs-lsp/lsp-mode):
-
-```lisp
 (with-eval-after-load 'lsp-mode
   (add-to-list 'lsp-language-id-configuration '(gno-mode . "gno"))
-  
   (lsp-register-client
    (make-lsp-client
     :new-connection (lsp-stdio-connection "gnopls")
@@ -135,9 +157,7 @@ If using [lsp-mode](https://github.com/emacs-lsp/lsp-mode):
 (add-hook 'gno-mode-hook #'lsp-deferred)
 ```
 
-#### Flycheck Integration
-
-For linting with Flycheck:
+Linting through Flycheck:
 
 ```lisp
 (require 'flycheck)
@@ -153,25 +173,95 @@ For linting with Flycheck:
 
 (add-to-list 'flycheck-checkers 'gno-lint)
 ```
+</details>
 
-### Sublime Text
+Using an editor that is not listed? Send a PR.
 
-There is a community-developed [Gno Language Server](https://github.com/jdkato/gnols) with installation instructions for Sublime Text.
+## What works
 
-### Zed
+Checked with the `gnopls` CLI against a one-package workspace (`gnowork.toml` +
+`gnomod.toml`) on 2026-09-19, v0.1.0:
 
-A community-developed extension for [Zed](https://zed.dev) is available at [julienrbrt/zed-gno](https://github.com/julienrbrt/zed-gno).
+| | |
+|---|---|
+| Diagnostics (`check`) | ✅ |
+| Document symbols | ✅ types, fields, methods, functions |
+| Go to definition, **same package** | ✅ including methods |
+| Find references, **same package** | ✅ |
+| Folding ranges | ✅ |
+| Formatting | ✅ via `gno fmt`; needs `gno` on `PATH` and a valid `GNOROOT` |
+| Go to definition, **imported package or stdlib** | ❌ `no package data` ([#8], [#15], [#16]) |
+| Document links | ⚠️ point at `pkg.go.dev` instead of gnoweb ([#14], fix in [#17]) |
 
-### Other Editors
+Completion, hover and inlay hints are served over LSP only and were not measured here.
 
-If you use `gnopls` with an editor that is not on this list, please send us a PR to add instructions!
+### Known limitations
 
-## Installation
+- **Cross-package resolution is the weak spot.** Definition and references work inside a
+  package; as soon as a symbol comes from an import — including `std` — the server answers
+  `no package data`. Setting `GNOROOT` does not change it. [#8], [#15], [#16].
+- Import links in hovers resolve to `pkg.go.dev`, which does not host Gno packages. [#14]
+- The server logs `builtin type "x" has been registered` and a debug line to stderr on every
+  start. Harmless, but it clutters editor logs.
 
-For the most part, you should not need to install or update `gnopls`. Your editor should handle that step for you.
+## Troubleshooting
 
-If you do want to get the latest stable version of `gnopls`, run the following command:
+**The editor says the server crashed, or nothing happens.** Run `gnopls version` in a
+terminal. If that prints a version, the binary is fine and the problem is the editor's
+configuration; if it panics or prints nothing, reinstall — and check your Go version, since
+a toolchain older than 1.26.4 cannot build it.
+
+**`can't format: running 'gno fmt': exit status 1`.** Your `gno` binary cannot find its
+standard library. This usually means `GNOROOT` is unset, or the binary was built with a
+`GNOROOT` baked in that no longer exists. `gno fmt <file>` in the same directory reproduces
+it outside the editor; set `GNOROOT` to a gno checkout and restart the server.
+
+**`no packages found for open file` / `missing metadata for import`.** Known — see
+[Known limitations](#known-limitations). Restarting the server sometimes clears it.
+
+**Where are the logs?** `gnopls` writes to stderr; your editor decides where that lands
+(`:LspLog` in Neovim, the *Output → gnopls* panel in VS Code).
+
+## Development
 
 ```sh
-go install github.com/gnoverse/gnopls@latest
+make install         # go install .
+make test            # ./pkg/... — the Gno-specific code
+make test-internal   # the inherited gopls suite that passes; see below
+make lint            # gofmt + go vet, scoped to the Gno-owned code
+make smoke           # build, then actually start the binary and query it
 ```
+
+The tree is in two halves:
+
+- **`pkg/`** and **`internal/gnolang/`** are Gno-specific — the resolver, the Gno builtins,
+  the `gno fmt` bridge. This is where nearly all Gno work happens, and the only code `make
+  lint` covers.
+- **`internal/`** is a vendored `gopls` tree, forked at `golang.org/x/tools v0.25.0`
+  (October 2024) and not resynced since. Expect upstream conventions there.
+
+`make test-internal` runs everything under `internal/` except the packages named in
+[`.github/known-broken-tests.txt`](.github/known-broken-tests.txt), which lists what fails
+and why. Shrinking that file is welcome work. It sets `GOPACKAGESDRIVER=off`: without it the
+fallback driver is `os.Executable()`, which inside a test binary means the test binary
+re-executing itself until the timeout.
+
+CI runs all of the above on every PR, over a Go version matrix, plus cross-compilation for
+linux, macOS and Windows.
+
+### Releasing
+
+Tag `vX.Y.Z` and push it. `.github/workflows/release.yml` builds the five platform binaries,
+writes `checksums.txt` and attaches everything to the GitHub release.
+
+## Documentation
+
+`doc/` is the upstream `gopls` documentation, kept for reference — it describes `gopls`, and
+most of it has not been adapted to Gno. See [`doc/README.md`](doc/README.md).
+
+[LSP]: https://microsoft.github.io/language-server-protocol/
+[#8]: https://github.com/gnoverse/gnopls/issues/8
+[#14]: https://github.com/gnoverse/gnopls/issues/14
+[#15]: https://github.com/gnoverse/gnopls/issues/15
+[#16]: https://github.com/gnoverse/gnopls/issues/16
+[#17]: https://github.com/gnoverse/gnopls/pull/17

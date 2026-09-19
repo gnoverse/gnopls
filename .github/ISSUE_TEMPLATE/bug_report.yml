@@ -1,0 +1,53 @@
+name: Bug report
+description: Something in gnopls does not work
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please check the **Known limitations** section of the README first — cross-package
+        and stdlib resolution is a known weak spot with open issues already.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, what you got instead.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: gnopls version
+      description: Output of `gnopls version`. If that command itself fails, say so here.
+      placeholder: github.com/gnoverse/gnopls v0.1.0
+    validations:
+      required: true
+  - type: input
+    id: goversion
+    attributes:
+      label: Go version
+      description: Output of `go version`.
+      placeholder: go version go1.26.8 darwin/arm64
+    validations:
+      required: true
+  - type: input
+    id: editor
+    attributes:
+      label: Editor and extension
+      placeholder: VS Code 1.9x with Gnoverse.gnolang 1.0.1 / Neovim 0.11 built-in LSP
+    validations:
+      required: true
+  - type: input
+    id: gnoroot
+    attributes:
+      label: GNOROOT
+      description: Its value, or "unset". Also the output of `gno version` if you have it.
+      placeholder: /home/me/gno
+  - type: textarea
+    id: logs
+    attributes:
+      label: Server log
+      description: |
+        `:LspLog` in Neovim, *Output → gnopls* in VS Code. This is usually what makes a bug
+        actionable.
+      render: text
