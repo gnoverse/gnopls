@@ -21,14 +21,14 @@ jobs:
     name: binaries
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ inputs.tag || github.ref }}
           fetch-depth: 0
           # The upload below authenticates with GH_TOKEN, not with the checkout's
           # credentials — leaving them in .git/config is pure blast radius.
           persist-credentials: false
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v7
         with:
           go-version: stable
           check-latest: true
