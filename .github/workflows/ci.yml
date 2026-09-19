@@ -39,10 +39,8 @@ jobs:
       - run: go version
       - run: go build ./...
       - run: go test -timeout 10m ./pkg/...
-      # NOTE: ./internal/... — 250 of the repo's 254 test files, inherited from gopls —
-      # is deliberately not run yet: 10 packages fail and 6 hang to the test timeout.
-      # Triaging it into fix / skip / delete is tracked separately; add it here once
-      # `go test ./...` can finish green.
+      # ./internal/... runs in its own job below — it needs GOPACKAGESDRIVER=off and an
+      # exclusion list, and it is slow enough that it should not gate this matrix.
 
   smoke:
     name: smoke
@@ -59,6 +57,21 @@ jobs:
       # Actually start the binary and ask it a real question. `go build` alone cannot
       # see a package-level init() panic, which is the exact way #59 shipped.
       - run: .github/scripts/smoke.sh "${RUNNER_TEMP}/gnopls"
+
+  internal:
+    name: internal tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+          check-latest: true
+      # 122 of the 144 inherited gopls packages; the other 22 are listed, with the test
+      # that fails, in .github/known-broken-tests.txt.
+      - run: .github/scripts/test-internal.sh
 
   lint:
     name: lint

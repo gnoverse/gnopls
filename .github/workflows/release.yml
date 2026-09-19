@@ -68,7 +68,15 @@ jobs:
       - name: Smoke-test the release build
         run: |
           go build -o "${RUNNER_TEMP}/gnopls" .
-          .github/scripts/smoke.sh "${RUNNER_TEMP}/gnopls"
+          # Starting it at all is the init()-panic canary (#59).
+          "${RUNNER_TEMP}/gnopls" version
+          # A tag cut before the script existed does not carry it in its tree —
+          # this job checks out the tag, not the default branch.
+          if [ -x .github/scripts/smoke.sh ]; then
+            .github/scripts/smoke.sh "${RUNNER_TEMP}/gnopls"
+          else
+            echo "note: .github/scripts/smoke.sh absent at this ref; ran version only"
+          fi
 
       - name: Upload to the release
         env:
