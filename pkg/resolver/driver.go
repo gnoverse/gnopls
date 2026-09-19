@@ -210,6 +210,8 @@ func Resolve(req *packages.DriverRequest, patterns ...string) (*packages.DriverR
 				)
 			}
 			pkgpaths = append(pkgpaths, gnomodsRes...)
+		} else if hasGnoModule(target) {
+			pkgpaths = append(pkgpaths, target)
 		} else {
 			logger.Warn("unknown arg shape", slog.String("value", target))
 		}
@@ -312,6 +314,19 @@ func normalizePattern(pattern string, baseDir string) string {
 		}
 	}
 
+	// A plain directory, e.g. "./" — what gopls asks for when it opens a folder.
+	if isFilesystemPath(pattern) {
+		base := pattern
+		if base == "" {
+			base = "."
+		}
+		normalized, resolved := resolvePath(base, baseDir)
+		if !resolved {
+			return pattern
+		}
+		return normalized
+	}
+
 	return pattern
 }
 
@@ -344,6 +359,10 @@ func workspaceSeedDir(patterns []string) string {
 
 		if base, ok := strings.CutSuffix(pattern, recursivePattern); ok {
 			return base
+		}
+
+		if isFilesystemPath(pattern) {
+			return filepath.Clean(pattern)
 		}
 	}
 
