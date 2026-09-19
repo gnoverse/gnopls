@@ -10,6 +10,12 @@ install:
 test:
 	go test -timeout 10m ./pkg/...
 
+# The inherited gopls suite: everything under ./internal/... that passes today.
+# See .github/known-broken-tests.txt for what is held back and why.
+.PHONY: test-internal
+test-internal:
+	.github/scripts/test-internal.sh
+
 # Builds and actually starts the binary. `go build` alone cannot catch a
 # package-level init() panic — see .github/scripts/smoke.sh.
 .PHONY: smoke
