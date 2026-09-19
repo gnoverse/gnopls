@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Editor setup help
+    url: https://docs.gno.land/builders/editor-setup
+    about: Getting an editor talking to gnopls in the first place.
+  - name: Security vulnerability
+    url: https://github.com/gnoverse/gnopls/security/advisories/new
+    about: Report privately, never as a public issue.
