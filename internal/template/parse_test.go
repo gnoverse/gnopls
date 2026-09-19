@@ -226,13 +226,13 @@ func TestQuotes(t *testing.T) {
 	for _, s := range tsts {
 		p := parseBuffer([]byte(s.tmpl))
 		if len(p.tokens) != s.tokCnt {
-			t.Errorf("%q: got %d tokens, expected %d", s, len(p.tokens), s.tokCnt)
+			t.Errorf("%q: got %d tokens, expected %d", s.tmpl, len(p.tokens), s.tokCnt)
 		}
 		if p.ParseErr != nil {
 			t.Errorf("%q: %v", string(p.buf), p.ParseErr)
 		}
 		if len(p.elided) != int(s.elidedCnt) {
-			t.Errorf("%q: elided %d, expected %d", s, len(p.elided), s.elidedCnt)
+			t.Errorf("%q: elided %d, expected %d", s.tmpl, len(p.elided), s.elidedCnt)
 		}
 	}
 }
